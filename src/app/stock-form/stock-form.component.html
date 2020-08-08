@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <div class="text-right">
-                        <button *ngIf="getStocks?.length > 1" class="btn btn-primary mr-1" type="button" (click)="deleteStock(i)">
+                        <button *ngIf="getStocks?.length > 1" class="btn btn-default btn-rounded mb-4" type="button" (click)="deleteStock(i)">
                             Delete
                         </button>
                     </div>
@@ -39,9 +39,9 @@
             </div>
             <div class="container text-center">
                 <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
-                    <button class="btn btn-primary mr-1" (click)="addStock()">Add Item</button>
-                    <button class="btn btn-primary mr-1">Submit</button>
-                    <button class="btn btn-primary mr-1" type="reset" (click)="onReset()">Cancel</button>
+                    <button class="btn btn-default btn-rounded mb-4" (click)="addStock()">Add Item</button>
+                    <button class="btn btn-default btn-rounded mb-4">Submit</button>
+                    <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
                 </div>
             </div>
     </form>

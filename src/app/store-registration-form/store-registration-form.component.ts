@@ -5,6 +5,7 @@ import { StoreProfile } from '../model/store-profile';
 import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
 import { Stock } from '../model/stock';
+import { StoreInfo } from '../model/store-info';
 
 @Component({
   selector: 'app-store-registration-form',
@@ -13,18 +14,36 @@ import { Stock } from '../model/stock';
 })
 export class StoreRegistrationFormComponent implements OnInit {
 
-
-  bank: Bank;
-  profile: StoreProfile;
-  stock = new Array<Stock>();
-  businessHours = new Array<BusinessHours>();
-
-  storeProfileRegistrationForm = new FormGroup({});
+  storeProfile: StoreProfile;
+  storeProfileRegistrationForm: FormGroup;
 
   constructor(private service: StoreControllerService,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder) {
+               }
 
   ngOnInit(): void {
+    this.storeProfileRegistrationForm = this.fb.group({
+      badge: [Number],
+      bank: [Bank],
+      businessHours: [BusinessHours],
+      storeInfo: [StoreInfo],
+      featured: [Boolean],
+      featuredExpiry: [Date],
+      hasVat: [Boolean],
+      imageUrl: [''],
+      stockList: [Stock],
+      yearsInService: [Number]
+    });
   }
+
+
+
+
+
+
+
+
+
+
 
 }
