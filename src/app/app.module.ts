@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DlDateTimeDateModule, DlDateTimePickerModule } from 'angular-bootstrap-datetimepicker';
 import { AppComponent } from './app.component';
 import { StoreRegistrationFormComponent } from './store-registration-form/store-registration-form.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
@@ -23,11 +23,11 @@ import { StoreInfoFormComponent } from './store-info-form/store-info-form.compon
   ],
   imports: [
     BrowserModule,
+    RouterModule,
+    FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    DlDateTimeDateModule,
-    DlDateTimePickerModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

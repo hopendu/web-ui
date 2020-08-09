@@ -59,7 +59,14 @@
                 <button class="btn btn-default btn-rounded mb-4" (click)="addTag()">Add Tag</button>
                 <a *ngIf="getTags?.length > 0" class="btn btn-default btn-rounded mb-4" type="button" (click)="deleteTag(getTags?.length - 1)">Delete</a>                
     </div>
-          <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+          <!--   
+
+
+
+
+
+
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
           aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -78,13 +85,18 @@
 
               </div>
               <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-default" routerLink="form">Submit</button>
+                <button class="btn btn-default" data-toggle="modal" data-target="#modal">Submit</button>
               </div>
             </div>
           </div>
       </div>
+          -->
+      <div class="container text-center">
+        <input type="file" (change)="onChange($event)">
+      </div>
+      <br>
       <div class="text-center">
-          <a class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modal">Verify</a>
+          <a class="btn btn-default btn-rounded mb-4">Submit</a>
           <a class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</a>
       </div>
 

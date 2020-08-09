@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BusinessHours } from '../model/business-hours';
 import { FormArray, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { DlDateTimePickerComponent } from 'angular-bootstrap-datetimepicker';
 
 @Component({
   selector: 'app-stock-form',
@@ -42,9 +41,9 @@ export class BusinessHoursFormComponent implements OnInit {
   }
   addBusinessHours(): void {
     const fg = this.fb.group({
-      open: [DlDateTimePickerComponent],
+      open: [Date],
       day: [''],
-      close: [DlDateTimePickerComponent],
+      close: [Date],
     });
     if (this.businessHoursFormGroup.invalid){  return; }
     ( this.businessHoursFormGroup.get('hours') as FormArray).push(fg);

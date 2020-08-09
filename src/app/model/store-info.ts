@@ -1,3 +1,5 @@
+import { BusinessHours } from './business-hours';
+
 export class StoreInfo {
     constructor(
         public address?: string,
@@ -7,5 +9,6 @@ export class StoreInfo {
         public name?: string,
         public regNumber?: string,
         public tags?: Array<string>,
-        public verificationCode?: string){}
+        public imageUrl?: string,
+        public businessHours?: Array<BusinessHours>){}
 }
