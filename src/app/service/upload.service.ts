@@ -13,13 +13,13 @@ export class UploadService {
     const contentType = file.type;
     const bucket = new S3(
           {
-              accessKeyId: 'AKIATON6LVU36YEWCSVY',
-              secretAccessKey: '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',
-              region: 'us-east-1',
+              accessKeyId: '*******************',
+              secretAccessKey: '****************',
+              region: '*************',
           }
       );
     const params = {
-          Bucket: 'izinga-aws',
+          Bucket: '********',
           Key:  file.name,
           Body: file,
           ACL: 'public-read',
