@@ -9,6 +9,5 @@ export class StoreInfo {
         public name?: string,
         public regNumber?: string,
         public tags?: Array<string>,
-        public imageUrl?: string,
-        public businessHours?: Array<BusinessHours>){}
+        public imageUrl?: string){}
 }

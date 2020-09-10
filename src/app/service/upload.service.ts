@@ -9,17 +9,17 @@ export class UploadService {
 
   constructor() { }
 
-  fileUpload(file): void {
+  fileUpload(file): string {
     const contentType = file.type;
     const bucket = new S3(
           {
-              accessKeyId: '*******************',
-              secretAccessKey: '****************',
-              region: '*************',
+              accessKeyId: '****',
+              secretAccessKey: '-----',
+              region: '*****',
           }
       );
     const params = {
-          Bucket: '********',
+          Bucket: '******',
           Key:  file.name,
           Body: file,
           ACL: 'public-read',
@@ -34,5 +34,6 @@ export class UploadService {
           console.log('File Uploaded.', data);
           return true;
       });
+    return params.Key;
     }
 }

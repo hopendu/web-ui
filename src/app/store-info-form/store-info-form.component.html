@@ -4,29 +4,31 @@
       
       <div class="container">
         <div class="form-group row">
-          <label for="colFormLabel" class="col-sm-2 col-form-label">Store Name</label>
-          <div class="col-sm-10">
-            <input type="text" formControlName="name" class="form-control" > 
-          </div>
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Store Name</label>
+        <div class="col-sm-10">
+          <input type="text" formControlName="name" class="form-control" > 
+        </div>
       </div>
+      
       <div class="form-group row">
         <label for="colFormLabel" class="col-sm-2 col-form-label">User ID</label>                                                                                                                                                                                             
         <div class="col-sm-10">
           <input type="text" formControlName="userId" class="form-control" > 
         </div>
-    </div>
+      </div>
+      
       <div class="form-group row">
-          <label for="colFormLabel" class="col-sm-2 col-form-label">Address</label>
-          <div class="col-sm-10">
-              <input type="text" formControlName="address" class="form-control" > 
-          </div>
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Address</label>
+        <div class="col-sm-10">
+            <input type="text" formControlName="address" class="form-control" > 
+        </div>
       </div>
 
       <div class="form-group row">
-          <label for="colFormLabel" class="col-sm-2 col-form-label">Phone Number</label>                                                                                                                                                                                             
-          <div class="col-sm-10">
-            <input type="text" formControlName="mobileNumber" class="form-control" > 
-          </div>
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Phone Number</label>                                                                                                                                                                                             
+        <div class="col-sm-10">
+          <input type="text" formControlName="mobileNumber" class="form-control" > 
+        </div>
       </div>
 
       <div class="form-group row">
@@ -34,73 +36,47 @@
         <div class="col-sm-10">
           <input type="text" formControlName="regNumber" class="form-control" > 
         </div>
-    </div>
-
-    <div class="form-group row">
-      <label for="colFormLabel" class="col-sm-2 col-form-label">Description</label>                                                                                                                                                                                             
-      <div class="col-sm-10">
-        <input type="text" formControlName="description" class="form-control" > 
       </div>
-  </div>
-  <div class="form-group raw tag" formArrayName="tags" *ngIf="getTags?.length > 0">
-        <div class= "container text-center">
-            tags 
-        </div>&nbsp;
-        <div class="container stock-container" *ngFor="let tag of getTags.controls; index as i" >
-            <div class="form-group row" *ngIf="getTags?.length > 0">
-                  <label for="colFormLabel" class="col-sm-2 col-form-label">Tag {{i + 1}}</label>
-                  <div class="col-sm-10">
-                      <input type="text" [formControlName]="i" class="form-control"> 
-                    </div>
-                   </div>
-              </div>
-          </div>
-    <div class="container text-center">
-                <button class="btn btn-default btn-rounded mb-4" (click)="addTag()">Add Tag</button>
-                <a *ngIf="getTags?.length > 0" class="btn btn-default btn-rounded mb-4" type="button" (click)="deleteTag(getTags?.length - 1)">Delete</a>                
-    </div>
-          <!--   
 
-
-
-
-
-
-            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">The Verification Code</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body mx-3">
-
-                <div class="md-form mb-4">
-                  <i class="fas fa-lock prefix grey-text"></i>
-                  <input type="text" id="defaultForm-pass" formControlName="verificationCode" class="form-control" >
-                </div>
-
-              </div>
-              <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-default" data-toggle="modal" data-target="#modal">Submit</button>
-              </div>
-            </div>
-          </div>
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Description</label>                                                                                                                                                                                             
+        <div class="col-sm-10">
+          <input type="text" formControlName="description" class="form-control" > 
+        </div>
       </div>
-          -->
+      <hr>
+      <button class="btn btn-default btn-rounded mb-4" (click)="addTag()">Add Tag</button>
+      <div class="form-group raw tag" formArrayName="tags" *ngIf="getTags?.length > 0">
+        <div
+          class="tags"
+          *ngFor="
+            let tag of getTags.controls;
+            let tagIndex = index;
+            let first = first;"
+          [formGroupName]="tagIndex"
+        >
+        <div class="form-group row">
+              <label for="colFormLabel" class="col-sm-2 col-form-label">Tag {{tagIndex + 1}}</label>
+              <div class="col-sm-8">
+                <input type="text" formControlName="tag" class="form-control"> 
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteTag(tagIndex)">Delete</button>                
+              </div>
+        </div>
+      </div>
+      </div>
+      <hr>
       <div class="container text-center">
-        <input type="file" (change)="onChange($event)">
+          <input type="file" (change)="onChange($event)">
       </div>
       <br>
       <div class="text-center">
-          <a class="btn btn-default btn-rounded mb-4">Submit</a>
-          <a class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</a>
+        <button class="btn btn-default btn-rounded mb-4">Submit</button>
+        <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
       </div>
-
-      </div>
-    </form>
-
+    </div>
+  </form>
 </div>
+
+{{ this.storeInfoForm.value | json }}

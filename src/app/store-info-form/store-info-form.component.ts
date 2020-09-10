@@ -18,11 +18,11 @@ export class StoreInfoFormComponent implements OnInit {
 
   toFile: { item: (arg0: number) => any; };
   submitted = false;
-  storeProfile: StoreProfile;
+  show = true;
+  storeInfo: StoreInfo;
   storeInfoForm: FormGroup;
 
   constructor(private fb: FormBuilder,
-              private storeControllerServices: StoreControllerService,
               private uploadService: UploadService,
               private router: Router) { }
 
@@ -34,20 +34,23 @@ export class StoreInfoFormComponent implements OnInit {
       address: ['', Validators.required],
       mobileNumber:  ['', Validators.required],
       regNumber: ['', Validators.required],
-      tags: this.fb.array([
-        this.fb.control('', Validators.required)
-      ])
+      tags: this.fb.array([ this.tags ])
     });
 
   }
 
+  get tags(): FormGroup {
+    return this.fb.group({
+      tag: ''
+    });
+  }
 
   get getTags(): FormArray {
     return this.storeInfoForm.get('tags') as FormArray;
   }
 
   addTag(): void {
-    this.getTags.push(this.fb.control(''));
+    this.getTags.push(this.tags);
   }
 
   deleteTag( index: number): void{
@@ -59,12 +62,10 @@ export class StoreInfoFormComponent implements OnInit {
     this.submitted = true;
 
     if (this.storeInfoForm.invalid){  return; }
-    /*if (this.allEntriesAreValid(this.storeInfoForm.get('tags').value)){ return; }*/
 
     const file = this.toFile.item(0);
-    this.uploadService.fileUpload(file);
 
-    const storeInfo = new StoreInfo(
+    this.storeInfo = new StoreInfo(
         this.storeInfoForm.get('address').value,
         this.storeInfoForm.get('description').value,
         this.storeInfoForm.get('userId').value,
@@ -72,12 +73,8 @@ export class StoreInfoFormComponent implements OnInit {
         this.storeInfoForm.get('name').value,
         this.storeInfoForm.get('regNumber').value,
         this.storeInfoForm.get('tags').value,
-        'https://izinga-aws.s3.amazonaws.com/index.jpeg',
-        [new BusinessHours(
-          new Date(),
-          BusinessHours.DayEnum.MONDAY ,
-          new Date())]);
-    this.add(storeInfo);
+        'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file));
+    //this.add(storeInfo);
 
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.storeInfoForm.value, null, 4));
     /*
@@ -87,55 +84,17 @@ export class StoreInfoFormComponent implements OnInit {
 
     */
   }
-  onChange(event): void {
+  onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
-
   }
+
   add(storeInfo: StoreInfo): void {
-    const storeProfile = new StoreProfile(
-      storeInfo.address,
-      0,
-      new Bank('', '', '', ''),
-      storeInfo.businessHours,
-      new Date(),
-      storeInfo.description,
-      false,
-      new Date(),
-      false,
-      null,
-      storeInfo.imageUrl,
-      0,
-      0,
-      0,
-      storeInfo.mobileNumber,
-      new Date(),
-      storeInfo.name,
-      storeInfo.userId,
-      storeInfo.regNumber,
-      0,
-      StoreProfile.RoleEnum.STOREADMIN,
-      0,
-      new Array<Stock>(),
-      storeInfo.tags,
-      '',
-      0 );
-
-
-      /*
-
-          this.storeControllerServices.create(storeProfile).subscribe( p => {this.storeProfile = p;
-                                                                       alert('SUCCESS!! :-)\n\n' + JSON.stringify(p.id, null, 4)); });
-
-
-
-                                                                       */
-    this.storeControllerServices.create(storeProfile).subscribe( p => this.storeProfile = p);
-
   }
 
   onReset(): void {
     this.submitted = false;
     this.storeInfoForm.reset();
+    this.getTags.clear();
   }
 
   allEntriesAreValid(tags: string[]): boolean {

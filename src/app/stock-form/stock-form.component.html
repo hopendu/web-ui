@@ -1,52 +1,198 @@
 <div class="col-md-6 offset-md-4">
-    <h2>
-        <b>Stock Taking</b>
-    </h2>
-    <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" novalidate>
-        <div formArrayName="stocks">
-                <div class="container stock-container" *ngFor="let stock of getStocks.controls; index as i" formGroupName={{i}}>
-                    <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Product Name</label>
-                        <div class="col-sm-10">
-                          <input type="text" formControlName="name" class="form-control" > 
-                        </div>
+    <h2><b>Stock Taking</b></h2>
+    <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" >
+      <button class="btn btn-default btn-rounded mb-4" (click)="addStock()">Add Stock</button>
+      <div class="form-group raw mand" formArrayName="stocks" 
+        *ngIf="getStocks().controls?.length > 0">
+        <div
+          class="stocks"
+          *ngFor="
+            let stock of getStocks().controls;
+            let stockIndex = index;
+            let first = first;"
+          [formGroupName]="stockIndex"
+        >
+        <div class="container stock" >
+            <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" formControlName="name" class="form-control" > 
+            </div>
+          </div>
+        
+          <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>                                                                                                                                                                                             
+            <div class="col-sm-10">
+              <input type="number" formControlName="price" class="form-control" > 
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Discount %</label>                                                                                                                                                                                             
+            <div class="col-sm-10">
+              <input type="number" formControlName="discountPerc" class="form-control" > 
+            </div>
+          </div>
+    
+          <div class="form-group row">
+            <label for="colFormLabel" class="col-sm-2 col-form-label">Quantity</label>                                                                                                                                                                                             
+            <div class="col-sm-10">
+              <input type="number" formControlName="quantity" class="form-control" > 
+            </div>
+          </div>
+          <hr>
+          <button class="btn btn-default btn-rounded mb-4" (click)="addMandatory(stock)">Add Mandatory</button>
+          <div class="form-group raw" formArrayName="mandatorySelection" *ngIf="stock.get('mandatorySelection').controls?.length > 0">
+            <div
+              class="mandatory"
+              *ngFor="
+                let mandatory of stock.get('mandatorySelection').controls;
+                let mandatoryIndex = index;
+                let first = first;"
+              [formGroupName]="mandatoryIndex"
+            >
+            <div class="container mandatory" formControlName='mandatory'>
+                <div class="form-group row">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" formControlName="name" class="form-control"> 
                     </div>
-                    <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Price Per Item</label>
-                        <div class="col-sm-10">
-                            <input type="number" formControlName="price" class="form-control" > 
-                        </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-8">
+                    <input type="number" formControlName="price" class="form-control"> 
                     </div>
-              
-                    <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Quantity</label>                                                                                                                                                                                             
-                        <div class="col-sm-10">
-                          <input type="number" formControlName="quantity" class="form-control" > 
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="colFormLabel" class="col-sm-2 col-form-label">Discount Percentage</label>                                                                                                                                                                                             
-                        <div class="col-sm-10">
-                          <input type="number" formControlName="discountPerc" class="form-control" > 
-                        </div>
-                    </div>
-                    <div class="text-right">
-                        <button *ngIf="getStocks?.length > 1" class="btn btn-default btn-rounded mb-4" type="button" (click)="deleteStock(i)">
-                            Delete
-                        </button>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Selected</label>
+                    <div class="col-sm-8">
+                        <input type="text" formControlName="selected" class="form-control"> 
                     </div>
                 </div>
             </div>
-            <div class="container text-center">
-                <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
-                    <button class="btn btn-default btn-rounded mb-4" (click)="addStock()">Add Item</button>
-                    <button class="btn btn-default btn-rounded mb-4">Submit</button>
-                    <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
+            <div class="container mandatory" formControlName='mandatory'>
+              <button class="btn btn-default btn-rounded mb-4" (click)="addValue(mandatory)">Add Value</button>
+              <div class="form-group raw value" formArrayName="values" *ngIf="mandatory.get('values').controls?.length > 0">
+                <div
+                  class="values"
+                  *ngFor="
+                    let value of mandatory.get('values').controls;
+                    let valueIndex = index;
+                    let first = first;"
+                  [formGroupName]="valueIndex"
+                >
+                <div class="form-group row">
+                      <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
+                      <div class="col-sm-8">
+                        <input type="text" formControlName="value" class="form-control"> 
+                      </div>
+                      <div class="col-sm-2">
+                        <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(mandatory, valueIndex)">Delete</button>                
+                      </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-sm-2 ">
+                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(stock,mandatoryIndex)">Delete</button>                
+            </div>
+          </div>
+          </div>
+          <hr>
+          <hr>
+          <button class="btn btn-default btn-rounded mb-4" (click)="addOptional(stock)">Add Optional</button>
+          <div class="form-group raw" formArrayName="optionalSelection" 
+              *ngIf="stock.get('optionalSelection').controls?.length > 0">
+            <div
+              class="optional"
+              *ngFor="
+                let optional of stock.get('optionalSelection').controls;
+                let optionalIndex = index;
+                let first = first;"
+              [formGroupName]="optionalIndex"
+            >
+            <div class="container optional" formControlName='optional'>
+                <div class="form-group row">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" formControlName="name" class="form-control"> 
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-8">
+                    <input type="number" formControlName="price" class="form-control"> 
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="colFormLabel" class="col-sm-2 col-form-label">Selected</label>
+                    <div class="col-sm-8">
+                        <input type="text" formControlName="selected" class="form-control"> 
+                    </div>
                 </div>
             </div>
-    </form>
+            <div class="container optional" formControlName='optional'>
+              <button class="btn btn-default btn-rounded mb-4" (click)="addValue(optional)">Add Value</button>
+              <div class="form-group raw value" formArrayName="values" *ngIf="optional.get('values').controls?.length > 0">
+                <div
+                  class="values"
+                  *ngFor="
+                    let value of optional.get('values').controls;
+                    let valueIndex = index;
+                    let first = first;"
+                  [formGroupName]="valueIndex"
+                >
+                <div class="form-group row">
+                      <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
+                      <div class="col-sm-8">
+                        <input type="text" formControlName="value" class="form-control"> 
+                      </div>
+                      <div class="col-sm-2">
+                        <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(optional, valueIndex)">Delete</button>                
+                      </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-sm-2 ">
+                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteOptional(stock,optionalIndex)">Delete</button>                
+            </div>
+          </div>
+          </div>
+          <hr>
+
+          <input 
+    style="display: none" 
+    type="file" 
+    multiple 
+    (change)="onFileChanged($event)" 
+    #fileInput
+/>
+<input 
+    type="button" 
+    class="upload-button" 
+    value="Upload attachment(s)" 
+    (click)="fileInput.click()" 
+/>
+
+
+
+
+        <div class="col-sm-2 text-center">
+            <button class="btn btn-default btn-rounded mb-4"  (click)="deleteStock()">Delete</button>                
+          </div>
+      </div>
+      </div>
+      <div class="text-center">
+        <button class="btn btn-default btn-rounded mb-4">Submit</button>
+        <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
+      </div>
+    </div>
+  </form>
 </div>
 
+{{ this.stockForm.value | json }}
 
 
 
@@ -64,88 +210,3 @@
 
 
 
-
-
-
-
-
-
-<!--
-
-<div class="col-md-6 offset-md-4">
-    <h2>
-        <b>Stock Taking</b>
-    </h2>
-    <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="form-horizontal">
-        <div class="container"> 
-            
-            <div formArrayName="stocks">
-                <div class="container stock-container" *ngFor="let stock of stockForm.get('stocks').value; let i =index" formGroupName={{i}}>
-                    <div class="row-8">
-                        <div class="row ">
-                            <div class="row">
-                                <div class="col-8 offset-2">
-                                    Name 
-                                    <input type="text" formControlName="name" class="form-control" >
-                                </div>
-                            </div>
-                            <div class="row">&nbsp;
-                                <div class="col-8 offset-2">
-                                    Price 
-                                    <input type="number" formControlName="price" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row ">
-                            <div class="row">
-                                <div class="col-8 offset-2">
-                                    Quanity
-                                    <input type="number" formControlName="quantity" class="form-control">
-                                </div>
-                            </div>
-                            <div class="row">&nbsp;
-                                <div class="col-8 offset-2">
-                                    Discount % 
-                                    <input type="number" formControlName="discountPerc">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row-2 offset-1">
-                            <div class="col-4 offset-10">
-                                <button *ngIf="getStocks?.length > 1" class="btn btn-primary mr-1" type="button" (click)="deleteStock(i)">
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-4 offset-8">
-            <div class="btn-toolbar" role="toolbar" aria-label="Basic example">
-                <button class="btn btn-primary mr-1" (click)="addStock()">New Item</button>
-                <button class="btn btn-primary mr-1">Submit</button>
-                <button class="btn btn-primary mr-1" type="reset" (click)="onReset()">Cancel</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
--->
