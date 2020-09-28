@@ -6,6 +6,7 @@ import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
 import { Stock } from '../model/stock';
 import { StoreInfo } from '../model/store-info';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'app-store-registration-form',
@@ -15,35 +16,16 @@ import { StoreInfo } from '../model/store-info';
 export class StoreRegistrationFormComponent implements OnInit {
 
   storeProfile: StoreProfile;
-  storeProfileRegistrationForm: FormGroup;
 
-  constructor(private service: StoreControllerService,
-              private fb: FormBuilder) {
+  constructor(private sharedData: SharedService,
+              private service: StoreControllerService) {
                }
 
   ngOnInit(): void {
-    this.storeProfileRegistrationForm = this.fb.group({
-      badge: [Number],
-      bank: [Bank],
-      businessHours: [BusinessHours],
-      storeInfo: [StoreInfo],
-      featured: [Boolean],
-      featuredExpiry: [Date],
-      hasVat: [Boolean],
-      imageUrl: [''],
-      stockList: [Stock],
-      yearsInService: [Number]
-    });
+    if( this.sharedData.getStoreProfile() === null ) return;
+    /*this.service.create(this.sharedData.getStoreProfile())
+                .subscribe(storeProfile => this.storeProfile = storeProfile)
+                );*/
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.storeProfile, null, 4));
   }
-
-
-
-
-
-
-
-
-
-
-
 }

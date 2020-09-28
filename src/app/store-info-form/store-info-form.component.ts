@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { StoreInfo } from '../model/store-info';
-import { StoreControllerService } from '../service/store-controller.service';
 import { UploadService } from '../service/upload.service';
-import { StoreProfile } from '../model/store-profile';
-import { Bank } from '../model/bank';
-import { BusinessHours } from '../model/business-hours';
-import { Stock } from '../model/stock';
 import { Router } from '@angular/router';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'app-store-info-form',
@@ -22,7 +18,9 @@ export class StoreInfoFormComponent implements OnInit {
   storeInfo: StoreInfo;
   storeInfoForm: FormGroup;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+              private sharedData: SharedService,
+              private fb: FormBuilder,
               private uploadService: UploadService,
               private router: Router) { }
 
@@ -56,7 +54,7 @@ export class StoreInfoFormComponent implements OnInit {
   deleteTag( index: number): void{
     ( this.storeInfoForm.get('tags') as FormArray).removeAt(index);
   }
-
+/*
   onSubmit(): void {
 
     this.submitted = true;
@@ -82,14 +80,37 @@ export class StoreInfoFormComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true})
       .then(() => this.router.navigate(['form/store-info']));
 
-    */
-  }
+  
+  }*/
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
   }
 
   add(storeInfo: StoreInfo): void {
   }
+
+  btnClick = function () {
+
+
+    if (this.storeInfoForm.invalid){  return; }
+
+    const file = this.toFile.item(0);
+
+    this.storeInfo = new StoreInfo(
+        this.storeInfoForm.get('address').value,
+        this.storeInfoForm.get('description').value,
+        this.storeInfoForm.get('userId').value,
+        this.storeInfoForm.get('mobileNumber').value,
+        this.storeInfoForm.get('name').value,
+        this.storeInfoForm.get('regNumber').value,
+        this.storeInfoForm.get('tags').value,
+        'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file)
+    );
+
+    this.sharedData.setStoreInfo(this.storeInfo);
+
+    this.router.navigateByUrl('/form/bank');
+  };
 
   onReset(): void {
     this.submitted = false;

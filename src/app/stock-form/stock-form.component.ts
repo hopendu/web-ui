@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, Validators, FormGroup, FormControl } from '@ang
 import { Bank } from '../model/bank';
 import { UploadService } from '../service/upload.service';
 import { Router } from '@angular/router';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'app-stock-form',
@@ -16,58 +17,59 @@ export class StockFormComponent implements OnInit {
   stockForm: FormGroup;
   selectedFile: any;
 
-  constructor(private fb: FormBuilder,
+  constructor(private sharedData: SharedService,
+              private fb: FormBuilder,
               private uploadService: UploadService,
               private router: Router) {
   }
 
   ngOnInit(): void {
     this.stockForm =  this.fb.group({
-      stocks: this.fb.array([ this.stock])
+      stocks: this.fb.array([ this.stock()])
     });
   }
 
-  get values(): FormGroup {
+  values(): FormGroup {
     return this.fb.group({
       value: new FormControl('', Validators.required)
     });
   }
-  get selection(): FormGroup {
+  selection(): FormGroup {
     return this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
       selected: new FormControl('', Validators.required),
-      values: this.fb.array([this.values])
+      values: this.fb.array([this.values()])
     });
   }
 
-  get stock(): FormGroup {
+  stock(): FormGroup {
     return this.fb.group({
       discountPerc: new FormControl(Number, Validators.required),
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
       quantity: new FormControl(Number, Validators.required),
-      mandatorySelection: this.fb.array([ this.selection ]),
-      optionalSelection: this.fb.array([ this.selection ])
+      mandatorySelection: this.fb.array([ this.selection() ]),
+      optionalSelection: this.fb.array([ this.selection()])
     });
   }
 
-  getStocks(): FormArray{
+  get getStocks(): FormArray{
     return (this.stockForm.get('stocks') as FormArray);
   }
 
-  addValue(mandatory): void{
-    mandatory.get('values').push(this.values);
+  addValue(selectionOption): void{
+    selectionOption.get('values').push(this.values());
   }
   addMandatory(stock): void{
-    stock.get('mandatorySelection').push(this.selection);
+    stock.get('mandatorySelection').push(this.selection());
   }
 
   addOptional(stock): void{
-    stock.get('optionalSelection').push(this.selection);
+    stock.get('optionalSelection').push(this.selection());
   }
 
-  addStock(): void{
+  addStock(): void{/*
     const fg = this.fb.group({
       discountPerc: 0,
       name: '',
@@ -75,12 +77,12 @@ export class StockFormComponent implements OnInit {
       quantity: 0,
       mandatorySelection: null,
       optionalSelection: null
-    });
-    (this.stockForm.get('stocks') as FormArray).push(fg);
+    });*/
+    (this.stockForm.get('stocks') as FormArray).push(this.stock());
   }
 
-  deleteValue(mandatory, index): void{
-    mandatory.get('values').removeAt(index);
+  deleteValue(selectionOption, index): void{
+    selectionOption.get('values').removeAt(index);
   }
   deleteMandatory(stock, index): void{
     stock.get('mandatorySelection').removeAt(index);
@@ -98,8 +100,16 @@ export class StockFormComponent implements OnInit {
     this.selectedFile = event.target.files[0];
     this.uploadService.fileUpload(this.selectedFile);
   }
+  btnClick = function () {
 
+    if(this.stockForm.invalid) return;
+    this.sharedData.setStocks(this.stockForm.value);
+
+    this.router.navigateByUrl('/form');
+  };
   onSubmit(): void{
+    if(this.stockForm.invalid) return;
+    this.sharedData.setStocks(this.stockForm.value);
   }
 
   onReset(): void {

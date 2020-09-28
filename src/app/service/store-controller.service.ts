@@ -7,13 +7,13 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class StoreControllerService {
-
+  baseUrl = 'https://api-uat.izinga.co.za/'
   constructor(private http: HttpClient) { }
 
   getAllStores(): Observable<StoreProfile[]>{
-    return this.http.get<StoreProfile[]>(`http://ec2co-ecsel-1b20jvvw3yfzt-2104564802.af-south-1.elb.amazonaws.com/store`);
+    return this.http.get<StoreProfile[]>(this.baseUrl  +`store`);
   }
   create(profile: StoreProfile): Observable<StoreProfile>{
-    return this.http.post(`http://ec2co-ecsel-1b20jvvw3yfzt-2104564802.af-south-1.elb.amazonaws.com/store`, profile);
+    return this.http.post(this.baseUrl  +`store`, profile);
   }
 }

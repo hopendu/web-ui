@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Bank } from '../model/bank';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'app-bank-form',
@@ -19,12 +21,14 @@ export class BankFormComponent implements OnInit {
     type: ['', Validators.required]});
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private sharedData: SharedService,
+              private fb: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
 
   }
-
+/*
   onSubmit(): void {
 
     this.submitted = true;
@@ -40,9 +44,25 @@ export class BankFormComponent implements OnInit {
 
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.bankFormGroup.value, null, 4));
   }
+  */
   add(bank: Bank): void {
 
   }
+
+  btnClick = function () {
+
+    if (this.bankFormGroup.invalid){  return; }
+
+    const bank = new Bank(
+        this.bankFormGroup.get('accountId').value,
+        this.bankFormGroup.get('name').value,
+        this.bankFormGroup.get('phone').value,
+        this.bankFormGroup.get('type').value
+        );
+    this.sharedData.setBank(bank);
+
+    this.router.navigateByUrl('/form/business-hours');
+    };
 
   onReset(): void {
     this.submitted = false;

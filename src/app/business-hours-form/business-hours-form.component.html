@@ -1,1 +1,23 @@
-<p>business-hour works!</p>
+{{ timesFormGroup.value | json}}
+<h2><b>Hours of Operation</b></h2>
+<form [formGroup]="timesFormGroup">
+  <div *ngFor="let day of daysOfTheWeek; let i = index">
+    <h3><b>{{ day | titlecase }}</b></h3>
+      <div *ngIf="timesFormGroup.get('times').get(day) as times" [formGroup]="times">      
+        <div class="form-group row justify-content-md-center">
+          <label class="col-sm-6">Start Time: 
+            <input class="col-sm-2" type="time" formControlName="openTime" #open>
+          </label>
+          <label class="col-sm-6">Close Time: 
+            <input class="col-sm-2" type="time" formControlName="closeTime" #close>
+          </label>
+        </div>
+        {{ addBusinesHours(day, times.get('openTime').value, times.get('closeTime').value, i) }}
+      </div>
+  </div>
+</form>
+<div class="text-center">
+  <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+</div>
+
+{{ businesHours.values().next().value }}

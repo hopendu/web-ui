@@ -1,13 +1,13 @@
-<div class="col-md-6 offset-md-4">
+{{ this.stockForm.value | json }}
     <h2><b>Stock Taking</b></h2>
     <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" >
       <button class="btn btn-default btn-rounded mb-4" (click)="addStock()">Add Stock</button>
       <div class="form-group raw mand" formArrayName="stocks" 
-        *ngIf="getStocks().controls?.length > 0">
+        *ngIf="getStocks.controls?.length > 0">
         <div
           class="stocks"
           *ngFor="
-            let stock of getStocks().controls;
+            let stock of getStocks.controls;
             let stockIndex = index;
             let first = first;"
           [formGroupName]="stockIndex"
@@ -184,29 +184,17 @@
           </div>
       </div>
       </div>
-      <div class="text-center">
+      <!--  
+          <div class="text-center">
         <button class="btn btn-default btn-rounded mb-4">Submit</button>
         <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
       </div>
+
+      -->
+      <div class="text-center">
+        <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+      </div>
+      
     </div>
   </form>
-</div>
-
-{{ this.stockForm.value | json }}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  

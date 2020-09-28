@@ -1,6 +1,6 @@
-<div class="col-md-6 offset-md-4">
-    <h2><b>Bank Account Information</b></h2>
-    <form [formGroup]="bankFormGroup" (ngSubmit)="onSubmit()" >
+{{ bankFormGroup.value | json }}
+<h2><b>Bank Account Information</b></h2>
+    <form [formGroup]="bankFormGroup"  >
       <div class="container">
         <div class="form-group row">
           <label for="colFormLabel" class="col-sm-2 col-form-label">Bank Name</label>
@@ -31,13 +31,8 @@
                 </select>
           </div>
         </div>
-      
-      <div class="text-center">
-          <button class="btn btn-default btn-rounded mb-4">Submit</button>
-          <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
-      </div>
-
       </div>
     </form>
-
-</div>
+    <div class="text-center">
+      <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+    </div>
