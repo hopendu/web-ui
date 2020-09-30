@@ -12,6 +12,7 @@ import { SharedService } from '../service/shared.service';
 })
 export class BusinessHoursFormComponent implements OnInit {
   businesHours = new Array<BusinessHours>();
+  hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
   timesFormGroup: FormGroup;
 
@@ -31,12 +32,29 @@ export class BusinessHoursFormComponent implements OnInit {
     });
   }
 
+  getOperatingHoursPerDay( group: FormGroup): void {
+    let openTime = '';
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+      if( abstractControl instanceof FormGroup){
+        this.getOperatingHoursPerDay(abstractControl);
+      } else {
+         if( key.match("openTime")) openTime = abstractControl.value; 
+         else this.hours.push( new Hours(openTime, abstractControl.value));
+      }
+    })
+  }
+
   getTimes(day: any){
     return this.timesFormGroup.get('times').get(day) as FormGroup;
   }
-
   setBusinessHours(){
-    
+    this.getOperatingHoursPerDay(this.timesFormGroup);
+    this.daysOfTheWeek.forEach((dayOfTheWeek,index) => {
+      let hours = this.hours.pop();
+      this.addBusinesHours(dayOfTheWeek, hours.openTime, hours.closeTime, index++)
+    });
+    /*
     this.businesHours[6] = this.businesHours.pop();
     this.businesHours[5] = this.businesHours.pop();
     this.businesHours[4] = this.businesHours.pop();
@@ -44,9 +62,9 @@ export class BusinessHoursFormComponent implements OnInit {
     this.businesHours[2] = this.businesHours.pop();
     this.businesHours[1] = this.businesHours.pop();
     this.businesHours[0] = this.businesHours.pop();
-    this.businesHours.splice(7, this.businesHours.length);
+    this.businesHours.splice(7, this.businesHours.length);*/
   }
-  addBusinesHours(day: BusinessHours.DayEnum, openTime: string, closeTime: string, index: number){
+  addBusinesHours( day: BusinessHours.DayEnum, openTime: string, closeTime: string, index: number){
     let dateOpen = new Date();
     let dateClose = new Date();
     this.businesHours.push(
@@ -56,15 +74,24 @@ export class BusinessHoursFormComponent implements OnInit {
         this.resetDateGivenDays(this.resetDateGivenTime(dateOpen, openTime), index)
         ))
   }
+ 
   private resetDateGivenTime(date: Date, time: string): Date{
     date.setHours(Number(time.split(':')[0]));
     date.setMinutes(Number(time.split(':')[1]));
     return date;
   }
 
-private resetDateGivenDays(date: Date, day: number): Date { 
-    let days = this.absolute( day - date.getDay());
-    date.setDate(date.getDate() + days);
+private resetDateGivenDays(date: Date, day: number): Date {
+    const dayToday = date.getDay();
+    const diff = this.absolute(dayToday - day);
+    if ( day < dayToday) {
+      date.setDate( date.getDate() - diff);
+      date.setDate( date.getDate() + 7);
+    }
+    if( day == dayToday) 
+      date.setDate(date.getDate() + 7);
+    if( day > dayToday) 
+      date.setDate( date.getDate() + diff);
     return date;
   }
 
@@ -88,3 +115,9 @@ const daysOfTheWeek = [
   BusinessHours.DayEnum.FRIDAY,
   BusinessHours.DayEnum.SATURDAY
 ] as const;
+
+class Hours{
+  constructor(public openTime: string,
+    public closeTime: string){}
+  
+}

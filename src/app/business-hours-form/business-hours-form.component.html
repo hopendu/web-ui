@@ -6,13 +6,15 @@
       <div *ngIf="timesFormGroup.get('times').get(day) as times" [formGroup]="times">      
         <div class="form-group row justify-content-md-center">
           <label class="col-sm-6">Start Time: 
-            <input class="col-sm-2" type="time" formControlName="openTime" #open>
+            <input class="col-sm-2" type="time" formControlName="openTime" >
           </label>
           <label class="col-sm-6">Close Time: 
-            <input class="col-sm-2" type="time" formControlName="closeTime" #close>
+            <input class="col-sm-2" type="time" formControlName="closeTime" >
           </label>
         </div>
-        {{ addBusinesHours(day, times.get('openTime').value, times.get('closeTime').value, i) }}
+        <!-- 
+            {{ addBusinesHours(day, times.get('openTime').value, times.get('closeTime').value, i) }}
+        -->
       </div>
   </div>
 </form>

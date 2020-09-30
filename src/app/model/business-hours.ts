@@ -2,6 +2,8 @@ export class BusinessHours {
     constructor( public close?: Date,
                  public day?: BusinessHours.DayEnum,
                  public open?: Date){}
+
+    
 }
 // tslint:disable-next-line: no-namespace
 export namespace BusinessHours {

@@ -1,4 +1,4 @@
-
+import {  SelectionOption } from "./selection-option";
 export class Stock {
     constructor( public discountPerc?: number,
                  public imageUrls?: string[],
@@ -9,8 +9,4 @@ export class Stock {
                  public quantity?: number){}
 }
 
-class SelectionOption{
-    constructor( public name?: string,
-                 public price?: number, public selected?: string,
-                 public values?: string[]){}
-}
+

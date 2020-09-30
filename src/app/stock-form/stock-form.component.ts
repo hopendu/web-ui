@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Stock } from '../model/stock';
 import { FormArray, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Bank } from '../model/bank';
+import { SelectionOption } from '../model/selection-option';
 import { UploadService } from '../service/upload.service';
 import { Router } from '@angular/router';
 import { SharedService } from '../service/shared.service';
@@ -16,6 +17,8 @@ export class StockFormComponent implements OnInit {
   submitted = false;
   stockForm: FormGroup;
   selectedFile: any;
+  stocks = new Array<Stock>();
+  imageUrls = new Array<string>();
 
   constructor(private sharedData: SharedService,
               private fb: FormBuilder,
@@ -108,6 +111,37 @@ export class StockFormComponent implements OnInit {
     this.router.navigateByUrl('/form');
   };
   onSubmit(): void{
+/*
+    this.stockForm.get('stocks').forEach(element => {
+      let mandatorySelection = new Array<SelectionOption>();
+      let optionalSelection = new Array<SelectionOption>();
+      element.get('mandatorySelation').array.forEach(element => {
+        let values =  new Array<string>();
+        element.get('values').array.forEach(element => {
+          values.push(element)
+        });
+        mandatorySelection.push( new SelectionOption(
+                element.name, element.price, element.selected, values
+        ))
+      });
+      element.get('optionalSelection').array.forEach(element => {
+        let values =  new Array<string>();
+        element.get('values').array.forEach(element => {
+          values.push(element)
+        });
+        optionalSelection.push( new SelectionOption(
+          element.name, element.price, element.selected, values
+        ))
+      });
+      this.stocks.push( new Stock( element.discountPerc,
+        this.imageUrls,
+        mandatorySelection,
+        element.name,
+        optionalSelection,
+        element.price,
+        element.quantity
+        ));
+    });*/
     if(this.stockForm.invalid) return;
     this.sharedData.setStocks(this.stockForm.value);
   }
