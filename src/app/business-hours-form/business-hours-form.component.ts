@@ -3,7 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { BusinessHours } from '../model/business-hours';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SharedService } from '../service/shared.service';
+import { ShareDataService } from '../service/share-data.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-stock-form',
@@ -11,13 +12,14 @@ import { SharedService } from '../service/shared.service';
   styleUrls: ['./business-hours-form.component.css']
 })
 export class BusinessHoursFormComponent implements OnInit {
-  businesHours = new Array<BusinessHours>();
+  
+  businessHours = new Array<BusinessHours>();
   hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
   timesFormGroup: FormGroup;
 
-  constructor(  private sharedData: SharedService,
-                private fb: FormBuilder,
+  constructor(  private fb: FormBuilder,
+                private share: ShareDataService,
                 private router: Router){}
 
   ngOnInit(): void {
@@ -48,26 +50,20 @@ export class BusinessHoursFormComponent implements OnInit {
   getTimes(day: any){
     return this.timesFormGroup.get('times').get(day) as FormGroup;
   }
+  
   setBusinessHours(){
     this.getOperatingHoursPerDay(this.timesFormGroup);
     this.daysOfTheWeek.forEach((dayOfTheWeek,index) => {
       let hours = this.hours.pop();
-      this.addBusinesHours(dayOfTheWeek, hours.openTime, hours.closeTime, index++)
+      this.addBusinessHours(dayOfTheWeek, hours.openTime, hours.closeTime, index++)
+      this.share.addBusinessHours(this.businessHours[index - 1])
     });
-    /*
-    this.businesHours[6] = this.businesHours.pop();
-    this.businesHours[5] = this.businesHours.pop();
-    this.businesHours[4] = this.businesHours.pop();
-    this.businesHours[3] = this.businesHours.pop();
-    this.businesHours[2] = this.businesHours.pop();
-    this.businesHours[1] = this.businesHours.pop();
-    this.businesHours[0] = this.businesHours.pop();
-    this.businesHours.splice(7, this.businesHours.length);*/
   }
-  addBusinesHours( day: BusinessHours.DayEnum, openTime: string, closeTime: string, index: number){
+  
+  private addBusinessHours( day: BusinessHours.DayEnum, openTime: string, closeTime: string, index: number){
     let dateOpen = new Date();
     let dateClose = new Date();
-    this.businesHours.push(
+    this.businessHours.push(
       new BusinessHours(
         this.resetDateGivenDays(this.resetDateGivenTime(dateClose, closeTime), index),
         day,
@@ -81,7 +77,7 @@ export class BusinessHoursFormComponent implements OnInit {
     return date;
   }
 
-private resetDateGivenDays(date: Date, day: number): Date {
+  private resetDateGivenDays(date: Date, day: number): Date {
     const dayToday = date.getDay();
     const diff = this.absolute(dayToday - day);
     if ( day < dayToday) {
@@ -99,10 +95,12 @@ private resetDateGivenDays(date: Date, day: number): Date {
 
   btnClick = function () {
     this.setBusinessHours();
-    console.log(this.businesHours);
-    this.sharedData.setBusinessHours(this.businesHours);
-    this.router.navigateByUrl('/form/stock');
+    this.router.navigateByUrl('/form');  
   };
+
+  backClick = function (){
+    this.router.navigateByUrl('/form/bank');
+  }
 
 }
 

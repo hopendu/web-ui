@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Stock } from '../model/stock';
 import { FormArray, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { Bank } from '../model/bank';
-import { SelectionOption } from '../model/selection-option';
 import { UploadService } from '../service/upload.service';
 import { Router } from '@angular/router';
-import { SharedService } from '../service/shared.service';
+import { ShareDataService } from '../service/share-data.service';
 
 @Component({
   selector: 'app-stock-form',
@@ -19,9 +17,14 @@ export class StockFormComponent implements OnInit {
   selectedFile: any;
   stocks = new Array<Stock>();
   imageUrls = new Array<string>();
+  vallueArray: any;
+  name: any;
+  discountPerc: any;
+  quantity: any;
+  price: any;
 
-  constructor(private sharedData: SharedService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
+              private share: ShareDataService,
               private uploadService: UploadService,
               private router: Router) {
   }
@@ -56,7 +59,27 @@ export class StockFormComponent implements OnInit {
       optionalSelection: this.fb.array([ this.selection()])
     });
   }
-
+  getStocListFromFormGroup(group: FormGroup | FormArray): void {
+    
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+      if( abstractControl instanceof FormGroup){
+        this.getStocListFromFormGroup(abstractControl);
+      } if( abstractControl instanceof FormArray){
+      }
+      if( abstractControl instanceof FormControl){
+         if( key.match("value"))  this.vallueArray.push(abstractControl.value);
+         if( key.match("name"))  this.name = abstractControl.value;
+         if( key.match("discountPerc"))  this.discountPerc = abstractControl.value;
+         if( key.match("quantity"))  this.quantity = abstractControl.value;
+         if( key.match("price"))  this.price = abstractControl.value;
+         
+      }
+    })
+    
+    
+  
+  }
   get getStocks(): FormArray{
     return (this.stockForm.get('stocks') as FormArray);
   }
@@ -72,15 +95,7 @@ export class StockFormComponent implements OnInit {
     stock.get('optionalSelection').push(this.selection());
   }
 
-  addStock(): void{/*
-    const fg = this.fb.group({
-      discountPerc: 0,
-      name: '',
-      price: 0,
-      quantity: 0,
-      mandatorySelection: null,
-      optionalSelection: null
-    });*/
+  addStock(): void{
     (this.stockForm.get('stocks') as FormArray).push(this.stock());
   }
 
@@ -106,44 +121,14 @@ export class StockFormComponent implements OnInit {
   btnClick = function () {
 
     if(this.stockForm.invalid) return;
-    this.sharedData.setStocks(this.stockForm.value);
-
+    this.shared.stockList = null;
     this.router.navigateByUrl('/form');
   };
+  backClick = function (){
+    this.router.navigateByUrl('/form/business-hours');
+  };
   onSubmit(): void{
-/*
-    this.stockForm.get('stocks').forEach(element => {
-      let mandatorySelection = new Array<SelectionOption>();
-      let optionalSelection = new Array<SelectionOption>();
-      element.get('mandatorySelation').array.forEach(element => {
-        let values =  new Array<string>();
-        element.get('values').array.forEach(element => {
-          values.push(element)
-        });
-        mandatorySelection.push( new SelectionOption(
-                element.name, element.price, element.selected, values
-        ))
-      });
-      element.get('optionalSelection').array.forEach(element => {
-        let values =  new Array<string>();
-        element.get('values').array.forEach(element => {
-          values.push(element)
-        });
-        optionalSelection.push( new SelectionOption(
-          element.name, element.price, element.selected, values
-        ))
-      });
-      this.stocks.push( new Stock( element.discountPerc,
-        this.imageUrls,
-        mandatorySelection,
-        element.name,
-        optionalSelection,
-        element.price,
-        element.quantity
-        ));
-    });*/
     if(this.stockForm.invalid) return;
-    this.sharedData.setStocks(this.stockForm.value);
   }
 
   onReset(): void {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Bank } from '../model/bank';
-import { SharedService } from '../service/shared.service';
+import { ShareDataService } from '../service/share-data.service';
 
 @Component({
   selector: 'app-bank-form',
@@ -11,62 +11,40 @@ import { SharedService } from '../service/shared.service';
 })
 export class BankFormComponent implements OnInit {
 
-  submitted = false;
+  bankFormGroup : FormGroup;
 
-  bank: Bank;
-  bankFormGroup = this.fb.group({
-    accountId: ['', Validators.required],
-    name: ['', Validators.required],
-    phone: ['', Validators.required],
-    type: ['', Validators.required]});
-
-
-  constructor(private sharedData: SharedService,
-              private fb: FormBuilder,
-              private router: Router) { }
+  constructor(private fb: FormBuilder,
+              private router: Router,
+              private share: ShareDataService) { }
 
   ngOnInit(): void {
-
-  }
-/*
-  onSubmit(): void {
-
-    this.submitted = true;
-
-    if (this.bankFormGroup.invalid){  return; }
-
-    const bank = new Bank(
-        this.bankFormGroup.get('accountId').value,
-        this.bankFormGroup.get('name').value,
-        this.bankFormGroup.get('phone').value,
-        this.bankFormGroup.get('type').value);
-    this.add(bank);
-
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.bankFormGroup.value, null, 4));
-  }
-  */
-  add(bank: Bank): void {
-
+    this.bankFormGroup = this.fb.group({
+      accountId: ['', Validators.required],
+      name: ['', Validators.required],
+      phone: ['', Validators.required],
+      type: ['', Validators.required]});
   }
 
   btnClick = function () {
 
     if (this.bankFormGroup.invalid){  return; }
 
-    const bank = new Bank(
+    this.share.bank = new Bank(
         this.bankFormGroup.get('accountId').value,
         this.bankFormGroup.get('name').value,
         this.bankFormGroup.get('phone').value,
         this.bankFormGroup.get('type').value
         );
-    this.sharedData.setBank(bank);
 
-    this.router.navigateByUrl('/form/business-hours');
+    this.router.navigate(['/form/business-hours']);
     };
+    
+    backClick = function (){
+      this.router.navigateByUrl('/form/store-info');
+    }
 
-  onReset(): void {
-    this.submitted = false;
-    this.bankFormGroup.reset();
-  }
+    onReset(): void {
+      this.bankFormGroup.reset();
+    }
 
 }

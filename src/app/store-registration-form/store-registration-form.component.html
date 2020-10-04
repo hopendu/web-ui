@@ -1,3 +1,15 @@
-<form FormGroup='storeProfileRegistrationForm'>
-  <app-store-info-form></app-store-info-form>
+<form FormGroup='storeProfileRegistrationForm' (onSubmit)="onSubmit()">
+  <pre>
+    <b>The store information is as follow: </b> {{ storeInfo | json }}
+
+    <b>The bank information is as follow: </b> {{ bank | json }}
+
+    <b>The trading hours information is as follow: </b> {{ businessHours | json }}
+    
+    <b>The is the stock we have in store: </b> {{ stockList | json }}
+  </pre>
+  <div class="text-center">
+    <button class="btn btn-default btn-rounded mb-4" (click)="backClick();">Previouse</button>
+    <button class="btn btn-default btn-rounded mb-4" (click)="onSubmit();">Submit</button>
+</div>
 </form>

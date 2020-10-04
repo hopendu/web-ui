@@ -1,6 +1,8 @@
 {{ timesFormGroup.value | json}}
-<h2><b>Hours of Operation</b></h2>
 <form [formGroup]="timesFormGroup">
+  <div class="text-center row">
+    <h2><b>Hours of Operation</b></h2>
+  </div>
   <div *ngFor="let day of daysOfTheWeek; let i = index">
     <h3><b>{{ day | titlecase }}</b></h3>
       <div *ngIf="timesFormGroup.get('times').get(day) as times" [formGroup]="times">      
@@ -17,9 +19,8 @@
         -->
       </div>
   </div>
+  <div class="text-center row">
+    <button class="btn btn-default btn-rounded mb-4"  (click)="backClick();">Previouse</button>
+    <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+  </div>
 </form>
-<div class="text-center">
-  <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
-</div>
-
-{{ businesHours.values().next().value }}

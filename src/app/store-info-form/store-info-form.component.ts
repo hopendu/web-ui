@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { StoreInfo } from '../model/store-info';
 import { UploadService } from '../service/upload.service';
-import { Router } from '@angular/router';
-import { SharedService } from '../service/shared.service';
+import { ShareDataService } from '../service/share-data.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-store-info-form',
@@ -17,12 +17,10 @@ export class StoreInfoFormComponent implements OnInit {
   show = true;
   storeInfo: StoreInfo;
   storeInfoForm: FormGroup;
-
-  constructor(
-              private sharedData: SharedService,
+  
+  constructor(private uploadService: UploadService,
               private fb: FormBuilder,
-              private uploadService: UploadService,
-              private router: Router) { }
+              private router: Router, private share: ShareDataService) { }
 
   ngOnInit(): void {
     this.storeInfoForm = this.fb.group({
@@ -32,12 +30,12 @@ export class StoreInfoFormComponent implements OnInit {
       address: ['', Validators.required],
       mobileNumber:  ['', Validators.required],
       regNumber: ['', Validators.required],
-      tags: this.fb.array([ this.tags ])
+      tags: this.fb.array([ this.tags() ])
     });
 
   }
 
-  get tags(): FormGroup {
+  tags(): FormGroup {
     return this.fb.group({
       tag: ''
     });
@@ -48,45 +46,15 @@ export class StoreInfoFormComponent implements OnInit {
   }
 
   addTag(): void {
-    this.getTags.push(this.tags);
+    this.getTags.push(this.tags());
   }
 
   deleteTag( index: number): void{
     ( this.storeInfoForm.get('tags') as FormArray).removeAt(index);
   }
-/*
-  onSubmit(): void {
 
-    this.submitted = true;
-
-    if (this.storeInfoForm.invalid){  return; }
-
-    const file = this.toFile.item(0);
-
-    this.storeInfo = new StoreInfo(
-        this.storeInfoForm.get('address').value,
-        this.storeInfoForm.get('description').value,
-        this.storeInfoForm.get('userId').value,
-        this.storeInfoForm.get('mobileNumber').value,
-        this.storeInfoForm.get('name').value,
-        this.storeInfoForm.get('regNumber').value,
-        this.storeInfoForm.get('tags').value,
-        'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file));
-    //this.add(storeInfo);
-
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.storeInfoForm.value, null, 4));
-    /*
-
-    this.router.navigateByUrl('/', {skipLocationChange: true})
-      .then(() => this.router.navigate(['form/store-info']));
-
-  
-  }*/
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
-  }
-
-  add(storeInfo: StoreInfo): void {
   }
 
   btnClick = function () {
@@ -96,7 +64,7 @@ export class StoreInfoFormComponent implements OnInit {
 
     const file = this.toFile.item(0);
 
-    this.storeInfo = new StoreInfo(
+    this.share.storeInfo = new StoreInfo(
         this.storeInfoForm.get('address').value,
         this.storeInfoForm.get('description').value,
         this.storeInfoForm.get('userId').value,
@@ -106,10 +74,7 @@ export class StoreInfoFormComponent implements OnInit {
         this.storeInfoForm.get('tags').value,
         'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file)
     );
-
-    this.sharedData.setStoreInfo(this.storeInfo);
-
-    this.router.navigateByUrl('/form/bank');
+    this.router.navigate(['/form/bank']);
   };
 
   onReset(): void {
@@ -121,6 +86,4 @@ export class StoreInfoFormComponent implements OnInit {
   allEntriesAreValid(tags: string[]): boolean {
     return !!tags.find( tag => tag.length === 0);
   }
-
-
 }

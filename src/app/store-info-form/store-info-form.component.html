@@ -1,7 +1,9 @@
 {{ this.storeInfoForm.value | json }}
-    <h2><b>Store Information</b></h2>
     <form [formGroup]="storeInfoForm"  >
-      
+      <div class="text-center">
+        <h2><b>Store Information</b></h2>
+      </div>
+    
       <div class="container">
         <div class="form-group row">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Store Name</label>
@@ -72,8 +74,8 @@
       </div>
       <br>
     </div>
+    <div class="text-center">
+      <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+    </div>  
   </form>
-  <div class="text-center">
-    <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
-  </div>
 

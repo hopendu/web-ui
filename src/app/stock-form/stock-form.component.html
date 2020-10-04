@@ -1,6 +1,8 @@
 {{ this.stockForm.value | json }}
-    <h2><b>Stock Taking</b></h2>
     <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" >
+      <div class="text-center">
+        <h2><b>Stock Taking</b></h2>
+      </div>
       <button class="btn btn-default btn-rounded mb-4" (click)="addStock()">Add Stock</button>
       <div class="form-group raw mand" formArrayName="stocks" 
         *ngIf="getStocks.controls?.length > 0">
@@ -12,6 +14,9 @@
             let first = first;"
           [formGroupName]="stockIndex"
         >
+        <div class="text-center">
+          <h3><b>Stock Item {{stockIndex + 1 }}</b></h3>
+        </div>
         <div class="container stock" >
             <div class="form-group row">
             <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
@@ -51,6 +56,9 @@
                 let first = first;"
               [formGroupName]="mandatoryIndex"
             >
+            <div class="text-center">
+              <h3><b>Mandatory Item {{mandatoryIndex + 1 }}</b></h3>
+            </div>
             <div class="container mandatory" formControlName='mandatory'>
                 <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
@@ -112,6 +120,9 @@
                 let first = first;"
               [formGroupName]="optionalIndex"
             >
+            <div class="text-center">
+              <h3><b>Optional Item {{optionalIndex + 1 }}</b></h3>
+            </div>
             <div class="container optional" formControlName='optional'>
                 <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
@@ -176,25 +187,15 @@
     (click)="fileInput.click()" 
 />
 
-
-
-
         <div class="col-sm-2 text-center">
             <button class="btn btn-default btn-rounded mb-4"  (click)="deleteStock()">Delete</button>                
           </div>
       </div>
       </div>
-      <!--  
-          <div class="text-center">
-        <button class="btn btn-default btn-rounded mb-4">Submit</button>
-        <button class="btn btn-default btn-rounded mb-4" type="reset" (click)="onReset()">Cancel</button>
-      </div>
-
-      -->
-      <div class="text-center">
-        <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
-      </div>
-      
+    </div>
+    <div class="text-center">
+          <button class="btn btn-default btn-rounded mb-4" (click)="backClick();">Previouse</button>
+          <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
     </div>
   </form>
   
