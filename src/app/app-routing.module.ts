@@ -7,11 +7,11 @@ import { BusinessHoursFormComponent } from './business-hours-form/business-hours
 import { StoreInfoFormComponent } from './store-info-form/store-info-form.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/form/store-info', pathMatch: 'full'},
+  {path: '', redirectTo: '/form/store-info', pathMatch: 'full'},
   {path: 'form', component: StoreRegistrationFormComponent},
   {path: 'form/bank', component: BankFormComponent},
   {path: 'form/business-hours', component: BusinessHoursFormComponent},
-  { path: 'form/stock', component: StockFormComponent},
+  {path: 'form/stock', component: StockFormComponent},
   {path: 'form/store-info', component: StoreInfoFormComponent},
 ];
 

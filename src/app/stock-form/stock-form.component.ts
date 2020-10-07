@@ -17,7 +17,7 @@ export class StockFormComponent implements OnInit {
   selectedFile: any;
   stocks = new Array<Stock>();
   imageUrls = new Array<string>();
-  vallueArray: any;
+  vallueArray = new Array<string>();
   name: any;
   discountPerc: any;
   quantity: any;
@@ -59,27 +59,32 @@ export class StockFormComponent implements OnInit {
       optionalSelection: this.fb.array([ this.selection()])
     });
   }
-  getStocListFromFormGroup(group: FormGroup | FormArray): void {
-    
+  getStockList(group: FormGroup | FormArray): void {
+
+    for (const key in group) {
+      if (group.hasOwnProperty(key)){
+        // your logic here
+      }
+}
+    /*
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
-      if( abstractControl instanceof FormGroup){
-        this.getStocListFromFormGroup(abstractControl);
-      } if( abstractControl instanceof FormArray){
-      }
-      if( abstractControl instanceof FormControl){
+      if( abstractControl instanceof FormGroup || abstractControl instanceof FormArray ){
+        this.getStockList(abstractControl);
+        console.log(`control '${key}' is nested group or array. calling getStockList recursively`);
+      } else if( abstractControl instanceof FormControl){
          if( key.match("value"))  this.vallueArray.push(abstractControl.value);
          if( key.match("name"))  this.name = abstractControl.value;
          if( key.match("discountPerc"))  this.discountPerc = abstractControl.value;
          if( key.match("quantity"))  this.quantity = abstractControl.value;
          if( key.match("price"))  this.price = abstractControl.value;
-         
+         console.log(`The control key is ${key}`);
       }
-    })
+    })*/
     
-    
-  
   }
+
+
   get getStocks(): FormArray{
     return (this.stockForm.get('stocks') as FormArray);
   }
@@ -121,7 +126,8 @@ export class StockFormComponent implements OnInit {
   btnClick = function () {
 
     if(this.stockForm.invalid) return;
-    this.shared.stockList = null;
+    this.getStockList(this.stockForm);
+    this.share.stockList = null;
     this.router.navigateByUrl('/form');
   };
   backClick = function (){

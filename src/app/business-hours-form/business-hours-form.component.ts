@@ -88,6 +88,7 @@ export class BusinessHoursFormComponent implements OnInit {
       date.setDate(date.getDate() + 7);
     if( day > dayToday) 
       date.setDate( date.getDate() + diff);
+    date.setHours(date.getHours() + 2);
     return date;
   }
 
