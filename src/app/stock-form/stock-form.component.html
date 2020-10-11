@@ -1,20 +1,7 @@
-    <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" >
-      <div class="text-center">
-        <h2><b>Stock Taking</b></h2>
-      </div>
-      <div class="form-group raw mand" formArrayName="stocks" 
-        *ngIf="getStocks.controls?.length > 0">
-        <div
-          class="stocks"
-          *ngFor="
-            let stock of getStocks.controls;
-            let stockIndex = index;
-            let first = first;"
-          [formGroupName]="stockIndex"
-        >
+  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" >
         <div class="container stock" >
           <div class="text-center">
-            <h3><b>Stock Item {{stockIndex + 1 }}</b></h3>
+            <h2><b>Stock Taking</b></h2>
           </div>
             <div class="form-group row">
             <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
@@ -44,12 +31,12 @@
             </div>
           </div>
           <hr>
-          <button class="btn btn-default btn-rounded mb-4" (click)="addMandatory(stock)">Add Mandatory</button>
-          <div class="form-group raw" formArrayName="mandatorySelection" *ngIf="stock.get('mandatorySelection').controls?.length > 0">
+          <button class="btn btn-default btn-rounded mb-4" (click)="addMandatory()">Add Mandatory</button>
+          <div class="form-group raw" formArrayName="mandatorySelection" >
             <div
               class="mandatory"
               *ngFor="
-                let mandatory of stock.get('mandatorySelection').controls;
+                let mandatory of mandatories.controls;
                 let mandatoryIndex = index;
                 let first = first;"
               [formGroupName]="mandatoryIndex"
@@ -101,19 +88,19 @@
               </div>
             </div>
             <div class="col-sm-2 ">
-                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(stock,mandatoryIndex)">Delete</button>                
+                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(mandatoryIndex)">Delete</button>                
             </div>
           </div>
           </div>
           <hr>
           <hr>
-          <button class="btn btn-default btn-rounded mb-4" (click)="addOptional(stock)">Add Optional</button>
+          <button class="btn btn-default btn-rounded mb-4" (click)="addOptional()">Add Optional</button>
           <div class="form-group raw" formArrayName="optionalSelection" 
-              *ngIf="stock.get('optionalSelection').controls?.length > 0">
+              *ngIf="options.controls?.length > 0">
             <div
               class="optional"
               *ngFor="
-                let optional of stock.get('optionalSelection').controls;
+                let optional of options.controls;
                 let optionalIndex = index;
                 let first = first;"
               [formGroupName]="optionalIndex"
@@ -165,7 +152,7 @@
               </div>
             </div>
             <div class="col-sm-2 ">
-                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteOptional(stock,optionalIndex)">Delete</button>                
+                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteOptional(optionalIndex)">Delete</button>                
             </div>
           </div>
           </div>
@@ -185,16 +172,11 @@
     (click)="fileInput.click()" 
 />
 
-        <div class="col-sm-2 text-center">
-            <button class="btn btn-default btn-rounded mb-4"  (click)="deleteStock()">Delete</button>                
-          </div>
-      </div>
-      </div>
     </div>
     <div class="text-center">
-          <button class="btn btn-default btn-rounded mb-4" (click)="addStock()">Add Stock</button>
-          <button class="btn btn-default btn-rounded mb-4" (click)="backClick();">Previouse</button>
-          <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+          <button class="btn btn-default btn-rounded mb-4" (click)="add();">Add</button>
+          <button class="btn btn-default btn-rounded mb-4" (click)="done();">Done</button>
+          <button class="btn btn-default btn-rounded mb-4" (click)="skip();">Skip</button>
     </div>
     
   </form>

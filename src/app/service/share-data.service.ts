@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
+import { SelectionOption } from '../model/selection-option';
 import { Stock } from '../model/stock';
 import { StoreInfo } from '../model/store-info';
 
@@ -23,7 +24,7 @@ export class ShareDataService {
     this.stockList.forEach( stock => this.stockList.pop());
     this.businessHours.forEach(time => this.businessHours.pop());
   }*/
-
+  
   public addBusinessHours(businessHours: BusinessHours){
     this.businessHours.push(businessHours);
   }
@@ -31,9 +32,12 @@ export class ShareDataService {
   public getBusinessHours(): BusinessHours[]{
     return this.businessHours;
   }
-
+  
   public addStock(stock: Stock): void {
     this.stockList.push(stock);
   }
-  
+
+  public getStock(): Stock[] {
+    return this.stockList;
+  }
 }

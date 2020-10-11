@@ -32,42 +32,31 @@ export class StoreRegistrationFormComponent implements OnInit {
     this.storeInfo = this.share.storeInfo;
     this.stockList = this.share.stockList;
     this.businessHours = this.share.getBusinessHours();
-    console.log("start*******start*******start");
-    console.log(this.storeInfo);
-    console.log(this.bank);
-    console.log(this.businessHours);
-    console.log("End*********End*******End");
   }
-
+/*
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
-    /*
-    this.bank = this.share.bank;
-    this.storeInfo = this.share.storeInfo;
-    this.stockList = this.share.stockList;
-    this.businessHours = this.share.getBusinessHours();
-    console.log("on-change-start*******on-change-start*******on-change-start");
-    console.log(this.storeInfo);
-    console.log(this.bank);
-    console.log(this.businessHours);
-    console.log("on-change-end*********on-change-end*******on-change-end");*/
-  }
+  }*/
   onChange(): void{
     this.bank = this.share.bank;
     this.storeInfo = this.share.storeInfo;
     this.stockList = this.share.stockList;
     this.businessHours = this.share.getBusinessHours();
-    console.log("on-change-start*******on-change-start*******on-change-start");
-    console.log(this.storeInfo);
-    console.log(this.bank);
-    console.log(this.businessHours);
-    console.log("on-change-end*********on-change-end*******on-change-end");
   }
   backClick = function (){
     this.router.navigateByUrl('/form/bank');
   };
   onSubmit(): void {
       this.onChange();
-     // alert.arguments('',JSON.stringify(this.bank), 4);
+      let store = new StoreProfile(this.storeInfo.name
+        ,0, this.bank, this.businessHours, 
+        new Date(),this.storeInfo.description,true, new Date(), false, null, 
+        this.storeInfo.imageUrl,0,0,0,
+        this.storeInfo.mobileNumber, 
+        new Date(), this.storeInfo.name,this.storeInfo.userId,this.storeInfo.regNumber,
+        0, StoreProfile.RoleEnum.STOREADMIN,
+        0, this.stockList, this.storeInfo.tags,
+        '', 0);
+      /*  this.service.create(store).subscribe( s => console.log(s));*/
   }
 }

@@ -92,11 +92,11 @@ export class BusinessHoursFormComponent implements OnInit {
     return date;
   }
 
-  private absolute(num: number){ if ( num < 0) return -1 * num; return num;}
+  private absolute(num: number){ if ( num < 0) return - 1 * num; return num;}
 
   btnClick = function () {
     this.setBusinessHours();
-    this.router.navigateByUrl('/form');  
+    this.router.navigateByUrl('/form/stock');  
   };
 
   backClick = function (){

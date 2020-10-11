@@ -30,8 +30,13 @@ export class StockFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.stockForm =  this.fb.group({
-      stocks: this.fb.array([ this.stock()])
+    this.stockForm = this.fb.group({
+      name: new FormControl('', Validators.required),
+      price: new FormControl(Number, Validators.required),
+      discountPerc: new FormControl(Number, Validators.required),
+      quantity: new FormControl(Number, Validators.required),
+      mandatorySelection: this.fb.array([ this.selection() ]),
+      optionalSelection: this.fb.array([ this.selection()])
     });
   }
 
@@ -49,95 +54,73 @@ export class StockFormComponent implements OnInit {
     });
   }
 
-  stock(): FormGroup {
-    return this.fb.group({
-      discountPerc: new FormControl(Number, Validators.required),
-      name: new FormControl('', Validators.required),
-      price: new FormControl(Number, Validators.required),
-      quantity: new FormControl(Number, Validators.required),
-      mandatorySelection: this.fb.array([ this.selection() ]),
-      optionalSelection: this.fb.array([ this.selection()])
-    });
-  }
-  getStockList(group: FormGroup | FormArray): void {
-
-    for (const key in group) {
-      if (group.hasOwnProperty(key)){
-        // your logic here
-      }
-}
-    /*
-    Object.keys(group.controls).forEach((key: string) => {
-      const abstractControl = group.get(key);
-      if( abstractControl instanceof FormGroup || abstractControl instanceof FormArray ){
-        this.getStockList(abstractControl);
-        console.log(`control '${key}' is nested group or array. calling getStockList recursively`);
-      } else if( abstractControl instanceof FormControl){
-         if( key.match("value"))  this.vallueArray.push(abstractControl.value);
-         if( key.match("name"))  this.name = abstractControl.value;
-         if( key.match("discountPerc"))  this.discountPerc = abstractControl.value;
-         if( key.match("quantity"))  this.quantity = abstractControl.value;
-         if( key.match("price"))  this.price = abstractControl.value;
-         console.log(`The control key is ${key}`);
-      }
-    })*/
-    
+  get mandatories(): FormArray {
+    return this.stockForm.get('mandatorySelection') as FormArray;
   }
 
-
-  get getStocks(): FormArray{
-    return (this.stockForm.get('stocks') as FormArray);
+  get options(): FormArray {
+    return this.stockForm.get('optionalSelection') as FormArray;
   }
 
   addValue(selectionOption): void{
     selectionOption.get('values').push(this.values());
   }
-  addMandatory(stock): void{
-    stock.get('mandatorySelection').push(this.selection());
+
+  addMandatory(): void{
+    this.mandatories.push(this.selection());
   }
 
-  addOptional(stock): void{
-    stock.get('optionalSelection').push(this.selection());
-  }
-
-  addStock(): void{
-    (this.stockForm.get('stocks') as FormArray).push(this.stock());
+  addOptional(): void{
+    this.options.push(this.selection());
   }
 
   deleteValue(selectionOption, index): void{
     selectionOption.get('values').removeAt(index);
   }
-  deleteMandatory(stock, index): void{
-    stock.get('mandatorySelection').removeAt(index);
+  deleteMandatory( index): void{
+    this.mandatories.removeAt(index);
   }
 
-  deleteOptional(stock, index): void{
-    stock.get('optionalSelection').removeAt(index);
-  }
-
-  deleteStock(index): void {
-    (this.stockForm.get('stocks') as FormArray).removeAt(index);
+  deleteOptional(index): void{
+    this.options.removeAt(index);
   }
 
   onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
     this.uploadService.fileUpload(this.selectedFile);
   }
-  btnClick = function () {
-
-    if(this.stockForm.invalid) return;
-    this.getStockList(this.stockForm);
-    this.share.stockList = null;
+  done = function (){
+    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
+    this.stockForm.get('mandatorySelection').value,
+    this.stockForm.get('name').value,
+    this.stockForm.get('optionalSelection').value,
+    this.stockForm.get('price').value,
+    this.stockForm.get('quantity').value));
     this.router.navigateByUrl('/form');
   };
-  backClick = function (){
-    this.router.navigateByUrl('/form/business-hours');
+  add = function (){
+    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
+    this.stockForm.get('mandatorySelection').value,
+    this.stockForm.get('name').value,
+    this.stockForm.get('optionalSelection').value,
+    this.stockForm.get('price').value,
+    this.stockForm.get('quantity').value))
+    this.onReset();
+    this.router.navigateByUrl('/form/stock');
   };
+
+  skip = function(){
+    this.onReset();
+    this.router.navigateByUrl('/form/stock');
+  }
   onSubmit(): void{
     if(this.stockForm.invalid) return;
   }
 
   onReset(): void {
+    this.stockForm.reset();
+    this.mandatories.clear();
+    this.options.clear()
   }
 
 }
