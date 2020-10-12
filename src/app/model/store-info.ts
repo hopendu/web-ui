@@ -4,6 +4,7 @@ export class StoreInfo {
     constructor(
         public address?: string,
         public description?: string,
+        public emailAddress?: string,
         public userId?: string,
         public mobileNumber?: string,
         public name?: string,

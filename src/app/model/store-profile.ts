@@ -10,6 +10,7 @@ export class StoreProfile {
         public businessHours?: Array<BusinessHours>,
         public date?: Date,
         public description?: string,
+        public emailAddress?: string,
         public featured?: boolean,
         public featuredExpiry?: Date,
         public hasVat?: boolean,
@@ -27,6 +28,7 @@ export class StoreProfile {
         public role?: StoreProfile.RoleEnum,
         public servicesCompleted?: number,
         public stockList?: Array<Stock>,
+        public storeType?: StoreProfile.StoreTypeEnum,
         public tags?: Array<string>,
         public verificationCode?: string,
         public yearsInService?: number){}
@@ -34,10 +36,20 @@ export class StoreProfile {
 // tslint:disable-next-line: no-namespace
 export namespace StoreProfile {
     export type RoleEnum = 'CUSTOMER' | 'STORE_ADMIN' | 'STORE' | 'MESSENGER';
+    export type StoreTypeEnum = 'FOOD' | 'CLOTHING' | 'SALON' | 'CAR_WASH';
     export const RoleEnum = {
         CUSTOMER: 'CUSTOMER' as RoleEnum,
         STOREADMIN: 'STORE_ADMIN' as RoleEnum,
         STORE: 'STORE' as RoleEnum,
         MESSENGER: 'MESSENGER' as RoleEnum
     };
+    export const StoreTypeEnum = {
+        FOOD: 'FOOD' as StoreTypeEnum,
+        CLOTHING: 'CLOTHING' as StoreTypeEnum,
+        SALON: 'SALON' as StoreTypeEnum,
+        CAR_WASH: 'CAR_WASH' as StoreTypeEnum
+    };
 }
+
+
+

@@ -26,6 +26,7 @@ export class StoreInfoFormComponent implements OnInit {
     this.storeInfoForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
+      emailAddress: ['', Validators.email],
       userId: ['', Validators.required],
       address: ['', Validators.required],
       mobileNumber:  ['', Validators.required],
@@ -67,6 +68,7 @@ export class StoreInfoFormComponent implements OnInit {
     this.share.storeInfo = new StoreInfo(
         this.storeInfoForm.get('address').value,
         this.storeInfoForm.get('description').value,
+        this.storeInfoForm.get('emailAddress').value,
         this.storeInfoForm.get('userId').value,
         this.storeInfoForm.get('mobileNumber').value,
         this.storeInfoForm.get('name').value,
