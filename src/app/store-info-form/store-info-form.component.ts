@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { StoreInfo } from '../model/store-info';
 import { UploadService } from '../service/upload.service';
 import { ShareDataService } from '../service/share-data.service';
@@ -31,23 +31,23 @@ export class StoreInfoFormComponent implements OnInit {
       address: ['', Validators.required],
       mobileNumber:  ['', Validators.required],
       regNumber: ['', Validators.required],
-      tags: this.fb.array([ this.tags() ])
+      tags: this.fb.array([])
     });
 
   }
 
-  tags(): FormGroup {
-    return this.fb.group({
-      tag: ''
-    });
-  }
+  // tags(): FormGroup {
+  //   return this.fb.group({
+  //     tag: ''
+  //   });
+  // }
 
   get getTags(): FormArray {
     return this.storeInfoForm.get('tags') as FormArray;
   }
 
   addTag(): void {
-    this.getTags.push(this.tags());
+    this.getTags.push(new FormControl(''));
   }
 
   deleteTag( index: number): void{
@@ -76,7 +76,7 @@ export class StoreInfoFormComponent implements OnInit {
         this.storeInfoForm.get('tags').value,
         'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file)
     );
-    this.router.navigate(['/form/bank']);
+    this.router.navigate(['/form/bank'])
   };
 
   onReset(): void {

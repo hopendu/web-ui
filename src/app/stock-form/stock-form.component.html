@@ -1,3 +1,4 @@
+  {{ stockForm.value | json }}
   <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" >
         <div class="container stock" >
           <div class="text-center">
@@ -44,7 +45,9 @@
             <div class="text-center">
               <h3><b>Mandatory Item {{mandatoryIndex + 1 }}</b></h3>
             </div>
-            <div class="container mandatory" formControlName='mandatory'>
+            <!--  
+              <div class="container mandatory" [formGroup]='mandatory'>
+            -->
                 <div class="form-group row">
                     <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-sm-8">
@@ -63,8 +66,11 @@
                         <input type="text" formControlName="selected" class="form-control"> 
                     </div>
                 </div>
-            </div>
+            <!--   
+
+              </div>
             <div class="container mandatory" formControlName='mandatory'>
+            -->
               <button class="btn btn-default btn-rounded mb-4" (click)="addValue(mandatory)">Add Value</button>
               <div class="form-group raw value" formArrayName="values" *ngIf="mandatory.get('values').controls?.length > 0">
                 <div
@@ -78,7 +84,7 @@
                 <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
                       <div class="col-sm-8">
-                        <input type="text" formControlName="value" class="form-control"> 
+                        <input type="text" [formControl]="mandatory.get('values').controls[valueIndex]" class="form-control"> 
                       </div>
                       <div class="col-sm-2">
                         <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(mandatory, valueIndex)">Delete</button>                
@@ -86,14 +92,18 @@
                 </div>
               </div>
               </div>
-            </div>
+            <!--</div>-->
             <div class="col-sm-2 ">
                 <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(mandatoryIndex)">Delete</button>                
             </div>
           </div>
           </div>
           <hr>
-          <hr>
+          <!--  
+
+
+
+            <hr>
           <button class="btn btn-default btn-rounded mb-4" (click)="addOptional()">Add Optional</button>
           <div class="form-group raw" formArrayName="optionalSelection" 
               *ngIf="options.controls?.length > 0">
@@ -142,7 +152,7 @@
                 <div class="form-group row">
                       <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
                       <div class="col-sm-8">
-                        <input type="text" formControlName="value" class="form-control"> 
+                        <input type="text" [formControl]="optional.get('values').controls[valueIndex]" class="form-control"> 
                       </div>
                       <div class="col-sm-2">
                         <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(optional, valueIndex)">Delete</button>                
@@ -157,6 +167,7 @@
           </div>
           </div>
           <hr>
+          -->
 
           <input 
     style="display: none" 

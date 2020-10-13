@@ -36,21 +36,21 @@ export class StockFormComponent implements OnInit {
       discountPerc: new FormControl(Number, Validators.required),
       quantity: new FormControl(Number, Validators.required),
       mandatorySelection: this.fb.array([ this.selection() ]),
-      optionalSelection: this.fb.array([ this.selection()])
+      // optionalSelection: this.fb.array([ this.selection()])
     });
   }
 
-  values(): FormGroup {
-    return this.fb.group({
-      value: new FormControl('', Validators.required)
-    });
-  }
+  // values(): FormGroup {
+  //   return this.fb.group({
+  //     value: new FormControl('', Validators.required)
+  //   });
+  // }
   selection(): FormGroup {
     return this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
       selected: new FormControl('', Validators.required),
-      values: this.fb.array([this.values()])
+      values: this.fb.array([])
     });
   }
 
@@ -63,7 +63,7 @@ export class StockFormComponent implements OnInit {
   }
 
   addValue(selectionOption): void{
-    selectionOption.get('values').push(this.values());
+    selectionOption.get('values').push(new FormControl(''));
   }
 
   addMandatory(): void{
@@ -93,7 +93,7 @@ export class StockFormComponent implements OnInit {
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
-    this.stockForm.get('optionalSelection').value,
+    null,
     this.stockForm.get('price').value,
     this.stockForm.get('quantity').value));
     this.router.navigateByUrl('/form');
@@ -102,7 +102,7 @@ export class StockFormComponent implements OnInit {
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
-    this.stockForm.get('optionalSelection').value,
+    null,
     this.stockForm.get('price').value,
     this.stockForm.get('quantity').value))
     this.onReset();

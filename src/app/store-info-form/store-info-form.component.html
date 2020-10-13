@@ -66,7 +66,7 @@
         <div class="form-group row">
               <label for="colFormLabel" class="col-sm-2 col-form-label">Tag {{tagIndex + 1}}</label>
               <div class="col-sm-8">
-                <input type="text" formControlName="tag" class="form-control"> 
+                <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
               </div>
               <div class="col-sm-2">
                 <button class="btn btn-default btn-rounded mb-4"  (click)="deleteTag(tagIndex)">Delete</button>                
