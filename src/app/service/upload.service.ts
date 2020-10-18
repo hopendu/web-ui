@@ -9,18 +9,18 @@ export class UploadService {
 
   constructor() { }
 
-  fileUpload(file): string {
+  fileUpload(file, folder): string {
     const contentType = file.type;
     const bucket = new S3(
           {
-              accessKeyId: '_',
-              secretAccessKey: '__',
+              accessKeyId: 'AKIATON6LVU3ZNQV5TOG',
+              secretAccessKey: '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',
               region: 'us-east-1',
           }
       );
     const params = {
-          Bucket: '_',
-          Key:  file.name,
+          Bucket: 'izinga-aws',
+          Key:  folder + '/images/' + file.name,
           Body: file,
           ACL: 'public-read',
           ContentType: contentType

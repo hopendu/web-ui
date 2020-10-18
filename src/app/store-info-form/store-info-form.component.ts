@@ -74,7 +74,7 @@ export class StoreInfoFormComponent implements OnInit {
         this.storeInfoForm.get('name').value,
         this.storeInfoForm.get('regNumber').value,
         this.storeInfoForm.get('tags').value,
-        'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file)
+        'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
     );
     this.router.navigate(['/form/bank'])
   };

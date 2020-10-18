@@ -87,7 +87,7 @@ export class StockFormComponent implements OnInit {
 
   onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
-    this.uploadService.fileUpload(this.selectedFile);
+    this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name);
   }
   done = function (){
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
