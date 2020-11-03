@@ -15,12 +15,14 @@ import { ConstantPool } from '@angular/compiler';
   styleUrls: ['./store-registration-form.component.css']
 })
 export class StoreRegistrationFormComponent implements OnInit {
-
+  tags: string[];
   bank: Bank;
   storeInfo: StoreInfo;
   storeProfile: StoreProfile;
   stockList = new Array<Stock>();
   businessHours = new Array<BusinessHours>();
+
+
 
   constructor(private service: StoreControllerService,
               private share: ShareDataService,
@@ -32,6 +34,7 @@ export class StoreRegistrationFormComponent implements OnInit {
     this.storeInfo = this.share.storeInfo;
     this.stockList = this.share.stockList;
     this.businessHours = this.share.getBusinessHours();
+    this.tags = this.storeInfo.tags;
   }
 /*
   ngOnChanges(changes: SimpleChanges) {
@@ -41,17 +44,31 @@ export class StoreRegistrationFormComponent implements OnInit {
     this.bank = this.share.bank;
     this.storeInfo = this.share.storeInfo;
     this.stockList = this.share.stockList;
-    this.businessHours = this.share.getBusinessHours();
+    //this.businessHours = this.share.getBusinessHours();
   }
+
   backClick = function (){
-    this.router.navigateByUrl('/form/bank');
+    this.router.navigate(['/form/stock-list']); 
+    //this.router.navigateByUrl('/form/bank');
   };
+
+  editStoreInfOnClick = function (){
+    this.router.navigateByUrl('/form/store-info');
+  };
+
+  editOpHoursOnClick= function(){
+    //this.share.resetBusinessHours();
+    this.router.navigate(['/form/business-hours']); 
+    //this.router.navigateByUrl('/form/bank');
+  };
+  
   onSubmit(): void {
       this.onChange();
       let store = new StoreProfile(
         this.storeInfo.name,
         0, 
-        this.bank, 
+        // this.bank
+        null, 
         this.businessHours, 
         new Date(),
         this.storeInfo.description,
@@ -70,7 +87,7 @@ export class StoreRegistrationFormComponent implements OnInit {
         this.storeInfo.userId,
         this.storeInfo.regNumber,
         0, 
-        StoreProfile.RoleEnum.STOREADMIN,
+        StoreProfile.RoleEnum.STORE,
         0, 
         this.stockList, 
         StoreProfile.StoreTypeEnum.FOOD,
@@ -78,5 +95,7 @@ export class StoreRegistrationFormComponent implements OnInit {
         '', 
         0);
       this.service.create(store).subscribe( s => console.log(s));
+      this.share.reset();
+      this.router.navigate(['']);
   }
 }

@@ -22,6 +22,7 @@ export class StockFormComponent implements OnInit {
   discountPerc: any;
   quantity: any;
   price: any;
+  imageUrl: string;
 
   constructor(private fb: FormBuilder,
               private share: ShareDataService,
@@ -35,6 +36,7 @@ export class StockFormComponent implements OnInit {
       price: new FormControl(Number, Validators.required),
       discountPerc: new FormControl(Number, Validators.required),
       quantity: new FormControl(Number, Validators.required),
+      //imageUrls: this.fb.array(['']),
       mandatorySelection: this.fb.array([ this.selection() ]),
       // optionalSelection: this.fb.array([ this.selection()])
     });
@@ -66,6 +68,18 @@ export class StockFormComponent implements OnInit {
     selectionOption.get('values').push(new FormControl(''));
   }
 
+  get imagies(): FormArray {
+    return this.stockForm.get('imageUrls') as FormArray;
+  }
+
+  addImage(): void {
+    this.imagies.push(new FormControl(''));
+  }
+
+  deleteImage( index: number): void{
+    ( this.stockForm.get('imageUrls') as FormArray).removeAt(index);
+  }
+
   addMandatory(): void{
     this.mandatories.push(this.selection());
   }
@@ -87,10 +101,12 @@ export class StockFormComponent implements OnInit {
 
   onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
-    this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name);
+    //this.imageUrls.splice(0, this.imageUrls.length);
+    this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name));
   }
   done = function (){
-    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
+    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
+    this.imageUrls,
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
     null,
@@ -99,7 +115,8 @@ export class StockFormComponent implements OnInit {
     this.router.navigateByUrl('/form');
   };
   add = function (){
-    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value, new Array<string>(),
+    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
+    this.imageUrls,
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
     null,
@@ -111,7 +128,7 @@ export class StockFormComponent implements OnInit {
 
   skip = function(){
     this.onReset();
-    this.router.navigateByUrl('/form/stock');
+    this.router.navigateByUrl('/form');
   }
   onSubmit(): void{
     if(this.stockForm.invalid) return;
@@ -121,6 +138,7 @@ export class StockFormComponent implements OnInit {
     this.stockForm.reset();
     this.mandatories.clear();
     this.options.clear()
+    //this.imageUrls = []
   }
 
 }

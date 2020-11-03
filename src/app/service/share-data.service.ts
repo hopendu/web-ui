@@ -32,12 +32,43 @@ export class ShareDataService {
   public getBusinessHours(): BusinessHours[]{
     return this.businessHours;
   }
-  
+
+  public setBusinessHours( businessHours: BusinessHours[]): void {
+    if( businessHours.length === 0){
+      this.businessHours.splice(0, this.businessHours.length);
+      return;
+    }
+    let temp = new Array<BusinessHours>();
+    businessHours.forEach( (value, index) =>  temp[index] = value);
+    temp.reverse();
+    daysOfTheWeek.forEach((value, index) => temp[index].day = value);
+    temp.forEach( value => console.log(value));
+    this.businessHours.splice(0, this.businessHours.length);
+    temp.forEach( (value, index) => this.businessHours.push(value));
+  }  
   public addStock(stock: Stock): void {
+    //stock.images.splice(0, stock.images.length - 1);
     this.stockList.push(stock);
   }
 
   public getStock(): Stock[] {
     return this.stockList;
   }
+  
+  public reset(): void {
+    this.businessHours.splice(0, this.businessHours.length);
+    this.storeInfo
+  }
+
 }
+
+
+const daysOfTheWeek = [ 
+  BusinessHours.DayEnum.MONDAY,
+  BusinessHours.DayEnum.TUESDAY,
+  BusinessHours.DayEnum.WEDNESDAY,
+  BusinessHours.DayEnum.THURSDAY,
+  BusinessHours.DayEnum.FRIDAY,
+  BusinessHours.DayEnum.SATURDAY,
+  BusinessHours.DayEnum.SUNDAY
+] as const;

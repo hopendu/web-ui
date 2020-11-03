@@ -1,0 +1,16 @@
+<br><h1><b>The Stock Detail</b></h1><br>
+<div class="row" >
+        <div class="col-md-3 thumbnail"  >
+             <img class="card-img-top rounded-circle float-left img-fluid col-ms-4" src="{{imageUrl}}" width="100" height="100">  
+        </div>
+        <div class="col-md-9">
+            <app-stock-info [stock]="stock"></app-stock-info> 
+            <div>
+                <!--   
+                    <button class="btn btn-primary" (click)="addStock()"> Add </button> &nbsp;  
+                -->                           
+                <button class="btn btn-primary" routerLink="/stock" (click)="hideDetail()"> Hide detail</button>
+                <button class="btn btn-default btn-rounded mb-4" (click)="edit();">Edit</button>
+            </div>
+        </div>
+</div>

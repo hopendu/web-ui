@@ -1,0 +1,17 @@
+<div *ngIf="status; else elseBlock">
+    <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
+</div>
+<ng-template #elseBlock>
+    <br>
+        <h1>
+            <b>The stcok in store!</b>
+        </h1>
+    <br>
+    <div class="row">
+        <app-item class="col-md-3" *ngFor="let stock of stockList" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
+    </div> 
+</ng-template>
+<div class="text-center">
+    <button class="btn btn-default btn-rounded mb-4" (click)="back();">Back to submit page</button>
+</div>
+

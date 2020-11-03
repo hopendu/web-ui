@@ -1,29 +1,36 @@
 
-<form [formGroup]="timesFormGroup">
-  <div class="text-center">
-    <h2><b>Hours of Operation</b></h2>
-  </div>
-  <div *ngFor="let day of daysOfTheWeek; let i = index">
+<div *ngIf="this.businessHours.length == 7; else edit">
+  <button class="btn btn-default btn-rounded mb-4"  (click)="update()">Update Bussines Hours</button>
+</div>
+
+<ng-template #edit>
+  <form [formGroup]="timesFormGroup" class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
     <div class="text-center">
-      <h3><b>{{ day | titlecase }}</b></h3>
+      <h2><b>Hours of Operation</b></h2>
     </div>
-    
-      <div *ngIf="timesFormGroup.get('times').get(day) as times" [formGroup]="times">      
-        <div class="form-group row justify-content-md-center">
-          <label class="col-sm-6">Start Time: 
-            <input class="col-sm-8 offest-sm-2" type="time" formControlName="openTime" >
-          </label>
-          <label class="col-sm-6">Close Time: 
-            <input class="col-sm-8 offest-sm-2" type="time" formControlName="closeTime" >
-          </label>
-        </div>
-        <!-- 
-            {{ addBusinesHours(day, times.get('openTime').value, times.get('closeTime').value, i) }}
-        -->
+    <div *ngFor="let day of daysOfTheWeek; let i = index">
+      <div class="text-center">
+        <h3><b>{{ day | titlecase }}</b></h3>
       </div>
-  </div>
-  <div class="text-center row">
-    <button class="btn btn-default btn-rounded mb-4"  (click)="backClick();">Previouse</button>
-    <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
-  </div>
-</form>
+      
+        <div *ngIf="timesFormGroup.get('times').get(day) as times" [formGroup]="times">      
+          <div class="form-group row justify-content-md-center">
+            <label class="col-sm-6">Start Time: 
+              <input class="col-sm-8 offest-sm-2" type="time" formControlName="openTime" >
+            </label>
+            <label class="col-sm-6">Close Time: 
+              <input class="col-sm-8 offest-sm-2" type="time" formControlName="closeTime" >
+            </label>
+          </div>
+          <!-- 
+              {{ addBusinesHours(day, times.get('openTime').value, times.get('closeTime').value, i) }}
+
+              <button class="btn btn-default btn-rounded mb-4"  (click)="backClick();">Previouse</button>
+          -->
+        </div>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+    </div>
+  </form>
+</ng-template>

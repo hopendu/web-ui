@@ -1,5 +1,8 @@
 
-    <form [formGroup]="storeInfoForm"  >
+    <!--     
+      class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded"
+    -->
+    <form [formGroup]="storeInfoForm"  class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
       <div class="text-center">
         <h2><b>Store Information</b></h2>
       </div>
@@ -8,8 +11,11 @@
         <div class="form-group row">
         <label for="colFormLabel" class="col-sm-2 col-form-label">Store Name</label>
         <div class="col-sm-10">
-          <input type="text" formControlName="name" class="form-control" > 
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" > 
         </div>
+        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+          <div *ngIf="f.name.errors.required">Store Name is required</div>
+      </div>
       </div>
       
       <div class="form-group row">
@@ -53,7 +59,7 @@
         </div>
       </div>
       <hr>
-      <button class="btn btn-default btn-rounded mb-4" (click)="addTag()">Add Tag</button>
+      <button class="btn btn-primary btn-rounded mb-4" (click)="addTag()">Add Tag</button>
       <div class="form-group raw tag" formArrayName="tags" *ngIf="getTags?.length > 0">
         <div
           class="tags"
@@ -69,7 +75,7 @@
                 <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
               </div>
               <div class="col-sm-2">
-                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteTag(tagIndex)">Delete</button>                
+                <button class="btn btn-primary btn-rounded mb-4"  (click)="deleteTag(tagIndex)">Delete</button>                
               </div>
         </div>
       </div>
@@ -81,7 +87,7 @@
       <br>
     </div>
     <div class="text-center">
-      <button class="btn btn-default btn-rounded mb-4" (click)="btnClick();">Next</button>
+      <button class="btn btn-primary btn-rounded mb-4" (click)="btnClick();">Next</button>
     </div>  
   </form>
 

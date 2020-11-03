@@ -4,7 +4,6 @@ import { BusinessHours } from '../model/business-hours';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ShareDataService } from '../service/share-data.service';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-stock-form',
@@ -17,6 +16,7 @@ export class BusinessHoursFormComponent implements OnInit {
   hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
   timesFormGroup: FormGroup;
+  submitted = false;
 
   constructor(  private fb: FormBuilder,
                 private share: ShareDataService,
@@ -26,13 +26,16 @@ export class BusinessHoursFormComponent implements OnInit {
     this.timesFormGroup = new FormGroup({
       times: new FormGroup(daysOfTheWeek.reduce((acc, day) => {
         acc[day] = new FormGroup({
-          openTime: new FormControl(''),
-          closeTime: new FormControl('')
+          openTime: new FormControl('', Validators.required),
+          closeTime: new FormControl('', Validators.required)
         });
         return acc;
        }, {}))
     });
   }
+
+  get f() { return this.timesFormGroup.controls; }
+
 
   getOperatingHoursPerDay( group: FormGroup): void {
     let openTime = '';
@@ -55,7 +58,7 @@ export class BusinessHoursFormComponent implements OnInit {
     this.getOperatingHoursPerDay(this.timesFormGroup);
     this.daysOfTheWeek.forEach((dayOfTheWeek,index) => {
       let hours = this.hours.pop();
-      this.addBusinessHours(dayOfTheWeek, hours.openTime, hours.closeTime, index++)
+      this.addBusinessHours(dayOfTheWeek, hours.openTime, hours.closeTime, ++index)
       this.share.addBusinessHours(this.businessHours[index - 1])
     });
   }
@@ -76,6 +79,7 @@ export class BusinessHoursFormComponent implements OnInit {
     date.setMinutes(Number(time.split(':')[1]));
     return date;
   }
+  
 
   private resetDateGivenDays(date: Date, day: number): Date {
     const dayToday = date.getDay();
@@ -85,34 +89,55 @@ export class BusinessHoursFormComponent implements OnInit {
       date.setDate( date.getDate() + 7);
     }
     if( day == dayToday) 
-      date.setDate(date.getDate() + 7);
+      date.setDate( date.getDate() + 7 );
     if( day > dayToday) 
       date.setDate( date.getDate() + diff);
-    date.setHours(date.getHours() + 2);
+    date.setHours(date.getHours() /*+ 2*/);
     return date;
   }
 
-  private absolute(num: number){ if ( num < 0) return - 1 * num; return num;}
+  private absolute(num: number){ if ( num < 0) return (-1 * num); return num;}
+
+  
 
   btnClick = function () {
+    this.submitted = true;
+    if (this.timesFormGroup.invalid){ return; }
     this.setBusinessHours();
+    this.share.setBusinessHours(this.businessHours);
     this.router.navigateByUrl('/form/stock');  
   };
 
   backClick = function (){
-    this.router.navigateByUrl('/form/bank');
+    this.router.navigateByUrl('');
   }
 
+  update(): void {
+    this.timesFormGroup.reset();
+    this.timesFormGroup = new FormGroup({
+      times: new FormGroup(daysOfTheWeek.reduce((acc, day) => {
+        acc[day] = new FormGroup({
+          openTime: new FormControl('', Validators.required),
+          closeTime: new FormControl('', Validators.required)
+        });
+        return acc;
+       }, {}))
+    });
+    this.businessHours.splice(0, this.businessHours.length);
+    this.share.setBusinessHours(this.businessHours)
+    console.log(this.businessHours);
+    //this.timesFormGroup.patchValue()
+  }
 }
 
-const daysOfTheWeek = [
-  BusinessHours.DayEnum.SUNDAY,
+const daysOfTheWeek = [ 
   BusinessHours.DayEnum.MONDAY,
   BusinessHours.DayEnum.TUESDAY,
   BusinessHours.DayEnum.WEDNESDAY,
   BusinessHours.DayEnum.THURSDAY,
   BusinessHours.DayEnum.FRIDAY,
-  BusinessHours.DayEnum.SATURDAY
+  BusinessHours.DayEnum.SATURDAY,
+  BusinessHours.DayEnum.SUNDAY
 ] as const;
 
 class Hours{

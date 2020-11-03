@@ -1,7 +1,7 @@
 import {  SelectionOption } from "./selection-option";
 export class Stock {
     constructor( public discountPerc?: number,
-                 public imageUrls?: string[],
+                 public images?: string[],
                  public mandatorySelection?: SelectionOption[],
                  public name?: string,
                  public optionalSelection?: SelectionOption[],
