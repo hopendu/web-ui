@@ -102,11 +102,11 @@ export class StockFormComponent implements OnInit {
   onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
     //this.imageUrls.splice(0, this.imageUrls.length);
-    this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name));
+    //his.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name));
   }
   done = function (){
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
-    this.imageUrls,
+    ['https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name)],
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
     null,
@@ -116,7 +116,7 @@ export class StockFormComponent implements OnInit {
   };
   add = function (){
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
-    this.imageUrls,
+    ['https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name)],
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
     null,
