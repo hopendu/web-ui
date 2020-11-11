@@ -11,7 +11,7 @@ import { ShareDataService } from '../service/share-data.service';
   styleUrls: ['./stock-form.component.css']
 })
 export class StockFormComponent implements OnInit {
-
+  toFile: { item: (arg0: number) => any; };
   submitted = false;
   stockForm: FormGroup;
   selectedFile: any;
@@ -35,7 +35,7 @@ export class StockFormComponent implements OnInit {
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
       discountPerc: new FormControl(Number, Validators.required),
-      quantity: new FormControl(Number, Validators.required),
+      quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
       //imageUrls: this.fb.array(['']),
       mandatorySelection: this.fb.array([ this.selection() ]),
       // optionalSelection: this.fb.array([ this.selection()])
@@ -55,7 +55,7 @@ export class StockFormComponent implements OnInit {
       values: this.fb.array([])
     });
   }
-
+  get f() { return this.stockForm.controls; }
   get mandatories(): FormArray {
     return this.stockForm.get('mandatorySelection') as FormArray;
   }
@@ -99,14 +99,26 @@ export class StockFormComponent implements OnInit {
     this.options.removeAt(index);
   }
 
-  onFileChanged(event): void {
-    this.selectedFile = event.target.files[0];
-    //this.imageUrls.splice(0, this.imageUrls.length);
-    //his.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name));
+  get images(): string[]{
+    let images = new Array<string>();
+    this.imageUrls.forEach( i => images.push(i));
+    this.imageUrls.splice(0, this.imageUrls.length);
+    return images;
   }
+
+  // onFileChanged(event): void {
+  //   this.selectedFile = event.target.files[0];
+  //   //this.imageUrls.splice(0, this.imageUrls.length);
+  //   this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name));
+  // }
+  onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
+    this.toFile = event.target.files;
+    this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));  
+  }
+
   done = function (){
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
-    ['https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name)],
+    this.images,
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
     null,
@@ -114,14 +126,15 @@ export class StockFormComponent implements OnInit {
     this.stockForm.get('quantity').value));
     this.router.navigateByUrl('/form');
   };
+  
   add = function (){
     this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
-    ['https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.selectedFile, this.share.storeInfo.name)],
+    this.images, 
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
     null,
     this.stockForm.get('price').value,
-    this.stockForm.get('quantity').value))
+    this.stockForm.get('quantity').value));
     this.onReset();
     this.router.navigateByUrl('/form/stock');
   };
@@ -129,7 +142,8 @@ export class StockFormComponent implements OnInit {
   skip = function(){
     this.onReset();
     this.router.navigateByUrl('/form');
-  }
+  };
+
   onSubmit(): void{
     if(this.stockForm.invalid) return;
   }
@@ -140,6 +154,6 @@ export class StockFormComponent implements OnInit {
     this.options.clear()
     //this.imageUrls = []
   }
-
+//4e9d20a0-20b5-4169-913f-b908c1cf4fe4
 }
 

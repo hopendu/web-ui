@@ -38,7 +38,7 @@ import { StockInfoComponent } from './stock-list/stock-info/stock-info.component
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [
+  providers: [ 
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [AppComponent]

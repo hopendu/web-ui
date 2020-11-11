@@ -1,193 +1,228 @@
-  <form [formGroup]="stockForm" (ngSubmit)="onSubmit()" class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
-        <div class="container stock" >
-          <div class="text-center">
-            <h2><b>Stock Taking</b></h2>
-          </div>
-            <div class="form-group row">
-            <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-10">
-              <input type="text" formControlName="name" class="form-control" > 
-            </div>
-          </div>
-        
-          <div class="form-group row">
-            <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>                                                                                                                                                                                             
-            <div class="col-sm-10">
-              <input type="number" formControlName="price" class="form-control" > 
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="colFormLabel" class="col-sm-2 col-form-label">Discount %</label>                                                                                                                                                                                             
-            <div class="col-sm-10">
-              <input type="number" formControlName="discountPerc" class="form-control" > 
-            </div>
-          </div>
-    
-          <div class="form-group row">
-            <label for="colFormLabel" class="col-sm-2 col-form-label">Quantity</label>                                                                                                                                                                                             
-            <div class="col-sm-10">
-              <input type="number" formControlName="quantity" class="form-control" > 
-            </div>
-          </div>
-          <hr>
-          <button class="btn btn-default btn-rounded mb-4" (click)="addMandatory()">Add Mandatory</button>
-          <div class="form-group raw" formArrayName="mandatorySelection" >
-            <div
-              class="mandatory"
-              *ngFor="
-                let mandatory of mandatories.controls;
-                let mandatoryIndex = index;
-                let first = first;"
-              [formGroupName]="mandatoryIndex"
-            >
-            <div class="text-center">
-              <h3><b>Mandatory Item {{mandatoryIndex + 1 }}</b></h3>
-            </div>
-            <!--  
-              <div class="container mandatory" [formGroup]='mandatory'>
-            -->
-                <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-8">
-                        <input type="text" formControlName="name" class="form-control"> 
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>
-                    <div class="col-sm-8">
-                    <input type="number" formControlName="price" class="form-control"> 
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Selected</label>
-                    <div class="col-sm-8">
-                        <input type="text" formControlName="selected" class="form-control"> 
-                    </div>
-                </div>
-            <!--   
-
-              </div>
-            <div class="container mandatory" formControlName='mandatory'>
-            -->
-              <button class="btn btn-default btn-rounded mb-4" (click)="addValue(mandatory)">Add Value</button>
-              <div class="form-group raw value" formArrayName="values" *ngIf="mandatory.get('values').controls?.length > 0">
-                <div
-                  class="values"
-                  *ngFor="
-                    let value of mandatory.get('values').controls;
-                    let valueIndex = index;
-                    let first = first;"
-                  [formGroupName]="valueIndex"
-                >
-                <div class="form-group row">
-                      <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" [formControl]="mandatory.get('values').controls[valueIndex]" class="form-control"> 
-                      </div>
-                      <div class="col-sm-2">
-                        <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(mandatory, valueIndex)">Delete</button>                
-                      </div>
-                </div>
-              </div>
-              </div>
-            <!--</div>-->
-            <div class="col-sm-2 ">
-                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(mandatoryIndex)">Delete</button>                
-            </div>
-          </div>
-          </div>
-          <hr>
-          <!--  
-
-
-
-            <hr>
-          <button class="btn btn-default btn-rounded mb-4" (click)="addOptional()">Add Optional</button>
-          <div class="form-group raw" formArrayName="optionalSelection" 
-              *ngIf="options.controls?.length > 0">
-            <div
-              class="optional"
-              *ngFor="
-                let optional of options.controls;
-                let optionalIndex = index;
-                let first = first;"
-              [formGroupName]="optionalIndex"
-            >
-            <div class="text-center">
-              <h3><b>Optional Item {{optionalIndex + 1 }}</b></h3>
-            </div>
-            <div class="container optional" formControlName='optional'>
-                <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
-                    <div class="col-sm-8">
-                        <input type="text" formControlName="name" class="form-control"> 
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>
-                    <div class="col-sm-8">
-                    <input type="number" formControlName="price" class="form-control"> 
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="colFormLabel" class="col-sm-2 col-form-label">Selected</label>
-                    <div class="col-sm-8">
-                        <input type="text" formControlName="selected" class="form-control"> 
-                    </div>
-                </div>
-            </div>
-            <div class="container optional" formControlName='optional'>
-              <button class="btn btn-default btn-rounded mb-4" (click)="addValue(optional)">Add Value</button>
-              <div class="form-group raw value" formArrayName="values" *ngIf="optional.get('values').controls?.length > 0">
-                <div
-                  class="values"
-                  *ngFor="
-                    let value of optional.get('values').controls;
-                    let valueIndex = index;
-                    let first = first;"
-                  [formGroupName]="valueIndex"
-                >
-                <div class="form-group row">
-                      <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
-                      <div class="col-sm-8">
-                        <input type="text" [formControl]="optional.get('values').controls[valueIndex]" class="form-control"> 
-                      </div>
-                      <div class="col-sm-2">
-                        <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(optional, valueIndex)">Delete</button>                
-                      </div>
-                </div>
-              </div>
-              </div>
-            </div>
-            <div class="col-sm-2 ">
-                <button class="btn btn-default btn-rounded mb-4"  (click)="deleteOptional(optionalIndex)">Delete</button>                
-            </div>
-          </div>
-          </div>
-          <hr>
-          -->
-
-          <input 
-    style="display: none" 
-    type="file" 
-    multiple 
-    (change)="onFileChanged($event)" 
-    #fileInput
-/>
-<input 
-    type="button" 
-    class="upload-button" 
-    value="Upload attachment(s)" 
-    (click)="fileInput.click()" 
-/>
-
-    </div>
-    <div class="text-center">
-          <button class="btn btn-default btn-rounded mb-4" (click)="add();">Add</button>
-          <button class="btn btn-default btn-rounded mb-4" (click)="done();">Done</button>
-          <button class="btn btn-default btn-rounded mb-4" (click)="skip();">Skip</button>
-    </div>
-    
-  </form>
+<form [formGroup]="stockForm"  class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
   
+  <div class="card border-primary rounded-0">
+    <div class="card-header p-0">
+        <div class="bg-info text-white text-center py-2">
+            <h3> Stock Taking </h3>
+        </div>
+    </div>
+    <div class="card-body p-3">
+        <!--Body-->
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Name
+            <span class="required" aria-required="true"> * </span>
+          </label>
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': (f.name.touched || f.name.dirty) && f.name.errors }">
+          <div *ngIf="(f.name.touched || f.name.dirty) && f.name.errors" class="invalid-feedback">
+            <div *ngIf="f.name.errors.required">Stock name is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Price
+            <span class="required" aria-required="true"> * </span>
+          </label>
+          <input type="number" formControlName="price" class="form-control" [ngClass]="{ 'is-invalid': (f.price.touched || f.price.dirty) && f.price.errors }">
+          <div *ngIf="(f.price.touched || f.price.dirty) && f.price.errors" class="invalid-feedback">
+            <div *ngIf="f.price.errors.required">Price is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Discount Percentage
+            <span class="required" aria-required="true"> * </span>
+          </label>
+          <input type="number" formControlName="discountPerc" class="form-control" [ngClass]="{ 'is-invalid': (f.discountPerc.touched || f.discountPerc.dirty) && f.discountPerc.errors }">
+          <div *ngIf="(f.discountPerc.touched || f.discountPerc.dirty) && f.discountPerc.errors" class="invalid-feedback">
+            <div *ngIf="f.discountPerc.errors.required">Discount Percentage is required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Quantity
+            <span class="required" aria-required="true"> * </span>
+          </label>
+          <input type="number" formControlName="quantity" class="form-control" [ngClass]="{ 'is-invalid': (f.quantity.touched || f.quantity.dirty) && f.quantity.errors }">
+          <div *ngIf="(f.quantity.touched || f.quantity.dirty) && f.quantity.errors" class="invalid-feedback">
+            <div *ngIf="f.quantity.errors.required">Quantity is required</div>
+          </div>
+        </div>
+
+        <!--
+            
+            
+            <div class="form-group">
+            <label for="exampleFormControlInput1">Description
+              <span class="required" aria-required="true"> * </span>
+            </label>
+            <input type="text" formControlName="description" class="form-control" placeholder="Jika serves Joe" >
+          </div>
+            
+            
+            --->
+            <hr>
+            <button class="btn btn-default btn-rounded mb-4" (click)="addMandatory()">Add</button>
+            <div class="form-group raw" formArrayName="mandatorySelection" >
+              <div
+                class="mandatory"
+                *ngFor="
+                  let mandatory of mandatories.controls;
+                  let mandatoryIndex = index;
+                  let first = first;"
+                [formGroupName]="mandatoryIndex"
+              >
+              <div class="card-header p-0">
+                <div class="bg-info text-white text-center py-2">
+                    <h3> Mandatory Item {{mandatoryIndex + 1 }} </h3>
+                </div>
+            </div> <br>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Name
+                      <span class="required" aria-required="true"> * </span>
+                    </label>
+                    <input type="text" formControlName="name" class="form-control" >
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Price
+                      <span class="required" aria-required="true"> * </span>
+                    </label>
+                    <input type="number" formControlName="price" class="form-control">
+                  </div> <div class="form-group">
+                    <label for="exampleFormControlInput1">Selected
+                      <span class="required" aria-required="true"> * </span>
+                    </label>
+                    <input type="text" formControlName="selected" class="form-control">
+                  </div>
+              <!--   
+        
+                </div>
+              <div class="container mandatory" formControlName='mandatory'>
+              -->
+                <button class="btn btn-default btn-rounded mb-4" (click)="addValue(mandatory)">Add Value</button>
+                <div class="form-group raw value" formArrayName="values" *ngIf="mandatory.get('values').controls?.length > 0">
+                  <div
+                    class="values"
+                    *ngFor="
+                      let value of mandatory.get('values').controls;
+                      let valueIndex = index;
+                      let first = first;"
+                    [formGroupName]="valueIndex"
+                  >
+                  <div class="form-group row">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
+                        <div class="col-sm-8">
+                          <input type="text" [formControl]="mandatory.get('values').controls[valueIndex]" class="form-control"> 
+                        </div>
+                        <div class="col-sm-2">
+                          <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(mandatory, valueIndex)">Delete</button>                
+                        </div>
+                  </div>
+                </div>
+                </div>
+              <!--</div>-->
+              <div class="col-sm-2 ">
+                  <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(mandatoryIndex)">Delete</button>                
+              </div>
+            </div>
+            </div>
+            <hr>
+            <!--  
+        
+        
+        
+              <hr>
+            <button class="btn btn-default btn-rounded mb-4" (click)="addOptional()">Add Optional</button>
+            <div class="form-group raw" formArrayName="optionalSelection" 
+                *ngIf="options.controls?.length > 0">
+              <div
+                class="optional"
+                *ngFor="
+                  let optional of options.controls;
+                  let optionalIndex = index;
+                  let first = first;"
+                [formGroupName]="optionalIndex"
+              >
+              <div class="text-center">
+                <h3><b>Optional Item {{optionalIndex + 1 }}</b></h3>
+              </div>
+              <div class="container optional" formControlName='optional'>
+                  <div class="form-group row">
+                      <label for="colFormLabel" class="col-sm-2 col-form-label">Name</label>
+                      <div class="col-sm-8">
+                          <input type="text" formControlName="name" class="form-control"> 
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="colFormLabel" class="col-sm-2 col-form-label">Price</label>
+                      <div class="col-sm-8">
+                      <input type="number" formControlName="price" class="form-control"> 
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <label for="colFormLabel" class="col-sm-2 col-form-label">Selected</label>
+                      <div class="col-sm-8">
+                          <input type="text" formControlName="selected" class="form-control"> 
+                      </div>
+                  </div>
+              </div>
+              <div class="container optional" formControlName='optional'>
+                <button class="btn btn-default btn-rounded mb-4" (click)="addValue(optional)">Add Value</button>
+                <div class="form-group raw value" formArrayName="values" *ngIf="optional.get('values').controls?.length > 0">
+                  <div
+                    class="values"
+                    *ngFor="
+                      let value of optional.get('values').controls;
+                      let valueIndex = index;
+                      let first = first;"
+                    [formGroupName]="valueIndex"
+                  >
+                  <div class="form-group row">
+                        <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
+                        <div class="col-sm-8">
+                          <input type="text" [formControl]="optional.get('values').controls[valueIndex]" class="form-control"> 
+                        </div>
+                        <div class="col-sm-2">
+                          <button class="btn btn-default btn-rounded mb-4"  (click)="deleteValue(optional, valueIndex)">Delete</button>                
+                        </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div class="col-sm-2 ">
+                  <button class="btn btn-default btn-rounded mb-4"  (click)="deleteOptional(optionalIndex)">Delete</button>                
+              </div>
+            </div>
+            </div>
+            <hr>
+        
+        
+        
+        
+                    <input 
+        style="display: none" 
+        type="file" 
+        multiple 
+        (change)="onFileChanged($event)" 
+        #fileInput
+        />
+        <input 
+        type="button" 
+        class="upload-button" 
+        value="Upload attachment(s)" 
+        (click)="fileInput.click()" 
+        />
+            -->
+        
+        
+        <div class="container text-center">
+        <input type="file" (change)="onChange($event)">
+        </div>      
+        <br>
+        <div class="text-center">
+          <button class="btn btn-default btn-rounded mb-4"  (click)="add();">Add</button> &nbsp;
+          <button class="btn btn-default btn-rounded mb-4"  (click)="skip();">Skip</button> &nbsp;
+          <button class="btn btn-default btn-rounded mb-4"  (click)="done();">Done</button>
+        </div>
+    </div>
+
+</div>
+
+  
+</form> 

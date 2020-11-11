@@ -20,7 +20,7 @@ export class StoreRegistrationFormComponent implements OnInit {
   storeInfo: StoreInfo;
   storeProfile: StoreProfile;
   stockList = new Array<Stock>();
-  businessHours = new Array<BusinessHours>();
+  businessHours : BusinessHours[];
 
 
 
@@ -35,6 +35,14 @@ export class StoreRegistrationFormComponent implements OnInit {
     this.stockList = this.share.stockList;
     this.businessHours = this.share.getBusinessHours();
     this.tags = this.storeInfo.tags;
+
+    // for( let i = 0; i < this.businessHours.length; i++){
+    //   console.log("Day: " + this.businessHours[i].day);
+    //   console.log("Open: " + this.businessHours[i].open);
+    //   console.log("Close: " + this.businessHours[i].close);
+    //   console.log("Size: " + this.businessHours.length);
+    // }
+  
   }
 /*
   ngOnChanges(changes: SimpleChanges) {
@@ -60,11 +68,12 @@ export class StoreRegistrationFormComponent implements OnInit {
     //this.share.resetBusinessHours();
     this.router.navigate(['/form/business-hours']); 
     //this.router.navigateByUrl('/form/bank');
+    // this.share.opEdit = true;
   };
   
   onSubmit(): void {
       this.onChange();
-      let store = new StoreProfile(
+      this.storeProfile = new StoreProfile(
         this.storeInfo.name,
         0, 
         // this.bank
@@ -94,8 +103,8 @@ export class StoreRegistrationFormComponent implements OnInit {
         this.storeInfo.tags,
         '', 
         0);
-      this.service.create(store).subscribe( s => console.log(s));
-      this.share.reset();
+      this.service.create(this.storeProfile).subscribe( s => console.log(s));
+      //this.share.reset();
       this.router.navigate(['']);
   }
 }

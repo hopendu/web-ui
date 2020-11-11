@@ -12,31 +12,71 @@ import { ShareDataService } from '../service/share-data.service';
 })
 export class BusinessHoursFormComponent implements OnInit {
   
-  businessHours = new Array<BusinessHours>();
+  businessHours = new BusinessHours();
   hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
   timesFormGroup: FormGroup;
   submitted = false;
+  day: number;
+  days = new Array<number>();
 
   constructor(  private fb: FormBuilder,
                 private share: ShareDataService,
                 private router: Router){}
 
-  ngOnInit(): void {
-    this.timesFormGroup = new FormGroup({
-      times: new FormGroup(daysOfTheWeek.reduce((acc, day) => {
-        acc[day] = new FormGroup({
-          openTime: new FormControl('', Validators.required),
-          closeTime: new FormControl('', Validators.required)
-        });
-        return acc;
-       }, {}))
-    });
-  }
+        ngOnInit(): void {
+              this.timesFormGroup = this.fb.group({
+                    date: ['', Validators.required],
+                    end: ['', Validators.required],
+                    start: ['', Validators.required],
+                    allDay: ['none', Validators.required]});
+
+                    for( let i = 0; i < 7; i++){ this.days.push(i);}
+                    this.day = this.days.shift();
+                }
 
   get f() { return this.timesFormGroup.controls; }
 
 
+  setBusinessHours(): void {
+    const date: Date = new Date(this.timesFormGroup.get('date').value);
+    const allDay: string = this.timesFormGroup.get('allDay').value;
+    this.businessHours.day = this.daysOfTheWeek[this.day];
+    this.businessHours.close = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0);
+    this.businessHours.open = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0);
+    if(allDay.match('open')){
+      this.businessHours.close.setHours(23);
+      this.businessHours.open.setHours(0);
+      this.businessHours.close.setMinutes(59);
+      this.businessHours.open.setMinutes(0);
+    } else if(allDay.match('none')){
+      const start: string = this.timesFormGroup.get('start').value;
+      const end: string = this.timesFormGroup.get('end').value;
+      this.businessHours.close.setHours(Number(end.split(':')[0]));
+      this.businessHours.open.setHours(Number(start.split(':')[0]));
+      this.businessHours.close.setMinutes(Number(end.split(':')[1]));
+      this.businessHours.open.setMinutes(Number(start.split(':')[1]));
+    }
+    this.share.addBusinessHours(this.businessHours);
+  }
+
+  btnClick = function () {
+    if (this.timesFormGroup.invalid){  return; }
+    this.setBusinessHours();
+    if( this.days.length > 0){ this.day = this.days.shift();
+    this.router.navigateByUrl('/form/business-hours');}
+    else {
+      for( let i = 0; i < 7; i++){ this.days.push(i);}
+      this.day = this.days.shift();
+      this.router.navigateByUrl('/form/stock');
+    }
+
+    this.timesFormGroup.reset();
+    this.timesFormGroup.get('allDay').setValue("none");
+  };
+
+
+/*
   getOperatingHoursPerDay( group: FormGroup): void {
     let openTime = '';
     Object.keys(group.controls).forEach((key: string) => {
@@ -92,7 +132,7 @@ export class BusinessHoursFormComponent implements OnInit {
       date.setDate( date.getDate() + 7 );
     if( day > dayToday) 
       date.setDate( date.getDate() + diff);
-    date.setHours(date.getHours() /*+ 2*/);
+    date.setHours(date.getHours() /*+ 2);
     return date;
   }
 
@@ -127,7 +167,7 @@ export class BusinessHoursFormComponent implements OnInit {
     this.share.setBusinessHours(this.businessHours)
     console.log(this.businessHours);
     //this.timesFormGroup.patchValue()
-  }
+  }*/
 }
 
 const daysOfTheWeek = [ 

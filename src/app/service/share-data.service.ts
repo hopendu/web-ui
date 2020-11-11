@@ -14,8 +14,20 @@ export class ShareDataService {
   public storeInfo: StoreInfo;
   public stockList = new Array<Stock>();
   private businessHours = new Array<BusinessHours>();
+  private daysOfTheWeek = [ 
+    BusinessHours.DayEnum.MONDAY,
+    BusinessHours.DayEnum.TUESDAY,
+    BusinessHours.DayEnum.WEDNESDAY,
+    BusinessHours.DayEnum.THURSDAY,
+    BusinessHours.DayEnum.FRIDAY,
+    BusinessHours.DayEnum.SATURDAY,
+    BusinessHours.DayEnum.SUNDAY
+  ];
   
-  constructor() { }
+  constructor() { 
+    this.initializeBusinesHours();
+    this.businessHours.forEach( (e, i)=> console.log("Day "+ ( i + 1)+" "+ e.day))
+  }
 
   /*
   ngOnDestroy(): void {
@@ -25,27 +37,21 @@ export class ShareDataService {
     this.businessHours.forEach(time => this.businessHours.pop());
   }*/
   
-  public addBusinessHours(businessHours: BusinessHours){
-    this.businessHours.push(businessHours);
+
+
+  public addBusinessHours( hours: BusinessHours){
+    this.businessHours.forEach( e => {
+      if( e.day.match(hours.day)){
+        e.close = hours.close;
+        e.open = hours.open;
+        return;
+      }
+    })
   }
 
   public getBusinessHours(): BusinessHours[]{
     return this.businessHours;
   }
-
-  public setBusinessHours( businessHours: BusinessHours[]): void {
-    if( businessHours.length === 0){
-      this.businessHours.splice(0, this.businessHours.length);
-      return;
-    }
-    let temp = new Array<BusinessHours>();
-    businessHours.forEach( (value, index) =>  temp[index] = value);
-    temp.reverse();
-    daysOfTheWeek.forEach((value, index) => temp[index].day = value);
-    temp.forEach( value => console.log(value));
-    this.businessHours.splice(0, this.businessHours.length);
-    temp.forEach( (value, index) => this.businessHours.push(value));
-  }  
   public addStock(stock: Stock): void {
     //stock.images.splice(0, stock.images.length - 1);
     this.stockList.push(stock);
@@ -55,20 +61,10 @@ export class ShareDataService {
     return this.stockList;
   }
   
-  public reset(): void {
-    this.businessHours.splice(0, this.businessHours.length);
-    this.storeInfo
-  }
-
+  private initializeBusinesHours(){
+    this.daysOfTheWeek.forEach( day => {
+      this.businessHours.push(new BusinessHours( new Date(),day, new Date() ));
+    })
 }
 
-
-const daysOfTheWeek = [ 
-  BusinessHours.DayEnum.MONDAY,
-  BusinessHours.DayEnum.TUESDAY,
-  BusinessHours.DayEnum.WEDNESDAY,
-  BusinessHours.DayEnum.THURSDAY,
-  BusinessHours.DayEnum.FRIDAY,
-  BusinessHours.DayEnum.SATURDAY,
-  BusinessHours.DayEnum.SUNDAY
-] as const;
+}

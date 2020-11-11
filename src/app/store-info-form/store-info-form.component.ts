@@ -26,7 +26,7 @@ export class StoreInfoFormComponent implements OnInit {
     this.storeInfoForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      emailAddress: ['', Validators.email],
+      emailAddress: ['', [Validators.required, Validators.email]],
       userId: ['', Validators.required],
       address: ['', Validators.required],
       mobileNumber:  ['', Validators.required],
