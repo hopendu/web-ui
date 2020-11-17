@@ -50,6 +50,7 @@
             <th scope="col">Day</th>
             <th scope="col">Open</th>
             <th scope="col">Close</th>
+            <th scope="col">Edit</th>
           </tr>
         </thead>
         <tbody>
@@ -58,12 +59,17 @@
             <td>{{ day.day }}</td>
             <td>{{ day.open | date:'shortTime'}}</td>
             <td>{{ day.close | date:'shortTime'}}</td>
+            <td><div class="text-center">
+              <input type="submit" value="Edit" class="btn btn-info btn-block rounded-0 py-2" (click)="btnClick(day);">
+          </div></td>
           </tr>
         </tbody>
       </table>
-      <div class="text-right">
+      <!--     
+        <div class="text-right">
         <button class="btn btn-default btn-rounded mb-4" (click)="editOpHoursOnClick();">Edit</button>
       </div>
+      -->
     </div>
 
     <!--    

@@ -13,6 +13,7 @@ export class ShareDataService {
   public bank: Bank;
   public storeInfo: StoreInfo;
   public stockList = new Array<Stock>();
+  public editBusinessHours: BusinessHours = new BusinessHours();
   private businessHours = new Array<BusinessHours>();
   private daysOfTheWeek = [ 
     BusinessHours.DayEnum.MONDAY,

@@ -13,8 +13,8 @@ export class UploadService {
     const contentType = file.type;
     const bucket = new S3(
           {
-              accessKeyId: '_',
-              secretAccessKey: '-',
+              accessKeyId: 'AKIATON6LVU3TSPE4XML',
+              secretAccessKey: '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',
               region: 'us-east-1',
           }
       );
