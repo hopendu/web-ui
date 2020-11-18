@@ -77,7 +77,7 @@ export class StoreRegistrationFormComponent implements OnInit {
     this.share.editBusinessHours.day = day.day;
     this.share.editBusinessHours.open = day.open;
 
-    this.router.navigate(['/form/business-hours/view']);
+    this.router.navigate(['form/business-hours/view']);
     //this.router.navigate(['/form/bank'])
   }
   

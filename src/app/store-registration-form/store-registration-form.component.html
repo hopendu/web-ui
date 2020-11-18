@@ -1,23 +1,15 @@
-<form FormGroup='storeProfileRegistrationForm' (onSubmit)="onSubmit()">
-  <!--    
-    <div class="row">
-      <div class="text-center"><h1> {{ storeInfo.name }}</h1></div>
-      <div class="text-center"> 
-        <img src="{{storeInfo.imageUrl}}" class="rounded-circle float-left img-fluid col-ms-4" width="200" height="200">
-      </div> 
-   </div>
-  -->
-  <div class="row">
-    <div class="text-center">
-      <h1>The Information of the store</h1>
-    </div>
-  </div>
-  <div class="row">
-
-    <div class="container-fluid col-md-5 info">
-      <div class="text-center">
-        <pre><b><h2>The store information</h2></b></pre>
-      </div>
+<form FormGroup='storeProfileRegistrationForm' (onSubmit)="onSubmit()"  class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="accordion" id="myAccordion">
+    <h2 class="mb-0">
+                <a data-toggle="collapse" data-target="#collapseOne"><div class="text-center">
+                  <b><h3>The store information</h3></b>
+                </div></a>
+            </h2>
+            <hr>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#myAccordion">
+            <div class="card-body">  
+              <div *ngIf="storeInfo.name.length > 0 && storeInfo != null; else elseBlock">
+           
       <img src="{{storeInfo.imageUrl}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"><br>
       <h6><b>Store name</b></h6>
       <h6>{{ storeInfo.name }}</h6><br>
@@ -37,70 +29,83 @@
       </div>
       <div class="text-right">
         <button class="btn btn-default btn-rounded mb-4" (click)="editStoreInfOnClick();">Edit</button>
-      </div>
-    </div>
-    <div class="container-fluid col-md-5 info">
-      <div class="text-center">
-        <pre><b><h2>Operating hours</h2></b></pre>
-      </div>
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Day</th>
-            <th scope="col">Open</th>
-            <th scope="col">Close</th>
-            <th scope="col">Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let day of businessHours; index as i">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ day.day }}</td>
-            <td>{{ day.open | date:'shortTime'}}</td>
-            <td>{{ day.close | date:'shortTime'}}</td>
-            <td><div class="text-center">
-              <input type="submit" value="Edit" class="btn btn-info btn-block rounded-0 py-2" (click)="btnClick(day);">
-          </div></td>
-          </tr>
-        </tbody>
-      </table>
-      <!--     
-        <div class="text-right">
-        <button class="btn btn-default btn-rounded mb-4" (click)="editOpHoursOnClick();">Edit</button>
-      </div>
-      -->
-    </div>
-
-    <!--    
-  <div class="container info col-md-6">
+      </div>  
+            </div>
+            <ng-template #elseBlock>
+                <div class="row">
+                    <pre>You first need to enter your store information to be able to view it on this panel.</pre>
+                </div> 
+            </ng-template>
+                  
+            
+            </div>
+        </div>
+    
 
 
-    <div class="text-center">
-      <pre><b><h2>Bank Information</h2></b></pre>
-    </div>
+
+    
+        <h2 class="mb-0">
+                <a data-toggle="collapse" data-target="#collapseTwo"><div class="text-center">
+                  <b><h3>Operating hours</h3></b>
+                </div></a>
+            </h2>
+            <hr>
+        <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#myAccordion">
+            <div class="card-body">
+
+              <div *ngIf="businessHours.length > 0; else elseBlock">
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Day</th>
+                      <th scope="col">Open</th>
+                      <th scope="col">Close</th>
+                      <th scope="col">Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let day of businessHours; index as i">
+                      <th scope="row">{{ i + 1 }}</th>
+                      <td>{{ day.day }}</td>
+                      <td>{{ day.open | date:'shortTime'}}</td>
+                      <td>{{ day.close | date:'shortTime'}}</td>
+                      <td>
+                    <div class="text-left">
+                      <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="btnClick(day);">
+                    </div></td>
+                    </tr>
+                  </tbody>
+                </table>
+           
+            </div>
+            <ng-template #elseBlock>
+                <div class="row">
+                    <pre>You first need to add business operating hours to be able to view them on this panel.</pre>
+                </div> 
+            </ng-template>
+        
+                
+              </div>
+        </div>
+
+         <h2 class="mb-0">
+                <a data-toggle="collapse" data-target="#collapseThree"><div class="text-center">
+                  <b><h3>Stock information</h3></b>
+                </div></a>
+            </h2>
+        <hr>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#myAccordion">
+            <div class="card-body">
+              <app-stock-list></app-stock-list>
+            </div>
+        </div>
+</div>
+
+  <br>
   
-  <h5><b>Bank name:</b> {{ bank.name }}</h5> <br>
-  <h5><b>Account number:</b> {{ bank.accountId }}</h5> <br>
-  <h5><b>Phone contact:</b> {{ bank.phone }}</h5> <br>
-  <h5><b>Account type:</b> {{ bank.type }}</h5> <br>
-  <div class="text-right">
-    <button class="btn btn-default btn-rounded mb-4" (click)="editBankInfoOnClick();">Edit Store Information</button>
-  </div>
-
-
-
-
-  </div>
-
-
-
-  -->
-  </div>
-  <div class="container-fluid col-ms-12 info">
-    <button class="btn btn-default btn-rounded mb-4" (click)="backClick();">View Stocks</button>
-  </div>
   <div class="text-center">
-    <button class="btn btn-default btn-rounded mb-4" (click)="onSubmit();">Submit</button>
+    <input type="submit" value="Submit" class="btn btn-info btn-block rounded-0 py-2" (click)="onSubmit();">
   </div>
 </form>
