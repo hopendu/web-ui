@@ -1,15 +1,17 @@
 <div class="row">
     <div class="col-md-6">
         <div class="thumbnail">
-            <img class="card-img-top rounded-circle float-left img-fluid col-ms-4" src="{{imageUrl}}" width="100" height="100">
-            <div class="caption" >
-                <p>
-                <strong>Price:</strong>  {{ stock.price | currency:'ZAR'}}
-                </p>
-                <p>
-                    <button class="btn btn-primary"  (click)="isClicked()">More</button>
-                </p>
-                </div>
+            <img class="card-img-top float-left img-fluid col-ms-4" src="{{imageUrl}}" width="100" height="100">
+            
+  <img  class="card-img-top" src="{{imageUrl}}" width="100" height="100">
+  <div class="card-body">
+    
+    <p class="card-text bg-light" > {{ stock.description }} </p>
+    <a href="#" class="btn btn-primary stretched-link">More</a>
+  
+</div>
             </div>
         </div>
  </div>
+
+
