@@ -241,13 +241,11 @@ h2, h3 {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
-body {
-  margin: 2em;
-}
+
 body {
   color: #888;
-  background: rgb(214,148,71);
-background: linear-gradient(180deg, rgba(214,148,71,0.8729692560617998) 0%, rgba(255,255,255,0.2007003484987745) 47%, rgba(220,163,96,0.4275911048012955) 100%); font-family: Cambria, Georgia;
+  background: rgb(223,147,45);
+  background: linear-gradient(0deg, rgba(223,147,45,1) 0%, rgba(255,255,255,1) 62%, rgba(223,147,45,1) 90%);
 }
 a {
   cursor: pointer;
@@ -282,19 +280,29 @@ button:disabled {
 
 /* Navigation link styles */
 .nav {
-  background-color: #eee;
+  background-color: #eee !important;
   border-radius: 8px;
 }
 
 nav a:visited, a:link {
   color: #607D8B;
 }
+
 nav a:hover {
   color: #039be5;
   background-color: #CFD8DC;
 }
+
 nav a.active {
   color: #039be5;
+}
+
+.navbar {
+  background-color: #df932d;
+}
+
+.navbar-brand img{
+  width: 120px;
 }
 
 /* everywhere else */
