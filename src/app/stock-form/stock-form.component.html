@@ -42,6 +42,15 @@
             <div *ngIf="f.quantity.errors.required">Quantity is required</div>
           </div>
         </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Description
+            <span class="required" aria-required="true"> * </span>
+          </label>
+          <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': (f.description.touched || f.description.dirty) && f.description.errors }">
+          <div *ngIf="(f.description.touched || f.description.dirty) && f.description.errors" class="invalid-feedback">
+            <div *ngIf="f.description.errors.required">Stock description is required</div>
+          </div>
+        </div>
 
         <!--
             

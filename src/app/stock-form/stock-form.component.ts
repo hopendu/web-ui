@@ -36,6 +36,7 @@ export class StockFormComponent implements OnInit {
       price: new FormControl(Number, Validators.required),
       discountPerc: new FormControl(Number, Validators.required),
       quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
+      description: new FormControl('', Validators.required),
       //imageUrls: this.fb.array(['']),
       mandatorySelection: this.fb.array([ this.selection() ]),
       // optionalSelection: this.fb.array([ this.selection()])
@@ -117,7 +118,8 @@ export class StockFormComponent implements OnInit {
   }
 
   done = function (){
-    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
+    this.share.addStock( new Stock(this.stockForm.get('description').value,
+    this.stockForm.get('discountPerc').value,
     this.images,
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,
@@ -128,7 +130,8 @@ export class StockFormComponent implements OnInit {
   };
   
   add = function (){
-    this.share.addStock( new Stock(this.stockForm.get('discountPerc').value,
+    this.share.addStock( new Stock(this.stockForm.get('description').value,
+    this.stockForm.get('discountPerc').value,
     this.images, 
     this.stockForm.get('mandatorySelection').value,
     this.stockForm.get('name').value,

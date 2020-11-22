@@ -21,12 +21,7 @@ export class DetailComponent implements OnInit {
     
     this.hideDetailEventEmitter.emit(true);
   }
-/*
-  addStock() {
-    this.share.addStock(this.stock);
-    alert('SUCCESS!! :-)\n\n' + this.stock.name + ' has been added to stock list.');
-  }*/
-
+  
   ngOnInit() {
     this.imageUrl = this.stock.images[0];
   }
