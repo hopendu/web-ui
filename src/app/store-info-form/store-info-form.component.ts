@@ -81,6 +81,7 @@ export class StoreInfoFormComponent implements OnInit {
     );
     this.router.navigate(['/form/business-hours']);
     //this.router.navigate(['/form/bank'])
+    this.onReset();
   };
 
   onReset(): void {

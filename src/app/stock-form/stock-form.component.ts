@@ -127,6 +127,7 @@ export class StockFormComponent implements OnInit {
     this.stockForm.get('price').value,
     this.stockForm.get('quantity').value));
     this.router.navigateByUrl('/form');
+    this.onReset();
   };
   
   add = function (){
@@ -149,6 +150,7 @@ export class StockFormComponent implements OnInit {
 
   onSubmit(): void{
     if(this.stockForm.invalid) return;
+
   }
 
   onReset(): void {

@@ -1,0 +1,104 @@
+<div class="text-center">
+        <h3><b>{{store.name}}</b></h3>
+    </div>
+    <div class="text-left">
+        <a type="button" (click)="isClicked()"><pre>Back</pre></a>
+      </div>
+    <ul class="nav nav-tabs mb-3">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Store information</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Operating hours</a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Inventory</a></li>
+    </ul>
+      
+    <div *ngIf="changeView == -1">
+      <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+          {{store.ownerId}}
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <table class="table table-sm rounded">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Day</th>
+                    <th scope="col">Open</th>
+                    <th scope="col">Close</th>
+                    <th scope="col">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let day of store.businessHours; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>{{ day.day }}</td>
+                    <td>{{ day.open | date:'shortTime'}}</td>
+                    <td>{{ day.close | date:'shortTime'}}</td>
+                    <td>
+                  <div class="text-left">
+                    <a (click)="editAt(i)"><i class="fa fa-pencil fa-fw"></i></a>
+                    <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded" (click)="btnClick(day);"> -->
+                  </div></td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+          {{store.stockList.length}}
+        </div>
+    </div>
+    </div>
+    <div *ngIf="changeView == EDIT_HOURS">
+
+      <form [formGroup]="timesFormGroup">
+  
+        <div class="container rounded-0">
+          <div class="text-center">
+                  <h3> <b>Edit Business Hour</b> </h3>
+          </div>
+          <div class="card-body p-3">
+              <!--Body-->
+              
+      
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">Start time
+                      <span class="required" aria-required="true"> * </span>
+                    </label>
+                    <input type="time" formControlName="start" class="form-control" [ngClass]="{ 'is-invalid': (f.start.touched || f.start.dirty) && f.start.errors }">
+                    <div *ngIf="(f.start.touched || f.start.dirty) && f.start.errors" class="invalid-feedback">
+                      <div *ngIf="f.start.errors.required">Start time is required</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group">
+                    <label for="exampleFormControlInput1">End time
+                      <span class="required" aria-required="true"> * </span>
+                    </label>
+                    <input type="time" formControlName="end" class="form-control" [ngClass]="{ 'is-invalid': (f.end.touched || f.end.dirty) && f.end.errors }">
+                    <div *ngIf="(f.end.touched || f.end.dirty) && f.end.errors" class="invalid-feedback">
+                      <div *ngIf="f.end.errors.required">End time is required</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row py-5">
+                <label for="inputState" class="col-md-12 col-form-label">All day status (Open/closed all day or none for custorm hours)</label>
+                <select id="inputState" class="form-control" formControlName="allDay">
+                        <option selected>open</option>
+                        <option>close</option>
+                        <option>none</option>
+                </select>
+              </div>
+      
+              <div class="text-center">
+                  <input type="submit" value="Submit" class="button" (click)="editBusinessHour()" >
+              </div>
+          </div>
+      
+      </div>
+      
+        
+      </form>
+
+    </div>

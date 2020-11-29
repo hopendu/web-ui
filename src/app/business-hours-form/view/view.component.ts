@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessHours } from 'src/app/model/business-hours';
 import { ShareDataService } from 'src/app/service/share-data.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-view',
@@ -21,7 +22,8 @@ export class ViewComponent implements OnInit {
 
   constructor(  private fb: FormBuilder,
                 private share: ShareDataService,
-                private router: Router){}
+                private router: Router,
+                private _location: Location){}
 
         ngOnInit(): void {
               this.timesFormGroup = this.fb.group({
@@ -38,7 +40,7 @@ export class ViewComponent implements OnInit {
 
 
   setBusinessHours(): void {
-    const date: Date = this.share.editBusinessHours.close;
+    const date: Date = new Date(this.timesFormGroup.get('date').value);
     const allDay: string = this.timesFormGroup.get('allDay').value;
     this.businessHours.day = this.share.editBusinessHours.day;
     this.businessHours.close = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0);
@@ -57,19 +59,20 @@ export class ViewComponent implements OnInit {
       this.businessHours.open.setMinutes(Number(start.split(':')[1]));
     }
     //this.share.addBusinessHours(this.businessHours);
-    this.share.getBusinessHours().forEach( (b , i) => {
-      if ( b.day.match(this.businessHours.day)){
-          b.close = this.businessHours.close;
-          b.open = this.businessHours.open;
-          b.day = this.businessHours.day;
-      }
-    })
+    // this.share.getBusinessHours().forEach( (b , i) => {
+    //   if ( b.day.match(this.businessHours.day)){
+    //       b.close = this.businessHours.close;
+    //       b.open = this.businessHours.open;
+    //       b.day = this.businessHours.day;
+    //   }
+    // })
   }
 
   btnClick = function () {
     if (this.timesFormGroup.invalid){  return; }
     this.setBusinessHours();
-    this.router.navigateByUrl('/form');
+    // this.router.navigateByUrl('/form');
+    this._location.back();
     this.timesFormGroup.reset();
     this.timesFormGroup.get('allDay').setValue("none");
   };

@@ -113,8 +113,8 @@ export class StoreRegistrationFormComponent implements OnInit {
         this.storeInfo.tags,
         '', 
         0);
-      this.service.create(this.storeProfile).subscribe( s => console.log(s));
+      this.service.create(this.storeProfile).subscribe( s => {console.log(s); this.share.store = s;});
       //this.share.reset();
-      this.router.navigate(['']);
+      this.router.navigate(['stores']);
   }
 }
