@@ -22,7 +22,7 @@ export class StockListComponent implements OnInit {
   }
 
   getStockList() {
-    this.stockList = this.share.stockList; 
+    this.stockList = this.share.store.stockList;
   }
 
   hideDetail(event) {

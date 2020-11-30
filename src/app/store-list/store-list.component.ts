@@ -17,7 +17,7 @@ export class StoreListComponent implements OnInit {
     private share: ShareDataService ) { }
 
   ngOnInit(): void {
-    this.setStoreList(this.share.storeInfo.userId);
+    this.setStoreList(`this.share.storeInfo.userId`);
   }
 
   setStoreList(ownerId: string): void {

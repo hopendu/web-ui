@@ -2,8 +2,8 @@
     <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
 </div>
 <ng-template #elseBlock>
-    <div class="row">
-        <app-item class="col-md-3" *ngFor="let stock of stockList" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
+    <div class="card-deck">
+        <app-item *ngFor="let stock of stockList" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
     </div> 
 </ng-template>
 

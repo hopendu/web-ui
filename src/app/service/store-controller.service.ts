@@ -18,7 +18,7 @@ export class StoreControllerService {
   }
 
   getStoreListByOwnerId(ownerId: string): Observable<StoreProfile[]>{
-    return this.http.get<StoreProfile[]>(`https://api-uat.izinga.co.za/store?latitude=0&longitude=0&ownerId=`+ownerId+`&range=100000&size=0&storeType=FOOD`);
-    //return this.http.get<StoreProfile[]>(`https://api-uat.izinga.co.za/store?latitude=0&longitude=0&ownerId=08fcdb32-2a89-4e26-9110-042cb0c58f04&range=100000&size=0&storeType=FOOD`);
+    //return this.http.get<StoreProfile[]>(`https://api-uat.izinga.co.za/store?latitude=0&longitude=0&ownerId=`+ownerId+`&range=100000&size=0&storeType=FOOD`);
+    return this.http.get<StoreProfile[]>(`https://api-uat.izinga.co.za/store?latitude=0&longitude=0&ownerId=08fcdb32-2a89-4e26-9110-042cb0c58f04&range=100000&size=0&storeType=FOOD`);
   }
 }

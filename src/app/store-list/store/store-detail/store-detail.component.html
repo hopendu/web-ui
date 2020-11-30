@@ -2,7 +2,16 @@
         <h3><b>{{store.name}}</b></h3>
     </div>
     <div class="text-left">
-        <a type="button" (click)="isClicked()"><pre>Back</pre></a>
+      <button (click)="isClicked()">
+        <span class="back mb-4" style="background-color: white; width: 150px;">
+          <i class="fas fa-long-arrow-alt-left"></i>
+          back
+        </span>
+      </button>
+        
+      </div>
+      <div class="d-flex flex-row">
+
       </div>
     <ul class="nav nav-tabs mb-3">
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Store information</a></li>
@@ -42,7 +51,7 @@
               </table>
         </div>
         <div id="menu2" class="tab-pane fade">
-          {{store.stockList.length}}
+          <app-stock-list></app-stock-list>
         </div>
     </div>
     </div>

@@ -1,4 +1,4 @@
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-6">
         <div class="card-body text-center">
             <img class="img-fluid" src="{{imageUrl}}" alt="card image">
@@ -13,4 +13,21 @@
                 </p>
             </div>
         </div>
- </div> 
+ </div>  -->
+
+ <div class="card">
+ 
+    <div class="description">
+      <h2>{{ stock.name }}</h2>
+      <h5>
+        {{ stock.description }}</h5>
+      <div class="social">
+        <button class="btn btn-primary"  (click)="isClicked()">More</button>
+      </div>
+    </div>
+
+    <div class="header">
+        <img src="{{imageUrl}}" alt="Photo profile">
+      </div>
+
+  </div>
