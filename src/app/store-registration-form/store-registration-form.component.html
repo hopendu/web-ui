@@ -7,44 +7,45 @@
             </h2>
             <hr>
         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#myAccordion">
-            <div class="card-body">  
-              <div *ngIf="storeInfo.name.length > 0 && storeInfo != null; else elseBlock">
            
-      <img src="{{storeInfo.imageUrl}}" class="img-fluid rounded mx-auto d-block" alt="Responsive image"><br>
-      <h6><b>Store name</b></h6>
-      <h6>{{ storeInfo.name }}</h6><br>
-      <h6><b>Registration number</b></h6>
-      <h6>{{ storeInfo.regNumber }}</h6><br>
-      <h6><b>Address</b></h6>
-      <h6>{{ storeInfo.address }}</h6> <br>
-      <h6><b>Phone contact</b></h6>
-      <h6>{{ storeInfo.mobileNumber }}</h6> <br>
-      <h6><b>Email address</b></h6>
-      <h6>{{ storeInfo.emailAddress }}</h6><br>
-      <h6><b>Description</b></h6>
-      <h6>{{ storeInfo.description }}</h6><br>
-      <h6><b>Tags</b></h6>
-      <div *ngFor="let tag of tags; index as i">
-        <h5>{{i + 1 }}. {{ tag }}</h5>
-      </div>
-      <div class="text-right">
-        <button class="btn btn-default btn-rounded mb-4" (click)="editStoreInfOnClick();">Edit</button>
-      </div>  
+          <div class="card">
+            <div class="row no-gutters">
+              <div class="col-md-4">
+                <img src="{{storeInfo.imageUrl}}" class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
+              </div>
+              <div class="col-md-8">
+                <div class="class-body">
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><h5 class="card-title">{{storeInfo.name}}</h5></li>
+                      <li class="list-group-item card-text">Description:{{ storeInfo.description }}</li>
+                      <li class="list-group-item card-text">Owner id : {{ storeInfo.userId }}</li>
+                      <li class="list-group-item card-text">Address : {{ storeInfo.address }}</li>
+                      <li class="list-group-item card-text">Phone #:{{ storeInfo.mobileNumber }}</li>
+                      <li class="list-group-item card-text">Email address: {{ storeInfo.emailAddress }}</li>
+                      <li class="list-group-item card-text">Registration # : {{ storeInfo.regNumber }}</li>
+                      <div *ngIf=" storeInfo.tags.length > 0;">
+                        <table class="table">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let value of storeInfo.tags; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ value }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </ul>
+                  <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="editStoreInfOnClick();">
+              </div>
+              </div>
             </div>
-            <ng-template #elseBlock>
-                <div class="row">
-                    <pre>You first need to enter your store information to be able to view it on this panel.</pre>
-                </div> 
-            </ng-template>
-                  
-            
-            </div>
+          </div>
         </div>
-    
-
-
-
-    
         <h2 class="mb-0">
                 <a data-toggle="collapse" data-target="#collapseTwo"><div class="text-center">
                   <b><h3>Operating hours</h3></b>
@@ -81,11 +82,23 @@
            
             </div>
             <ng-template #elseBlock>
-                <div class="row">
+                <!-- <div class="row">
                     <pre>You first need to add business operating hours to be able to view them on this panel.</pre>
-                </div> 
+                </div>  -->
+
+                <div *ngIf="status; else elseBlock">
+                  <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
+              </div>
+              <ng-template #elseBlock>
+                  <div class="card-deck">
+                      <app-item *ngFor="let stock of stockList" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
+                  </div> 
+              </ng-template>
+
+
+                
             </ng-template>
-        
+
                 
               </div>
         </div>
@@ -98,7 +111,15 @@
         <hr>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#myAccordion">
             <div class="card-body">
-              <app-stock-list></app-stock-list>
+              <!-- <app-stock-list></app-stock-list> -->
+              <div *ngIf="status; else elseBlock">
+                <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
+            </div>
+            <ng-template #elseBlock>
+                <div class="card-deck">
+                    <app-item *ngFor="let stock of stockList" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
+                </div> 
+            </ng-template>
             </div>
         </div>
 </div>

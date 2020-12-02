@@ -40,7 +40,7 @@ export class ViewComponent implements OnInit {
 
 
   setBusinessHours(): void {
-    const date: Date = new Date(this.timesFormGroup.get('date').value);
+    const date: Date = new Date();
     const allDay: string = this.timesFormGroup.get('allDay').value;
     this.businessHours.day = this.share.editBusinessHours.day;
     this.businessHours.close = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0,0);
@@ -58,14 +58,14 @@ export class ViewComponent implements OnInit {
       this.businessHours.close.setMinutes(Number(end.split(':')[1]));
       this.businessHours.open.setMinutes(Number(start.split(':')[1]));
     }
-    //this.share.addBusinessHours(this.businessHours);
-    // this.share.getBusinessHours().forEach( (b , i) => {
-    //   if ( b.day.match(this.businessHours.day)){
-    //       b.close = this.businessHours.close;
-    //       b.open = this.businessHours.open;
-    //       b.day = this.businessHours.day;
-    //   }
-    // })
+    this.share.addBusinessHours(this.businessHours);
+    this.share.getBusinessHours().forEach( (b , i) => {
+      if ( b.day.match(this.businessHours.day)){
+          b.close = this.businessHours.close;
+          b.open = this.businessHours.open;
+          b.day = this.businessHours.day;
+      }
+    })
   }
 
   btnClick = function () {

@@ -17,11 +17,16 @@ export class StoreListComponent implements OnInit {
     private share: ShareDataService ) { }
 
   ngOnInit(): void {
-    this.setStoreList(`this.share.storeInfo.userId`);
+    this.getStoreList;
   }
 
   setStoreList(ownerId: string): void {
     this.service.getStoreListByOwnerId(ownerId).subscribe( stores => this.storeList = stores);
+  }
+
+  get getStoreList(): StoreProfile[] {
+    this.setStoreList(this.share.storeInfo.userId);
+    return this.storeList;
   }
 
   get getToggle(): Boolean{

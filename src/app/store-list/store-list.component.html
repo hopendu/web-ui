@@ -12,7 +12,7 @@
         <a routerLink=''><pre>Create new store</pre></a>
       </div>
       <div class="card-deck" >
-        <app-store *ngFor="let store of storeList; index as i" [store]="store"></app-store>
+        <app-store *ngFor="let store of getStoreList; index as i" [store]="store"></app-store>
       </div>
     </ng-template>
   </div>

@@ -1,7 +1,46 @@
-<div class="class-body">
-    <p><b>Name:</b> {{ stock.name }}</p>
-    <p><b>Description:</b> {{ stock.description }}</p>
-    <p><b>Price:</b> {{ stock.price| currency:'R ' }}</p>
-    <p><b>Discount %:</b> {{ stock.discountPerc }}</p>
-    <p><b>Quantity:</b> {{ stock.quantity }}</p>
-</div>
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">Name:{{ stock.name }}</li>
+    <li class="list-group-item">Description:{{ stock.description }}</li>
+    <li class="list-group-item">Price:{{ stock.price| currency:'R ' }}</li>
+    <li class="list-group-item">Quantity:{{ stock.quantity }}</li>
+    <li class="list-group-item">Discount %:{{ stock.discountPerc }}</li>
+    <div *ngIf="selectionOptions.length > 0">
+        <div *ngFor="let selection of selectionOptions; index as i">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-default">
+                  <div class="panel-heading" role="tab" id="headingOne">
+                    <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Part of the package items
+                    </a>
+                  </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body">
+                        <li class="list-group-item"><h4 class="card-body">{{ selection.name}}</h4></li>
+                        <li class="list-group-item card-text">Price:{{ selection.price| currency:'R ' }}</li>
+                        <li class="list-group-item card-text">Selected:{{ selection.selected }}</li>
+                        <div *ngIf=" selection.values.length > 0;">
+                            <li class="list-group-item card-text">Selected:{{ selection.selected }}</li>
+                            <table class="table">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let value of selection.values; index as i">
+                                        <th scope="row">{{ i + 1 }}</th>
+                                        <td>{{ value }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ul>

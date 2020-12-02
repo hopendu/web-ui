@@ -21,8 +21,8 @@ export class StoreRegistrationFormComponent implements OnInit {
   storeProfile: StoreProfile;
   stockList = new Array<Stock>();
   businessHours : BusinessHours[];
-
-
+  status: Boolean = false;
+  stock: Stock;
 
   constructor(private service: StoreControllerService,
               private share: ShareDataService,
@@ -44,10 +44,20 @@ export class StoreRegistrationFormComponent implements OnInit {
     // }
   
   }
+
+  hideDetail(event) {
+    this.status = false;
+  }
+
+  isClicked(event: Stock) {
+    this.stock = event;
+    this.status = true;
+  }
 /*
   ngOnChanges(changes: SimpleChanges) {
     console.log(changes);
   }*/
+
   onChange(): void{
     this.bank = this.share.bank;
     this.storeInfo = this.share.storeInfo;
@@ -84,7 +94,7 @@ export class StoreRegistrationFormComponent implements OnInit {
   onSubmit(): void {
       this.onChange();
       this.storeProfile = new StoreProfile(
-        this.storeInfo.name,
+        this.storeInfo.address,
         0, 
         // this.bank
         null, 
