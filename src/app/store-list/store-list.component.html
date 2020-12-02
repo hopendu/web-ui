@@ -8,10 +8,13 @@
       <div class="text-center">
         <h3><b>Your stores</b></h3>
       </div>
-      <div class="text-left">
+      <ul class="nav mb-3">
+        <li class="nav-item"><a class="nav-link active" (click)="addStore()" ><i class="fas fa-plus"></i> Add </a></li>
+      </ul>
+      <!-- <div class="text-left">
         <a routerLink=''><pre>Create new store</pre></a>
-      </div>
-      <div class="card-deck" >
+      </div> -->
+      <div class="card-deck d-flex" >
         <app-store *ngFor="let store of getStoreList; index as i" [store]="store"></app-store>
       </div>
     </ng-template>

@@ -33,4 +33,7 @@ export class StoreListComponent implements OnInit {
     return this.share.toggle;
   }
 
+  addStore(): void {
+    
+  }
 }

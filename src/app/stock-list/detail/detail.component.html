@@ -1,16 +1,16 @@
 <!-- <br><h1><b>The Stock Detail</b></h1><br> -->
-<div class="row" >
-        <div class="col-md-3 card-body text-center"  >
-            <img src="{{imageUrl}}" class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
+<div class="row justify-content-around" >
+        <div class="col-md-3 card-body"  >
+            <img src="{{imageUrl}}" class="px-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 card-body">
             <app-stock-info [stock]="stock"></app-stock-info> 
             <div>
                 <!--   
                     <button class="btn btn-primary" (click)="addStock()"> Add </button> &nbsp;  
                 -->                           
-                <button class="btn btn-primary" routerLink="/stock" (click)="hideDetail()"> Hide detail</button>
-                <button class="btn btn-default btn-rounded mb-4" (click)="edit();">Edit</button>
+                <button class="btn btn-primary" routerLink="/stock" (click)="hideDetail()" style0="width: 200px;"> Hide detail</button> &nbsp;
+                <button class="btn btn-default btn-rounded mb-4" (click)="edit();" style="width: 200px;">Edit</button>
             </div>
         </div>
 </div>

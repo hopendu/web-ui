@@ -1,18 +1,10 @@
 <div class="text-center">
         <h3><b>{{store.name}}</b></h3>
     </div>
-    <div class="text-left">
-      <button (click)="isClicked()">
-        <span class="back mb-4" style="background-color: white; width: 150px;">
-          <i class="fas fa-long-arrow-alt-left"></i>
-          back
-        </span>
-      </button>
-        
-      </div>
-      <div class="d-flex flex-row">
-
-      </div>
+    <ul class="nav mb-3">
+      <li class="nav-item"><a class="nav-link active"(click)="isClicked()"><i class="fas fa-hand-point-left"></i> Back</a></li>
+      <li class="nav-item"><a class="nav-link" (click)="deleteStore()" ><i class="fas fa-trash"></i> Delete </a></li>
+    </ul>
     <ul class="nav nav-tabs mb-3">
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Store information</a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Operating hours</a></li>
@@ -22,7 +14,43 @@
     <div *ngIf="changeView == -1">
       <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
-          {{store.ownerId}}
+          <div class="card">
+            <div class="row no-gutters justify-content-around">
+              <div class="col-md-4">
+                <img src="{{store.imageUrl}}" class="px-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
+              </div>
+              <div class="col-md-8">
+                <div class="class-body">
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><h5 class="card-title">{{store.name}}</h5></li>
+                      <li class="list-group-item card-text">Description:{{ store.description }}</li>
+                      <li class="list-group-item card-text">Owner id : {{ store.ownerId }}</li>
+                      <li class="list-group-item card-text">Address : {{ store.address }}</li>
+                      <li class="list-group-item card-text">Phone #:{{ store.mobileNumber }}</li>
+                      <li class="list-group-item card-text">Email address: {{ store.emailAddress }}</li>
+                      <li class="list-group-item card-text">Registration # : {{ store.regNumber }}</li>
+                      <div *ngIf=" store.tags.length > 0;">
+                        <table class="table table-sm rounded">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let value of store.tags; index as i">
+                                <th scope="row">{{ i + 1 }}</th>
+                                <td>{{ value }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </ul>
+                  <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="editStore()">
+              </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div id="menu1" class="tab-pane fade">
             <table class="table table-sm rounded">

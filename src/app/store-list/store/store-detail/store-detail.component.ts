@@ -41,6 +41,18 @@ export class StoreDetailComponent implements OnInit {
 
   get f() { return this.timesFormGroup.controls; }
 
+  editStore(): void {
+
+  }
+
+  addStore(): void{
+
+  }
+
+  deleteStore(): void{
+
+  }
+
   editBusinessHour(): void {
     let date: Date = new Date(this.store.businessHours[this.index].open);
     let allDay: string = this.timesFormGroup.get('allDay').value;
