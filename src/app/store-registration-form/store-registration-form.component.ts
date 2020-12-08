@@ -93,6 +93,12 @@ export class StoreRegistrationFormComponent implements OnInit {
   
   onSubmit(): void {
       this.onChange();
+
+      if(!!this.share.store){
+        this.service.patch(this.share.store.id, this.share.store).subscribe(data => console.log("Patch "+ data.id));
+        this.router.navigateByUrl('stores');
+        return;
+      }
       this.storeProfile = new StoreProfile(
         this.storeInfo.address,
         0, 

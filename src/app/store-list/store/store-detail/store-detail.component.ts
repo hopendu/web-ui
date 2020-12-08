@@ -41,8 +41,9 @@ export class StoreDetailComponent implements OnInit {
 
   get f() { return this.timesFormGroup.controls; }
 
-  editStore(): void {
-
+  editStore(store: StoreProfile): void {
+    this.share.store = store;
+    this.router.navigateByUrl('form/store-info');
   }
 
   addStore(): void{

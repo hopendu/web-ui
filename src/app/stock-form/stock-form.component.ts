@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Stock } from '../model/stock';
 import { FormArray, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { UploadService } from '../service/upload.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShareDataService } from '../service/share-data.service';
+import { StoreControllerService } from '../service/store-controller.service';
 
 @Component({
   selector: 'app-stock-form',
@@ -27,10 +28,66 @@ export class StockFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private share: ShareDataService,
               private uploadService: UploadService,
-              private router: Router) {
+              private router: Router,
+              private service: StoreControllerService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    
+    // this.route.queryParams.subscribe(params => {
+    //   this.name = params["name"];
+
+    //   if( !!this.share.stock && !!this.share.store.id){
+    //     this.stockForm = this.fb.group({
+    //       name: new FormControl(this.share.stock.name, Validators.required),
+    //       price: new FormControl(this.share.stock.price, Validators.required),
+    //       discountPerc: new FormControl(this.share.stock.discountPerc, Validators.required),
+    //       quantity: new FormControl(this.share.stock.quantity, [Validators.required, Validators.min(1)]),
+    //       description: new FormControl(this.share.stock.description, Validators.required),
+    //       //imageUrls: this.fb.array(['']),
+    //       mandatorySelection: this.fb.array([ this.selection() ]),
+    //       // optionalSelection: this.fb.array([ this.selection()])
+    //     });
+
+
+    //   this.share.stock.mandatorySelection.forEach( selection => {
+    //     this.mandatories.push(this.fb.group({
+    //       name: new FormControl(selection.name, Validators.required),
+    //       price: new FormControl(selection.price, Validators.required),
+    //       selected: new FormControl(selection.selected, Validators.required),
+    //       values: this.fb.array(selection.values)
+    //     }));
+    //   });
+    //   }
+      
+    //  });
+
+    if( !!this.share.stock && !!this.share.store.id){
+      this.stockForm = this.fb.group({
+        name: new FormControl(this.share.stock.name, Validators.required),
+        price: new FormControl(this.share.stock.price, Validators.required),
+        discountPerc: new FormControl(this.share.stock.discountPerc, Validators.required),
+        quantity: new FormControl(this.share.stock.quantity, [Validators.required, Validators.min(1)]),
+        description: new FormControl(this.share.stock.description, Validators.required),
+        //imageUrls: this.fb.array(['']),
+        mandatorySelection: this.fb.array([ this.selection() ]),
+        // optionalSelection: this.fb.array([ this.selection()])
+      });
+
+
+      this.share.stock.mandatorySelection.forEach( selection => {
+        this.mandatories.push(this.fb.group({
+          name: new FormControl(selection.name, Validators.required),
+          price: new FormControl(selection.price, Validators.required),
+          selected: new FormControl(selection.selected, Validators.required),
+          values: this.fb.array(selection.values)
+        }));
+      });
+      return;
+    }
+    
+
     this.stockForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
@@ -60,7 +117,7 @@ export class StockFormComponent implements OnInit {
   get mandatories(): FormArray {
     return this.stockForm.get('mandatorySelection') as FormArray;
   }
-
+  
   get options(): FormArray {
     return this.stockForm.get('optionalSelection') as FormArray;
   }
@@ -114,10 +171,33 @@ export class StockFormComponent implements OnInit {
   // }
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
-    this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));  
+    if( !!this.share.stock && !!this.share.store.id){
+      this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.store.name));  
+    }
+    else this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));  
+
+    
   }
 
-  done = function (){
+  done(): void{
+
+    if( !!this.share.stock && !!this.share.store.id){
+      this.share.stock.description = this.stockForm.get('description').value;
+      this.share.stock.discountPerc = this.stockForm.get('discountPerc').value;
+      this.share.stock.images = this.images;
+        //this.images.forEach( image => this.share.stock.images.push(image));
+        //this.imageUrls.forEach( image => this.share.stock.images.push(image));
+      
+      this.share.stock.mandatorySelection = this.stockForm.get('mandatorySelection').value;
+      this.share.stock.name = this.stockForm.get('name').value;
+      this.share.stock.price = this.stockForm.get('price').value;
+      this.share.stock.quantity = this.stockForm.get('quantity').value;
+      this.service.patchStockByStoreId( this.share.store.id, this.share.stock).subscribe( data => {
+        this.router.navigateByUrl('stores'); 
+        this.share.stock = null; 
+        this.onReset();});
+      return;
+    }
     this.share.addStock( new Stock(this.stockForm.get('description').value,
     this.stockForm.get('discountPerc').value,
     this.images,
@@ -130,7 +210,10 @@ export class StockFormComponent implements OnInit {
     this.onReset();
   };
   
-  add = function (){
+  add (): void{
+    if( !!this.share.stock && !!this.share.store.id){
+      return;
+    }
     this.share.addStock( new Stock(this.stockForm.get('description').value,
     this.stockForm.get('discountPerc').value,
     this.images, 
@@ -144,6 +227,10 @@ export class StockFormComponent implements OnInit {
   };
 
   skip = function(){
+    if( !!this.share.stock && !!this.share.store.id){
+      this.router.navigateByUrl('stores');
+      return;
+    }
     this.onReset();
     this.router.navigateByUrl('/form');
   };

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
 import { SelectionOption } from '../model/selection-option';
@@ -13,6 +14,8 @@ export class ShareDataService {
 
   public bank: Bank;
   public store: StoreProfile;
+  public stockForm: FormGroup;
+  public stock: Stock;
   public toggle: Boolean;
   public storeInfo: StoreInfo;
   public stockList = new Array<Stock>();
@@ -56,6 +59,7 @@ export class ShareDataService {
   public getBusinessHours(): BusinessHours[]{
     return this.businessHours;
   }
+ 
   public addStock(stock: Stock): void {
     //stock.images.splice(0, stock.images.length - 1);
     this.stockList.push(stock);

@@ -32,8 +32,8 @@ export class StoreControllerService {
     return this.http.get<StoreProfile[]>(this.baseUrl  +`store/`+ storeId +`/stock`);
   }
 
-  patchStockByStoreId(storeId: string, stock: Stock): Observable<StoreProfile[]>{
-    return this.http.patch<StoreProfile[]>(this.baseUrl  +`store/`+ storeId +`/stock`, stock);
+  patchStockByStoreId(storeId: string, stock: Stock): Observable<StoreProfile>{
+    return this.http.patch<StoreProfile>(this.baseUrl  +`store/`+ storeId +`/stock`, stock);
   }
 
   getStoreListByOwnerId(ownerId: string): Observable<StoreProfile[]>{

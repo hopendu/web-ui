@@ -4,6 +4,8 @@ import { StoreInfo } from '../model/store-info';
 import { UploadService } from '../service/upload.service';
 import { ShareDataService } from '../service/share-data.service';
 import { Router, NavigationExtras } from '@angular/router';
+import { Service } from 'aws-sdk/global';
+import { StoreControllerService } from '../service/store-controller.service';
 
 @Component({
   selector: 'app-store-info-form',
@@ -20,20 +22,41 @@ export class StoreInfoFormComponent implements OnInit {
   
   constructor(private uploadService: UploadService,
               private fb: FormBuilder,
-              private router: Router, private share: ShareDataService) { }
+              private router: Router, 
+              private share: ShareDataService,
+              private service: StoreControllerService){ }
 
   ngOnInit(): void {
-    this.storeInfoForm = this.fb.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      emailAddress: ['', [Validators.required, Validators.email]],
-      userId: ['', Validators.required],
-      address: ['', Validators.required],
-      mobileNumber:  ['', Validators.required],
-      regNumber: ['', Validators.required],
-      tags: this.fb.array([])
-    });
 
+    if( !!this.share.store){
+      this.storeInfoForm = this.fb.group({
+        name: [this.share.store.name, Validators.required],
+        description: [this.share.store.description, Validators.required],
+        emailAddress: [this.share.store.emailAddress, [Validators.required, Validators.email]],
+        userId: [this.share.store.ownerId, Validators.required],
+        address: [this.share.store.address, Validators.required],
+        mobileNumber:  [this.share.store.mobileNumber, Validators.required],
+        regNumber: [this.share.store.regNumber, Validators.required],
+        tags: this.fb.array([])
+      });
+
+      this.share.store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
+      
+    }
+    else{
+      this.storeInfoForm = this.fb.group({
+        name: ['', Validators.required],
+        description: ['', Validators.required],
+        emailAddress: ['', [Validators.required, Validators.email]],
+        userId: ['', Validators.required],
+        address: ['', Validators.required],
+        mobileNumber:  ['', Validators.required],
+        regNumber: ['', Validators.required],
+        tags: this.fb.array([])
+      });
+  
+    }
+    
   }
 
   // tags(): FormGroup {
@@ -79,7 +102,22 @@ export class StoreInfoFormComponent implements OnInit {
         this.storeInfoForm.get('tags').value,
         'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
     );
-    this.router.navigate(['/form/business-hours']);
+
+    if(!! this.share.store){
+
+      this.share.store.name = this.share.storeInfo.name;
+      this.share.store.address = this.share.storeInfo.address;
+      this.share.store.emailAddress = this.share.storeInfo.emailAddress;
+      this.share.store.mobileNumber = this.share.storeInfo.mobileNumber;
+      this.share.store.regNumber = this.share.storeInfo.regNumber;
+      this.share.store.description = this.share.storeInfo.description;
+      this.share.store.tags = this.share.storeInfo.tags;
+      this.share.store.ownerId = this.share.storeInfo.userId;
+      this.share.store.imageUrl = this.share.storeInfo.imageUrl;
+      this.router.navigateByUrl('/form');
+    } else {
+      this.router.navigate(['/form/business-hours']);
+    }
     //this.router.navigate(['/form/bank'])
     this.onReset();
   };
