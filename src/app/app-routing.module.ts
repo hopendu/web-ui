@@ -18,7 +18,8 @@ const routes: Routes = [
   {path: 'form/store-info', component: StoreInfoFormComponent},
   {path: 'form/stock-list', component: StockListComponent},
   {path: 'form/business-hours/view', component: ViewComponent},
-  {path: 'stores', component: StoreListComponent}
+  {path: 'stores', component: StoreListComponent},
+  {path: 'store/:id', component: StoreDetailComponent}
 
 ];
 

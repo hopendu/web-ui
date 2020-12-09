@@ -192,10 +192,13 @@ export class StockFormComponent implements OnInit {
       this.share.stock.name = this.stockForm.get('name').value;
       this.share.stock.price = this.stockForm.get('price').value;
       this.share.stock.quantity = this.stockForm.get('quantity').value;
+
       this.service.patchStockByStoreId( this.share.store.id, this.share.stock).subscribe( data => {
         this.router.navigateByUrl('stores'); 
         this.share.stock = null; 
         this.onReset();});
+
+        
       return;
     }
     this.share.addStock( new Stock(this.stockForm.get('description').value,

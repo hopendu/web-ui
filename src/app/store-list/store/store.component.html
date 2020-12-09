@@ -3,7 +3,9 @@
   <div class="card-body">
       <h5 class="card-title">{{store.name}}</h5>
       <p class="card-text">
-        <button style="width: 150px;" (click)="isClicked()">View details</button>
+        <a [routerLink]="'/store/'+store.id">
+        <button style="width: 150px;" >View details</button>
+      </a>
       </p>
   </div>
 </div>

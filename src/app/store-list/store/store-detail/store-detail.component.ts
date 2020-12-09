@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BusinessHours } from 'src/app/model/business-hours';
 import { StoreProfile } from 'src/app/model/store-profile';
 import { ShareDataService } from 'src/app/service/share-data.service';
+import { StoreControllerService } from 'src/app/service/store-controller.service';
 
 @Component({
   selector: 'app-store-detail',
@@ -18,11 +19,16 @@ export class StoreDetailComponent implements OnInit {
   changeView = -1;
   EDIT_HOURS = 0;
 
-  constructor(private share: ShareDataService,
-    private router: Router, private fb: FormBuilder) { }
+  constructor(private share: ShareDataService, private activeRoute: ActivatedRoute,
+    private router: Router, private fb: FormBuilder, private storeService: StoreControllerService) { }
 
   ngOnInit(): void {
-    this.store = this.share.store;
+    //this.store = this.share.store;
+    this.activeRoute.params.subscribe(params => {
+      var id = params['id']
+      console.log(`Id is  ${id}`)
+      this.storeService.getStoreById(id).subscribe( data => this.store = data);
+    })
 
     this.timesFormGroup = this.fb.group({
       end: ['', Validators.required],

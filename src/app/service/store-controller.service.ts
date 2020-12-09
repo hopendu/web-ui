@@ -8,12 +8,17 @@ import { Stock } from '../model/stock';
   providedIn: 'root'
 })
 export class StoreControllerService {
-
+  
   baseUrl = 'https://api-uat.izinga.co.za/'
+  
   constructor(private http: HttpClient) { }
 
   getAllStores(): Observable<StoreProfile[]>{
     return this.http.get<StoreProfile[]>(this.baseUrl  +`store`);
+  }
+
+  getStoreById(id: string): Observable<StoreProfile> {
+    return this.http.get<StoreProfile>(`${this.baseUrl}/store/${id}`);
   }
 
   create(profile: StoreProfile): Observable<StoreProfile>{

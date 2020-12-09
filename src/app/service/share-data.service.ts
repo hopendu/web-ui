@@ -30,6 +30,8 @@ export class ShareDataService {
     BusinessHours.DayEnum.SATURDAY,
     BusinessHours.DayEnum.SUNDAY
   ];
+
+  stores: StoreProfile[];
   
   constructor() { 
     this.initializeBusinesHours();
