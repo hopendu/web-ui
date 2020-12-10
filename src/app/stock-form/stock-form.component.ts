@@ -201,7 +201,7 @@ export class StockFormComponent implements OnInit {
         
       return;
     }
-    this.share.addStock( new Stock(this.stockForm.get('description').value,
+    this.share.addStock( new Stock(null,this.stockForm.get('description').value,
     this.stockForm.get('discountPerc').value,
     this.images,
     this.stockForm.get('mandatorySelection').value,
@@ -217,7 +217,7 @@ export class StockFormComponent implements OnInit {
     if( !!this.share.stock && !!this.share.store.id){
       return;
     }
-    this.share.addStock( new Stock(this.stockForm.get('description').value,
+    this.share.addStock( new Stock(null,this.stockForm.get('description').value,
     this.stockForm.get('discountPerc').value,
     this.images, 
     this.stockForm.get('mandatorySelection').value,

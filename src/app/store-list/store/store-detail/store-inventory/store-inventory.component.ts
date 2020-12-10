@@ -22,13 +22,13 @@ export class StoreInventoryComponent implements OnInit {
     this.stockList = this.storeService.getStockByStoreId(this.id);
   }
 
-  hideDetail(event: Stock): void {
-    this.stock  = event;
-    this.status = !this.status;
-  }
+  // hideDetail(event: Stock): void {
+  //   this.stock  = event;
+  //   this.status = !this.status;
+  // }
 
-  isClicked(event: Stock): void {
-    this.stock = event;
-  }
+  // isClicked(event: Stock): void {
+  //   this.stock = event;
+  //}
 
 }

@@ -20,7 +20,9 @@ import { StockInfoComponent } from './stock-list/stock-info/stock-info.component
 import { ViewComponent } from './business-hours-form/view/view.component';
 import { StoreComponent } from './store-list/store/store.component';
 import { StoreDetailComponent } from './store-list/store/store-detail/store-detail.component';
-
+import { StoreHoursComponent } from './store-list/store/store-detail/store-hours/store-hours.component';
+import { StoreInventoryComponent } from './store-list/store/store-detail/store-inventory/store-inventory.component';
+import { StoreInfoComponent } from './store-list/store/store-detail/store-info/store-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +36,10 @@ import { StoreDetailComponent } from './store-list/store/store-detail/store-deta
     DetailComponent,
     StockInfoComponent,
     ViewComponent, 
-    StoreListComponent, StoreComponent, StoreDetailComponent
+    StoreListComponent, StoreComponent, StoreDetailComponent,
+    StoreHoursComponent,
+    StoreInfoComponent,
+    StoreInventoryComponent
   ],
   imports: [
     BrowserModule,

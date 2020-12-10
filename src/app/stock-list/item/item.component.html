@@ -1,45 +1,9 @@
-<!-- <div class="row">
-    <div class="col-md-6">
-        <div class="card-body text-center">
-            <img class="img-fluid" src="{{imageUrl}}" alt="card image">
-                <p>
-                {{ stock.name }}
-                </p>
-                <p>
-                    {{ stock.description }}
-                </p>
-                <p>
-                    <button class="btn btn-primary"  (click)="isClicked()">More</button>
-                </p>
-            </div>
-        </div>
- </div>  -->
-<!-- 
- <div class="card">
-    <div class="card-horozontal">
-      <img src="{{imageUrl}}" alt="Photo profile">
-    </div>
-    <div class="description">
-      <h2>{{ stock.name }}</h2>
-      <h5>
-        {{ stock.description }}</h5>
-      <div class="social">
-        <button class="btn btn-primary"  (click)="isClicked()">More</button>
-      </div>
-    </div>
-
-    <div class="header">
-        
-      </div>
-
-  </div> -->
-
   <div class="card mb-3">
     <div class="row no-gutters justify-content-around">
-      <div class="col-md-4 card-body">
+      <div class="col-md-4">
         <img src="{{imageUrl}}" class="px-3 shadow-lg p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
       </div>
-      <div class="col-md-8 card-body">
+      <div class="col-md-8">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><h5 class="card-title">{{ stock.name }}</h5></li>
           <li class="list-group-item card-title">Description:{{ stock.description }}</li>
@@ -47,7 +11,7 @@
           <li class="list-group-item card-title">Quantity:{{ stock.quantity }}</li>
           <li class="list-group-item card-title">Discount %:{{ stock.discountPerc }}</li>
         </ul>
-        <p class="card-text"><small class="text-muted"><button class="btn btn-primary" (click)="isClicked()" style="width: 200px;">View details</button></small></p>
+        <p class="card-text"><small class="text-muted"><button class="btn btn-primary" [routerLink]="'/stock/'+stock.id" style="width: 200px;">View details</button></small></p>
       </div>
     </div>
   </div>

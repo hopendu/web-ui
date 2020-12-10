@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { StoreProfile } from '../model/store-profile';
 import { ShareDataService } from '../service/share-data.service';
 import { StoreControllerService } from '../service/store-controller.service';
@@ -10,8 +11,7 @@ import { StoreControllerService } from '../service/store-controller.service';
 })
 export class StoreListComponent implements OnInit {
 
-  storeList: StoreProfile[];
-  toggle: Boolean = false;
+  storeList: Observable<StoreProfile[]>;
 
   constructor(private service: StoreControllerService,
     private share: ShareDataService ) { }
@@ -21,19 +21,13 @@ export class StoreListComponent implements OnInit {
   }
 
   setStoreList(ownerId: string): void {
-    this.service.getStoreListByOwnerId(ownerId).subscribe( stores => this.storeList = stores);
+    // this.service.getStoreListByOwnerId(ownerId).subscribe( stores => this.storeList = stores);
+    this.storeList = this.service.getStoreListByOwnerId(ownerId);
   }
 
-  get getStoreList(): StoreProfile[] {
-    this.setStoreList(this.share.storeInfo.userId);
+  get getStoreList(): Observable<StoreProfile[]> {
+    this.setStoreList('this.share.storeInfo.userId');
     return this.storeList;
   }
 
-  get getToggle(): Boolean{
-    return this.share.toggle;
-  }
-
-  addStore(): void {
-    
-  }
 }
