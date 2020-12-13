@@ -3,9 +3,11 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { StoreInfo } from '../model/store-info';
 import { UploadService } from '../service/upload.service';
 import { ShareDataService } from '../service/share-data.service';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { Service } from 'aws-sdk/global';
 import { StoreControllerService } from '../service/store-controller.service';
+import { StoreProfile } from '../model/store-profile';
+import { NavigationService } from '../service/navigation.service';
 
 @Component({
   selector: 'app-store-info-form',
@@ -19,31 +21,38 @@ export class StoreInfoFormComponent implements OnInit {
   show = true;
   storeInfo: StoreInfo;
   storeInfoForm: FormGroup;
-  
+  id: string = null;
+  store: StoreProfile;
   constructor(private uploadService: UploadService,
               private fb: FormBuilder,
               private router: Router, 
               private share: ShareDataService,
-              private service: StoreControllerService){ }
+              private storeService: StoreControllerService,
+              private activeRoute: ActivatedRoute,
+              private navigation: NavigationService){ }
 
   ngOnInit(): void {
 
-    if( !!this.share.store){
-      this.storeInfoForm = this.fb.group({
-        name: [this.share.store.name, Validators.required],
-        description: [this.share.store.description, Validators.required],
-        emailAddress: [this.share.store.emailAddress, [Validators.required, Validators.email]],
-        userId: [this.share.store.ownerId, Validators.required],
-        address: [this.share.store.address, Validators.required],
-        mobileNumber:  [this.share.store.mobileNumber, Validators.required],
-        regNumber: [this.share.store.regNumber, Validators.required],
-        tags: this.fb.array([])
-      });
+    this.activeRoute.queryParams.subscribe( params => 
+      {
+        this.id = params['id']
+        this.storeService.getStoreById(this.id).subscribe( store => 
+          {
+            this.store = store;
+            this.storeInfoForm = this.fb.group({
+              name: [store.name, Validators.required],
+              description: [store.description, Validators.required],
+              emailAddress: [store.emailAddress, [Validators.required, Validators.email]],
+              userId: [store.ownerId, Validators.required],
+              address: [store.address, Validators.required],
+              mobileNumber: [store.mobileNumber, Validators.required],
+              regNumber: [store.regNumber, Validators.required],
+              tags: this.fb.array([])
+            });
+            store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
+          })
+      })
 
-      this.share.store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
-      
-    }
-    else{
       this.storeInfoForm = this.fb.group({
         name: ['', Validators.required],
         description: ['', Validators.required],
@@ -54,8 +63,6 @@ export class StoreInfoFormComponent implements OnInit {
         regNumber: ['', Validators.required],
         tags: this.fb.array([])
       });
-  
-    }
     
   }
 
@@ -83,7 +90,12 @@ export class StoreInfoFormComponent implements OnInit {
 
   get f() { return this.storeInfoForm.controls; }
 
-  btnClick = function () {
+  cancel(): void {
+    this.onReset();
+    this.router.navigateByUrl('stores');
+  }
+
+  submit(): void {
 
     this.submitted = true;
 
@@ -103,18 +115,24 @@ export class StoreInfoFormComponent implements OnInit {
         'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
     );
 
-    if(!! this.share.store){
+    if(!!this.id){
 
-      this.share.store.name = this.share.storeInfo.name;
-      this.share.store.address = this.share.storeInfo.address;
-      this.share.store.emailAddress = this.share.storeInfo.emailAddress;
-      this.share.store.mobileNumber = this.share.storeInfo.mobileNumber;
-      this.share.store.regNumber = this.share.storeInfo.regNumber;
-      this.share.store.description = this.share.storeInfo.description;
-      this.share.store.tags = this.share.storeInfo.tags;
-      this.share.store.ownerId = this.share.storeInfo.userId;
-      this.share.store.imageUrl = this.share.storeInfo.imageUrl;
-      this.router.navigateByUrl('/form');
+      this.store.name = this.share.storeInfo.name;
+      this.store.address = this.share.storeInfo.address;
+      this.store.emailAddress = this.share.storeInfo.emailAddress;
+      this.store.mobileNumber = this.share.storeInfo.mobileNumber;
+      this.store.regNumber = this.share.storeInfo.regNumber;
+      this.store.description = this.share.storeInfo.description;
+      this.store.tags = this.share.storeInfo.tags;
+      this.store.ownerId = this.share.storeInfo.userId;
+      this.store.imageUrl = this.share.storeInfo.imageUrl;
+      
+     this.storeService.patch(this.id, this.store).subscribe( data => 
+      {
+        this.onReset();
+        this.router.navigateByUrl('stores');
+      })
+      return;
     } else {
       this.router.navigate(['/form/business-hours']);
     }

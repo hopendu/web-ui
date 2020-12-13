@@ -1,51 +1,12 @@
 <div class="card mb-3">
-  <img src="{{store.imageUrl}}" class="card-img-top" alt="card-image-top">
+  <img src="{{(store|async)?.imageUrl}}" class="card-img-top" alt="card-image-top">
   <div class="card-body">
-      <h5 class="card-title">{{store.name}}</h5>
+      <h5 class="card-title">{{(store|async)?.name}}</h5>
       <p class="card-text">
-        <a [routerLink]="'/store/'+store.id">
-        <button style="width: 150px;" >View details</button>
+        <a [routerLink]="'/store/'+(store|async)?.id">
+        <button class="btn btn-primary btn-rounded mb-4" style="width: 200px;">View details</button>
       </a>
       </p>
   </div>
 </div>
 
-
-<!--Interesting UI below-->
-<!-- 
-<div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
-    <div class="text-center">
-        <h3><b>Your stores</b></h3>
-    </div>
-    <div *ngIf="toggle; else elseBlock;">
-
- <ul class="nav nav-tabs">
-  <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#home">Store information</a></li>
-  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Operating hours</a></li>
-  <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Inventory</a></li>
-
- </ul>
-
-<div class="tab-content">
-  <div id="home" class="tab-pane fade in active">
-    {{store.address}}
-  </div>
-  <div id="menu1" class="tab-pane fade">
-    {{store.businessHours[0]}}
-  </div>
-  <div id="menu2" class="tab-pane fade">
-    {{store.stockList.length}}
-  </div>
-</div>
-          
-    </div>
-    <ng-template #elseBlock>
-            <div class="card mb-3">
-                  <img src="{{store.imageUrl}}" class="card-img-top" alt="card-image-top">
-                  <div class="card-body">
-                      <h5 class="card-title">{{store.name}}</h5>
-                      <p class="card-text"><button style="width: 150px;" (click)="toggle = !toggle">View details</button></p>
-                  </div>
-              </div>
-    </ng-template>
-</div> -->

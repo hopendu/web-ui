@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { StoreProfile } from 'src/app/model/store-profile';
 import { ShareDataService } from 'src/app/service/share-data.service';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
@@ -13,21 +14,15 @@ export class StoreComponent implements OnInit {
   
   @Input() id: string;
 
-  store: StoreProfile;
+  store: Observable<StoreProfile>;
 
   constructor( private router: Router,
-    private share: ShareDataService, 
     private storeService: StoreControllerService) { }
 
   ngOnInit(): void {
-   //this.share.store = this.store;
-
-   this.storeService.getStoreById(this.id).subscribe( data => this.store = data);
+   this.store = this.storeService.getStoreById(this.id);
   }
 
-  isClicked() {
-    this.share.store = this.store;
-    this.share.toggle = true;
-  }
+ 
 
 }

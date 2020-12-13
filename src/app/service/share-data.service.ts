@@ -38,16 +38,6 @@ export class ShareDataService {
     this.businessHours.forEach( (e, i)=> console.log("Day "+ ( i + 1)+" "+ e.day))
   }
 
-  /*
-  ngOnDestroy(): void {
-    this.bank = null;
-    this.storeInfo = null;
-    this.stockList.forEach( stock => this.stockList.pop());
-    this.businessHours.forEach(time => this.businessHours.pop());
-  }*/
-  
-
-
   public addBusinessHours( hours: BusinessHours){
     this.businessHours.forEach( e => {
       if( e.day.match(hours.day)){
