@@ -1,11 +1,12 @@
-<!-- <div *ngIf="status; else elseBlock">
+<div *ngIf="status; else elseBlock">
     <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
+    
 </div>
 <ng-template #elseBlock>
     <div class="card-deck d-flex">
         <app-item *ngFor="let stock of stockList|async" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
     </div> 
-</ng-template> -->
-<div class="card-deck d-flex">
+</ng-template>
+<!-- <div class="card-deck d-flex">
     <app-item *ngFor="let stock of stockList|async" [stock]="stock"></app-item>
-</div> 
+</div>  -->

@@ -1,4 +1,4 @@
-<div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
+<!-- <div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
   <div class="text-center">
     <h3><b>{{store.name}}</b></h3>
 </div>
@@ -30,4 +30,19 @@
     </div>
 </div>
 
+</div> -->
+<div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="text-center">
+    <h3><b>{{store.name}}</b></h3>
+</div>
+<ul class="nav mb-3">
+  <li class="nav-item"><a type="button" class="nav-link" routerLink="/stores"><i class="fa fa-arrow-left"></i> Back</a></li>
+  <li class="nav-item"><a type="button" class="nav-link"  ><i class="fa fa-trash"></i> Delete </a></li>
+</ul>
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLink]="['info']" [queryParams]="{ id: store.id}">Store information</a></li>
+    <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLink]="['hours']" [queryParams]="{ id: store.id}">Operating hours</a></li>
+    <li class="nav-item"><a class="nav-link " routerLinkActive="active" [routerLink]="['stocks']" [queryParams]="{ id: store.id}">Inventory</a></li>
+</ul>
+<router-outlet></router-outlet>
 </div>

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StoreProfile } from 'src/app/model/store-profile';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
@@ -10,16 +11,15 @@ import { StoreControllerService } from 'src/app/service/store-controller.service
 })
 export class StoreHoursComponent implements OnInit {
 
-  @Input() id: string;
   store: Observable<StoreProfile>;
 
-  constructor( private storeService: StoreControllerService) { }
+  constructor( private storeService: StoreControllerService, private activeRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.store = this.storeService.getStoreById(this.id);
-  }
 
-  editAt(index: number): void {
+    this.activeRoute.queryParams.subscribe( param => {
+      var id = param['id']
+      this.store = this.storeService.getStoreById(id)
+    })
   }
-
 }

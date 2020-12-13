@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { StoreRegistrationFormComponent } from './store-registration-form/store-registration-form.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
 import { StockFormComponent } from './stock-form/stock-form.component';
@@ -10,6 +10,11 @@ import { ViewComponent } from './business-hours-form/view/view.component';
 import { StoreListComponent } from './store-list/store-list.component';
 import { StoreDetailComponent } from './store-list/store/store-detail/store-detail.component';
 import { StockInfoComponent } from './stock-list/stock-info/stock-info.component';
+import { StoreInfoComponent } from './store-list/store/store-detail/store-info/store-info.component';
+import { StoreHoursComponent } from './store-list/store/store-detail/store-hours/store-hours.component';
+import { StoreInventoryComponent } from './store-list/store/store-detail/store-inventory/store-inventory.component';
+
+
 const routes: Routes = [
   {path: '', redirectTo: '/form/store-info', pathMatch: 'full'},
   {path: 'form', component: StoreRegistrationFormComponent},
@@ -20,13 +25,22 @@ const routes: Routes = [
   {path: 'form/stock-list', component: StockListComponent},
   {path: 'form/business-hours/view', component: ViewComponent},
   {path: 'stores', component: StoreListComponent},
-  {path: 'store/:id', component: StoreDetailComponent},
+  {path: 'store/:id', component: StoreDetailComponent,
+  children:[
+    {path: '', redirectTo: 'info', pathMatch: 'full'},
+    {path: 'info', component: StoreInfoComponent},
+    {path: 'hours', component: StoreHoursComponent},
+    {path: 'stocks', component: StoreInventoryComponent}
+  ]},
   {path: 'stock/:id', component: StockInfoComponent}
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules,
+    paramsInheritanceStrategy : 'always'
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

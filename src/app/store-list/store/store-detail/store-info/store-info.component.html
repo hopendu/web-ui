@@ -33,3 +33,9 @@
     </div>
     </div>
   </div>
+  <div class="text-center">
+    <a [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
+                                        queryParamsHandling :null>
+    <button class="btn btn-primary btn-rounded mb-4" style="width: 200px;"> Edit info </button>
+    </a>
+  </div>

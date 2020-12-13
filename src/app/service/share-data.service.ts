@@ -35,7 +35,6 @@ export class ShareDataService {
   
   constructor() { 
     this.initializeBusinesHours();
-    this.businessHours.forEach( (e, i)=> console.log("Day "+ ( i + 1)+" "+ e.day))
   }
 
   public addBusinessHours( hours: BusinessHours){
