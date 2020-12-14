@@ -1,12 +1,23 @@
 
 <div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
-  <div class="text-center">
-        <h3><b>Your stores</b></h3>
-      </div>
-      <ul class="nav mb-3">
-        <li class="nav-item"><a class="nav-link active" routerLink="/form/store-info" ><i class="fa fa-plus"></i> Add </a></li>
-      </ul>
-      <div class="card-deck d-flex" >
-        <app-store *ngFor="let store of storeList|async; index as i" [id]="store.id"></app-store>
-      </div>
+  <div *ngIf="status; else elseBlock">
+    <app-store-detail [id]="id" (hideDetailEventEmitter)="showDetail($event)"></app-store-detail>
+  </div>
+  <ng-template #elseBlock>
+    <div class="text-center">
+      <h3><b>Your stores</b></h3>
+    </div>
+    <ul class="nav mb-3">
+      <li class="nav-item"><a class="nav-link active" routerLink="/form/store-info" ><i class="fa fa-plus"></i> Add </a></li>
+    </ul>
+    <div class="card-deck d-flex" >
+      <app-store *ngFor="let store of storeList|async; index as i" [id]="store.id" (clickedEventEmitter)="isClicked($event)"></app-store>
+    </div>
+  </ng-template>
+  
 </div>
+
+
+<!-- <div class="card-deck d-flex">
+  <app-item *ngFor="let stock of stockList|async" [stock]="stock"></app-item>
+</div>  -->

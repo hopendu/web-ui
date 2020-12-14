@@ -12,15 +12,20 @@ import { StoreControllerService } from 'src/app/service/store-controller.service
 })
 export class StoreComponent implements OnInit {
   
+
+  @Output() clickedEventEmitter = new EventEmitter<string>();
   @Input() id: string;
-
   store: Observable<StoreProfile>;
-
+  
   constructor( private router: Router,
     private storeService: StoreControllerService) { }
 
   ngOnInit(): void {
    this.store = this.storeService.getStoreById(this.id);
+  }
+
+  isClicked() {
+    this.clickedEventEmitter.emit(this.id);
   }
 
  

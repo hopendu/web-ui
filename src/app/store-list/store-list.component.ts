@@ -12,6 +12,8 @@ import { StoreControllerService } from '../service/store-controller.service';
 export class StoreListComponent implements OnInit {
 
   storeList: Observable<StoreProfile[]>;
+  id: string;
+  status: Boolean =false;
 
   constructor(private service: StoreControllerService,
     private share: ShareDataService ) { }
@@ -28,6 +30,16 @@ export class StoreListComponent implements OnInit {
   get getStoreList(): Observable<StoreProfile[]> {
     this.setStoreList('this.share.storeInfo.userId');
     return this.storeList;
+  }
+
+  showDetail(event: string): void {
+    this.id  = event;
+    this.status = !this.status;
+  }
+
+  isClicked(event: string): void {
+    this.status = !this.status;
+    this.id = event;
   }
 
 }

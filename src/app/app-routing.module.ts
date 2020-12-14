@@ -24,10 +24,9 @@ const routes: Routes = [
   {path: 'form/store-info', component: StoreInfoFormComponent},
   {path: 'form/stock-list', component: StockListComponent},
   {path: 'form/business-hours/view', component: ViewComponent},
-  {path: 'stores', component: StoreListComponent},
-  {path: 'store/:id', component: StoreDetailComponent,
+  {path: 'stores', component: StoreListComponent,
   children:[
-    {path: '', redirectTo: 'info', pathMatch: 'full'},
+    {path: '', redirectTo: 'stores', pathMatch: 'full'},
     {path: 'info', component: StoreInfoComponent},
     {path: 'hours', component: StoreHoursComponent},
     {path: 'stocks', component: StoreInventoryComponent}
