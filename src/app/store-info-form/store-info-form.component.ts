@@ -91,7 +91,7 @@ export class StoreInfoFormComponent implements OnInit {
   get f() { return this.storeInfoForm.controls; }
 
   cancel(): void {
-    this.onReset();
+    //this.onReset();
     this.router.navigateByUrl('stores');
   }
 
@@ -129,7 +129,7 @@ export class StoreInfoFormComponent implements OnInit {
       
      this.storeService.patch(this.id, this.store).subscribe( data => 
       {
-        this.onReset();
+       // this.onReset();
         this.router.navigateByUrl('stores');
       })
       return;
@@ -137,7 +137,7 @@ export class StoreInfoFormComponent implements OnInit {
       this.router.navigate(['/form/business-hours']);
     }
     //this.router.navigate(['/form/bank'])
-    this.onReset();
+    //this.onReset();
   };
 
   onReset(): void {
