@@ -9,6 +9,7 @@ import { Stock } from 'src/app/model/stock';
 export class ItemComponent implements OnInit {
 
   @Output() clickedEventEmitter = new EventEmitter<Stock>();
+  
   @Input() stock: Stock;
   imageUrl: string;
   

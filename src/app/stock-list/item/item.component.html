@@ -11,7 +11,7 @@
           <li class="list-group-item card-title">Quantity:{{ stock.quantity }}</li>
           <li class="list-group-item card-title">Discount %:{{ stock.discountPerc }}</li>
         </ul>
-        <p class="card-text"><small class="text-muted"><button class="btn btn-primary" [routerLink]="'/stock/'+stock.id" style="width: 200px;">View details</button></small></p>
+        <p class="card-text"><small class="text-muted"><button class="btn btn-primary" (click)="isClicked()" style="width: 200px;">View details</button></small></p>
       </div>
     </div>
   </div>

@@ -34,6 +34,7 @@ export class StoreInventoryComponent implements OnInit {
   }
 
   isClicked(event: Stock): void {
+    this.status = !this.status;
     this.stock = event;
   }
 
