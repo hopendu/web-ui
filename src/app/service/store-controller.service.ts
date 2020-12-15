@@ -3,13 +3,14 @@ import { StoreProfile } from '../model/store-profile';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Stock } from '../model/stock';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StoreControllerService {
   
-  baseUrl = 'https://api-uat.izinga.co.za/'
+  baseUrl = environment.baseUrl;
   
   constructor(private http: HttpClient) { }
 
