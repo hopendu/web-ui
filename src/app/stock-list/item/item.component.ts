@@ -16,7 +16,7 @@ export class ItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.imageUrl = this.stock.images[0];
+    this.imageUrl = !!this.stock.images ? this.stock.images[0] : null;
   }
 
   isClicked() {

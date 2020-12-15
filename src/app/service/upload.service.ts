@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as AWS from 'aws-sdk/global';
 import * as S3 from 'aws-sdk/clients/s3';
-
+import { environment } from '../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
@@ -13,16 +13,16 @@ export class UploadService {
     const contentType = file.type;
     const bucket = new S3(
           {
-              accessKeyId: 'AKIATON6LVU3TSPE4XML',
-              secretAccessKey: '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',
-              region: 'us-east-1',
+              accessKeyId: environment.accessKeyId,
+              secretAccessKey: environment.secretAccessKey,
+              region: environment.region ,
           }
       );
     const params = {
-          Bucket: 'izinga-aws',
+          Bucket: environment.Bucket,
           Key:  folder + '/images/' + file.name,
           Body: file,
-          ACL: 'public-read',
+          ACL: environment.ACL,
           ContentType: contentType
       };
 

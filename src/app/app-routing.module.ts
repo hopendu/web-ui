@@ -31,14 +31,16 @@ const routes: Routes = [
     {path: 'hours', component: StoreHoursComponent},
     {path: 'stocks', component: StoreInventoryComponent}
   ]},
-  {path: 'stock/:id', component: StockInfoComponent}
+  {path: 'stock/:id', component: StockInfoComponent},
+  {path: '**', redirectTo: 'stores'}
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    preloadingStrategy: PreloadAllModules,
-    paramsInheritanceStrategy : 'always'
+    paramsInheritanceStrategy: 'always',
+    preloadingStrategy: PreloadAllModules
+    
   })],
   exports: [RouterModule]
 })
