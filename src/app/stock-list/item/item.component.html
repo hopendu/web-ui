@@ -9,7 +9,7 @@
           <li class="list-group-item card-title">Description:{{ stock.description }}</li>
           <li class="list-group-item card-title">Price:{{ stock.price| currency:'R ' }}</li>
           <li class="list-group-item card-title">Quantity:{{ stock.quantity }}</li>
-          <li class="list-group-item card-title">Discount %:{{ stock.discountPerc }}</li>
+          <li class="list-group-item card-title" *ngIf=" stock.discountPerc > 0">Discount %:{{ stock.discountPerc }}</li>
         </ul>
         <p class="card-text"><small class="text-muted"><button class="btn btn-primary mb-3" (click)="isClicked()" style="width: 200px;">View details</button></small></p>
       </div>

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Stock } from '../../model/stock';
 import { ShareDataService } from '../../service/share-data.service';
 
@@ -15,7 +15,8 @@ export class DetailComponent implements OnInit {
   imageUrl: string;
 
   constructor( private share:ShareDataService,
-    private router: Router) {
+    private router: Router, 
+    private activeRoute: ActivatedRoute) {
       //this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -44,7 +45,7 @@ export class DetailComponent implements OnInit {
     //this.router.navigate(['form/stock'], JSON.);
 
     this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['form/stock']);
+      this.router.navigate(['form/stock'], {queryParams:{ id: this.stock.id, storeId: this.activeRoute.parent.snapshot.params.id }});
       // this.router.navigateByUrl('/stores', { skipLocationChange: true }).then(() => {
       //   this.router.navigate(['form/stock']);
   }); 

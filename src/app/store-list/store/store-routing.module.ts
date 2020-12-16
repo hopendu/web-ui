@@ -9,7 +9,7 @@ import { StoreListComponent } from '../store-list.component';
 const storeRoutes: Routes = [
   { path: '', component: StoreListComponent},
   { path: ':id', loadChildren: () => import('./store-detail/store-detail.module').then( m => m.StoreDetailModule)}
- ];
+];
 
 @NgModule({
   declarations: [],

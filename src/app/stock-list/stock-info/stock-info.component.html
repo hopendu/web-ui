@@ -3,10 +3,10 @@
     <li class="list-group-item">Description:{{ stock.description }}</li>
     <li class="list-group-item">Price:{{ stock.price| currency:'R ' }}</li>
     <li class="list-group-item">Quantity:{{ stock.quantity }}</li>
-    <li class="list-group-item">Discount %:{{ stock.discountPerc }}</li>
+    <li class="list-group-item" *ngIf="stock.discountPerc > 0">Discount %:{{ stock.discountPerc }}</li>
     <div *ngIf="selectionOptions.length > 0">
         <div *ngFor="let selection of selectionOptions; index as i">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
                 <div class="panel panel-default">
                   <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">
@@ -17,7 +17,7 @@
                   </div>
                   <div id="collapseOne-{{i}}" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="panel-body">
-                        <li class="list-group-item card-text">Price:{{ selection.price| currency:'R ' }}</li>
+                        <li class="list-group-item card-text" *ngIf="selection.price > 0">Price:{{ selection.price| currency:'R ' }}</li>
                         <li class="list-group-item card-text">Selected:{{ selection.selected }}</li>
                         <div *ngIf=" selection.values.length > 0;">
                             <table class="table table-sm rounded">

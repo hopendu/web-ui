@@ -99,7 +99,9 @@ export class StoreInfoFormComponent implements OnInit {
 
     this.submitted = true;
 
-    if (this.storeInfoForm.invalid){ ("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format."); return; }
+    if (this.storeInfoForm.invalid){ ("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format."); 
+    console.log('invalid!!!')
+    return; }
 
     const file = this.toFile.item(0);
 
@@ -130,7 +132,8 @@ export class StoreInfoFormComponent implements OnInit {
      this.storeService.patch(this.id, this.store).subscribe( data => 
       {
        // this.onReset();
-        this.router.navigateByUrl('stores');
+       console.log('PATCH PATCH PATCH')
+        this.router.navigate(['/stores'], {queryParams:{id: data.ownerId}})
       })
       return;
     } else {

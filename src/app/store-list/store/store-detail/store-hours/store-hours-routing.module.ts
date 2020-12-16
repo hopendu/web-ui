@@ -5,12 +5,15 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 
+
 const storeHoursRoutes: Routes = [
-  { path: '', component: StoreHoursComponent} ];
+  { path: '', component: StoreHoursComponent}
+   ];
 
 @NgModule({
   declarations: [],
   imports: [ RouterModule.forChild(storeHoursRoutes)],
   exports: [ RouterModule]
 })
-export class StoreHoursRoutingModule { }
+export class StoreHoursRoutingModule {
+ }
