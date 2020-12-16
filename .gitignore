@@ -44,3 +44,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+src/environments/environment.ts $ git rm --cached debug.log rm src/environments/environment.ts $ git commit -m Start ignoring src/environments/environment.ts

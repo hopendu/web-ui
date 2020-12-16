@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { Stock } from 'src/app/model/stock';
-import { ShareDataService } from 'src/app/service/share-data.service';
+import { Stock } from '../../model/stock';
+import { ShareDataService } from '../../service/share-data.service';
 
 @Component({
   selector: 'app-detail',

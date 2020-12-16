@@ -17,10 +17,15 @@ export class StoreInfoComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.activeRoute.queryParams.subscribe( param => {
+    this.activeRoute.parent.params.subscribe( param => {
       var id = param['id']
-      this.store = this.storeService.getStoreById(id);
+      this.store = this.storeService.getStoreById(id)
     })
+
+    // this.activeRoute.queryParams.subscribe( param => {
+    //   var id = param['id']
+    //   this.store = this.storeService.getStoreById(id);
+    // })
     
   }
 

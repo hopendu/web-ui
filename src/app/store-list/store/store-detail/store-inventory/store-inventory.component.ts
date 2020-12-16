@@ -21,10 +21,15 @@ export class StoreInventoryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.activeRoute.queryParams.subscribe( param => {
+
+    this.activeRoute.parent.params.subscribe( param => {
       var id = param['id']
       this.stockList = this.storeService.getStockByStoreId(id)
     })
+    // this.activeRoute.queryParams.subscribe( param => {
+    //   var id = param['id']
+    //   this.stockList = this.storeService.getStockByStoreId(id)
+    // })
     
   }
 

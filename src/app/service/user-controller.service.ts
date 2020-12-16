@@ -2,20 +2,25 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserProfile } from '../model/user-profile';
 import { HttpClient } from '@angular/common/http';
+import { environment  } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserControllerService {
+export class UserControllerService { 
 
-  baseUrl = 'https://api-uat.izinga.co.za/';
+  baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
   getAllUsers(): Observable<UserProfile[]>{
-    return this.http.get<UserProfile[]>(this.baseUrl  +`user`);
+    return this.http.get<UserProfile[]>(this.baseUrl + `user`);
   }
 
+  getAllStoreAdmin(): Observable<UserProfile[]>{
+    return this.http.get<UserProfile[]>( this.baseUrl  + `user?latitude=0&longitude=0&range=10000&role=STORE_ADMIN`);
+  }
+  
   create(profile: UserProfile): Observable<UserProfile>{
     return this.http.post(this.baseUrl  +`user`, profile);
   }

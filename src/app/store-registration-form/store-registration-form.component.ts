@@ -96,7 +96,7 @@ export class StoreRegistrationFormComponent implements OnInit {
 
       if(!!this.share.store){
         this.service.patch(this.share.store.id, this.share.store).subscribe(data => console.log("Patch "+ data.id));
-        this.router.navigateByUrl('stores');
+        this.router.navigate(['stores'], {queryParams:{ id: this.share.store.ownerId }});
         return;
       }
       this.storeProfile = new StoreProfile(
@@ -131,6 +131,6 @@ export class StoreRegistrationFormComponent implements OnInit {
         0);
       this.service.create(this.storeProfile).subscribe( s => {console.log(s); this.share.store = s;});
       //this.share.reset();
-      this.router.navigate(['stores']);
+      this.router.navigate(['stores'], {queryParams:{ id: this.share.store.ownerId }});
   }
 }

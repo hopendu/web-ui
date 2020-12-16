@@ -20,15 +20,16 @@ export class StoreDetailComponent implements OnInit {
 
   // constructor(private share: ShareDataService, private activeRoute: ActivatedRoute,
   //   private router: Router, private fb: FormBuilder, private storeService: StoreControllerService) { }
-  constructor(private storeService: StoreControllerService){}
+  constructor(private activeRoute: ActivatedRoute,
+    private storeService: StoreControllerService){}
   ngOnInit(): void {
-    //this.store = this.share.store;
-    // this.activeRoute.params.subscribe(params => {
-    //   var id = params['id']
-    //   console.log(`Id is  ${id}`)
-    //   this.storeService.getStoreById(id).subscribe( data => this.store = data);
-    // })
-    this.storeService.getStoreById(this.id).subscribe( data => this.store = data);
+   // this.store = this.share.store;
+    this.activeRoute.params.subscribe(params => {
+      var id = params['id']
+      console.log(`Id is  ${id}`)
+      this.storeService.getStoreById(id).subscribe( data => this.store = data);
+    })
+   // this.storeService.getStoreById(this.id).subscribe( data => this.store = data);
   }
   
   hideDetail() {

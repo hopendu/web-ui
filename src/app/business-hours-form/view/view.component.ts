@@ -68,7 +68,7 @@ export class ViewComponent implements OnInit {
     })
   }
 
-  btnClick = function () {
+  btnClick() : void {
     if (this.timesFormGroup.invalid){  return; }
     this.setBusinessHours();
     // this.router.navigateByUrl('/form');

@@ -1,45 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
-import{CustomReuseStrategy} from './util/custom-reuse-strategy';
+import { CustomReuseStrategy} from './util/custom-reuse-strategy';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { StoreRegistrationFormComponent } from './store-registration-form/store-registration-form.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
-import { StockFormComponent } from './stock-form/stock-form.component';
 import { BusinessHoursFormComponent } from './business-hours-form/business-hours-form.component';
-import { StoreInfoFormComponent } from './store-info-form/store-info-form.component';
+import { StockFormComponent } from './stock-form/stock-form.component';
 import { StockListComponent } from './stock-list/stock-list.component';
 import { StoreListComponent } from './store-list/store-list.component';
-import { ItemComponent } from './stock-list/item/item.component';
-import { DetailComponent } from './stock-list/detail/detail.component';
-import { StockInfoComponent } from './stock-list/stock-info/stock-info.component';
-import { ViewComponent } from './business-hours-form/view/view.component';
+import { StoreRegistrationFormComponent } from './store-registration-form/store-registration-form.component';
+import { StoreInfoFormComponent } from './store-info-form/store-info-form.component';
 import { StoreComponent } from './store-list/store/store.component';
-import { StoreDetailComponent } from './store-list/store/store-detail/store-detail.component';
+import { StoreDetailComponent} from './store-list/store/store-detail/store-detail.component';
 import { StoreHoursComponent } from './store-list/store/store-detail/store-hours/store-hours.component';
-import { StoreInventoryComponent } from './store-list/store/store-detail/store-inventory/store-inventory.component';
 import { StoreInfoComponent } from './store-list/store/store-detail/store-info/store-info.component';
+import { StoreInventoryComponent } from './store-list/store/store-detail/store-inventory/store-inventory.component';
+import { DetailComponent } from './stock-list/detail/detail.component';
+import { ItemComponent } from './stock-list/item/item.component';
+import { StockInfoComponent } from './stock-list/stock-info/stock-info.component';
 @NgModule({
   declarations: [
     AppComponent,
-    StoreRegistrationFormComponent,
     BankFormComponent,
-    StockFormComponent,
     BusinessHoursFormComponent,
+    StockFormComponent,
     StoreInfoFormComponent,
     StockListComponent,
-    ItemComponent,
-    DetailComponent,
-    StockInfoComponent,
-    ViewComponent, 
-    StoreListComponent, StoreComponent, StoreDetailComponent,
-    StoreHoursComponent,
-    StoreInfoComponent,
-    StoreInventoryComponent
+    StoreListComponent, StoreComponent, StoreDetailComponent, StoreInfoComponent, StoreHoursComponent, StoreInventoryComponent,
+    DetailComponent,  ItemComponent, StockInfoComponent,
+    StoreRegistrationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +40,7 @@ import { StoreInfoComponent } from './store-list/store/store-detail/store-info/s
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [ 
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }

@@ -3,9 +3,9 @@
   <div class="card-body">
       <h5 class="card-title">{{(store|async)?.name}}</h5>
       <p class="card-text">
-        <!-- <a [routerLink]="'/store/'+(store|async)?.id"> -->
+        <a [routerLink]="(store|async)?.id">
         <button class="btn btn-primary btn-rounded mb-4" (click)="isClicked()" style="width: 200px;">View details</button>
-      <!-- </a> -->
+      </a>
       </p>
   </div>
 </div>
