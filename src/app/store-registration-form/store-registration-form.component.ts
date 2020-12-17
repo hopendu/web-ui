@@ -104,9 +104,7 @@ export class StoreRegistrationFormComponent implements OnInit {
         0);
       this.service.create(this.storeProfile).subscribe( data => { 
         this.share.store = data;
-        this.router.navigateByUrl(`stores?id=${data.ownerId}`, { skipLocationChange: true }).then(() => {
-          this.router.navigate(['stores'], {queryParams:{ id: data.ownerId }});
-        }); 
+        this.router.navigateByUrl(`stores?id=${data.ownerId}`); 
       });
   }
 }

@@ -35,7 +35,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
   stockName: string;
   stockList: Stock[];
 
-  subscription: Subscription[];
+  subscription: Subscription[] = [];
 
   constructor(private fb: FormBuilder,
               private share: ShareDataService,

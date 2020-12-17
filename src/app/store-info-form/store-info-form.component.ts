@@ -136,17 +136,11 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       
      this.storeService.patch(this.id, this.store).subscribe( data => 
       {
-       // this.onReset();
-       console.log('PATCH PATCH PATCH')
-        //this.router.navigate(['/stores'], {queryParams:{id: data.ownerId}})
         window.history.back();
-        window.history.go();
       })
       return;
     } else {this.router.navigateByUrl('form/business-hours');
     }
-    //this.router.navigate(['/form/bank'])
-    //this.onReset();
   };
 
   onReset(): void {

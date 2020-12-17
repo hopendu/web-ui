@@ -222,19 +222,11 @@
         <input type="file" (change)="onChange($event)">
         </div>      
         <br>
-        <div *ngIf="!!stock.id">
-          <div class="text-center">
-            <button class="btn btn-default btn-rounded mb-4"  (click)="skip();">Skip</button> &nbsp;
-            <button class="btn btn-default btn-rounded mb-4"  (click)="done();">Done</button>
-          </div>
+        <div class="text-center">
+          <button class="btn btn-default btn-rounded mb-4"  (click)="add();">Add</button> &nbsp;
+          <button class="btn btn-default btn-rounded mb-4"  (click)="skip();">Skip</button> &nbsp;
+          <button class="btn btn-default btn-rounded mb-4"  (click)="done();">Done</button>
         </div>
-        <ng-template #elseBloc>
-          <div class="text-center">
-            <button class="btn btn-default btn-rounded mb-4"  (click)="add();">Add</button> &nbsp;
-            <button class="btn btn-default btn-rounded mb-4"  (click)="skip();">Skip</button> &nbsp;
-            <button class="btn btn-default btn-rounded mb-4"  (click)="done();">Done</button>
-          </div>
-        </ng-template>
     </div>
 
 </div>
