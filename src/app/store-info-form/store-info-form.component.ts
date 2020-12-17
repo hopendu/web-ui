@@ -26,7 +26,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
   id: string = null;
   store: StoreProfile;
 
-  subscription: Subscription[];
+  subscription: Subscription[] = [];
   
   constructor(private uploadService: UploadService,
               private fb: FormBuilder,
@@ -72,7 +72,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.forEach( sub => sub.unsubscribe );
+   if(!!this.subscription) this.subscription.forEach( sub => sub.unsubscribe );
   }
 
   get getTags(): FormArray {
@@ -139,13 +139,11 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
        // this.onReset();
        console.log('PATCH PATCH PATCH')
         //this.router.navigate(['/stores'], {queryParams:{id: data.ownerId}})
-
         window.history.back();
+        window.history.go();
       })
       return;
-    } else {
-      this.router.navigateByUrl(`stores?id=${this.storeInfo.userId}`, { skipLocationChange: true }).then(() => {
-        this.router.navigate(['stores'], {queryParams:{ id: this.storeInfo.userId }});});
+    } else {this.router.navigateByUrl('form/business-hours');
     }
     //this.router.navigate(['/form/bank'])
     //this.onReset();

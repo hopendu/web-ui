@@ -46,8 +46,8 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
   
   deleteStore(): void{}
 
-  // back(): void {
-  //   this.router.navigateByUrl(`stores?id=${this.shareStore.storeProfile.ownerId}`)
-  //   .catch( error => window.history.back());
-  // }  
+  back(): void {
+    this.router.navigateByUrl(`stores?id=${this.shareStore.storeProfile.ownerId}`)
+    .catch( error => window.history.back());
+  }  
 }
