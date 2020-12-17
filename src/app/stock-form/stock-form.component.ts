@@ -56,15 +56,16 @@ export class StockFormComponent implements OnInit, OnDestroy {
       
       var stockId = params['id']
       this.storeId = params['storeId']
-      
+      console.log(`1. ${stockId}&${this.storeId}`)
       this.subscription[1] = this.storeService.fetchStoreById(this.storeId).subscribe( data =>{
         this.storeName = data.name;
         this.ownerId = data.ownerId;
-
+        console.log(`2. ${stockId}&${this.storeId}&${this.storeName}&${this.ownerId}`)
         this.subscription[2] = this.storeService.fetchStockByStoreId(data.id).subscribe( data => {
             this.stockList = data;
-            this.stockName = this.stock.name;
             this.stock = data.find( value => value.id == stockId);
+            this.stockName = this.stock.name;
+            console.log(`3. ${this.stock.id}&${this.stock.name}&${this.storeName}&${this.ownerId}`)
 
             this.stockForm = this.fb.group({
               name: new FormControl(this.stock.name, Validators.required),
