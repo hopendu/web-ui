@@ -1,32 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { StoreProfile } from 'src/app/model/store-profile';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
+import { ShareStoreService } from '../share-store.service';
 
 @Component({
   selector: 'app-store-info',
   templateUrl: './store-info.component.html',
   styleUrls: ['./store-info.component.css']
 })
-export class StoreInfoComponent implements OnInit {
+export class StoreInfoComponent implements OnInit, OnDestroy {
 
   store: Observable<StoreProfile>;
+  
+  subscription: Subscription;
 
-  constructor( private storeService: StoreControllerService, private activeRoute: ActivatedRoute) { }
+  constructor(  private storeService: StoreControllerService, 
+                private activeRoute: ActivatedRoute,
+                private shareStore: ShareStoreService) { 
+                }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   ngOnInit(): void {
 
-    this.activeRoute.parent.params.subscribe( param => {
+    this.subscription = this.activeRoute.parent.params.subscribe( param => {
       var id = param['id']
-      this.store = this.storeService.getStoreById(id)
+      this.store =  ( !!this.shareStore.storeProfile && ( this.shareStore.storeProfile.id.match(id))) ? of(this.shareStore.storeProfile) : this.storeService.fetchStoreById(id);
     })
 
-    // this.activeRoute.queryParams.subscribe( param => {
-    //   var id = param['id']
-    //   this.store = this.storeService.getStoreById(id);
-    // })
-    
   }
-
 }

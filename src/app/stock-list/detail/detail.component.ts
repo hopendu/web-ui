@@ -45,10 +45,7 @@ export class DetailComponent implements OnInit {
     //this.router.navigate(['form/stock'], JSON.);
 
     this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['form/stock'], {queryParams:{ id: this.stock.id, storeId: this.activeRoute.parent.snapshot.params.id }});
-      // this.router.navigateByUrl('/stores', { skipLocationChange: true }).then(() => {
-      //   this.router.navigate(['form/stock']);
-  }); 
+      this.router.navigate(['form/stock'], {queryParams:{ id: this.stock.id, storeId: this.activeRoute.parent.snapshot.params.id }});}); 
   
 };
 

@@ -22,7 +22,7 @@ export class StockInfoComponent implements OnInit {
     this.activeRoute.params.subscribe(params => {
       var id = params['id']
       console.log(`Id is  ${id}`)
-      this.storeService.getStoreById(id);
+      this.storeService.fetchStoreById(id);
     })
 
     this.selectionOptions = this.stock.mandatorySelection;

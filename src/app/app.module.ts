@@ -5,7 +5,7 @@ import { CustomReuseStrategy} from './util/custom-reuse-strategy';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
 import { BusinessHoursFormComponent } from './business-hours-form/business-hours-form.component';
@@ -22,6 +22,17 @@ import { StoreInventoryComponent } from './store-list/store/store-detail/store-i
 import { DetailComponent } from './stock-list/detail/detail.component';
 import { ItemComponent } from './stock-list/item/item.component';
 import { StockInfoComponent } from './stock-list/stock-info/stock-info.component';
+import { AlertComponent } from './_directives/alert/alert.component';
+
+
+
+import { fakeBackendProvider } from './_helpers/fake-backend';
+import { AlertService } from './_services/alert.service';
+import { AuthGuard } from './_guards/auth.guard';
+import { AuthenticationService } from './_services/authentication.service';
+import { UserService } from './_services/user.service';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { ErrorInterceptor } from './_helpers/error.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +43,8 @@ import { StockInfoComponent } from './stock-list/stock-info/stock-info.component
     StockListComponent,
     StoreListComponent, StoreComponent, StoreDetailComponent, StoreInfoComponent, StoreHoursComponent, StoreInventoryComponent,
     DetailComponent,  ItemComponent, StockInfoComponent,
-    StoreRegistrationFormComponent
+    StoreRegistrationFormComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -42,8 +54,16 @@ import { StockInfoComponent } from './stock-list/stock-info/stock-info.component
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [ 
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+  providers: [
+    AuthGuard,
+        AlertService,
+        AuthenticationService,
+        UserService,
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
+        // provider used to create fake backend
+        fakeBackendProvider
   ],
   bootstrap: [AppComponent]
 })

@@ -10,8 +10,7 @@ const storeRoutes: Routes = [
       children: [
         { path: 'info', loadChildren: () => import('./store-info/store-info.module').then( m => m.StoreInfoModule)},
         { path: 'hours', loadChildren: () => import('./store-hours/store-hours.module').then( m => m.StoreHoursModule)},
-        { path: 'stocks', loadChildren: () => import('./store-inventory/store-inventory.module').then( m => m.StoreInventoryModule)},
-        { path: '**', redirectTo: 'info'}
+        { path: 'stocks', loadChildren: () => import('./store-inventory/store-inventory.module').then( m => m.StoreInventoryModule)}
       ]
     }
   ];

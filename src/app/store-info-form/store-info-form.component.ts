@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
 import { StoreInfo } from '../model/store-info';
 import { UploadService } from '../service/upload.service';
@@ -8,13 +8,15 @@ import { Service } from 'aws-sdk/global';
 import { StoreControllerService } from '../service/store-controller.service';
 import { StoreProfile } from '../model/store-profile';
 import { NavigationService } from '../service/navigation.service';
+import { first } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-store-info-form',
   templateUrl: './store-info-form.component.html',
   styleUrls: ['./store-info-form.component.css']
 })
-export class StoreInfoFormComponent implements OnInit {
+export class StoreInfoFormComponent implements OnInit, OnDestroy {
 
   toFile: { item: (arg0: number) => any; };
   submitted = false;
@@ -23,6 +25,9 @@ export class StoreInfoFormComponent implements OnInit {
   storeInfoForm: FormGroup;
   id: string = null;
   store: StoreProfile;
+
+  subscription: Subscription[];
+  
   constructor(private uploadService: UploadService,
               private fb: FormBuilder,
               private router: Router, 
@@ -33,10 +38,10 @@ export class StoreInfoFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.activeRoute.queryParams.subscribe( params => 
+    this.subscription[0] =this.activeRoute.queryParams.subscribe( params => 
       {
         this.id = params['id']
-        this.storeService.getStoreById(this.id).subscribe( store => 
+        this.subscription[1] = this.storeService.fetchStoreById(this.id).subscribe( store => 
           {
             this.store = store;
             this.storeInfoForm = this.fb.group({
@@ -66,11 +71,9 @@ export class StoreInfoFormComponent implements OnInit {
     
   }
 
-  // tags(): FormGroup {
-  //   return this.fb.group({
-  //     tag: ''
-  //   });
-  // }
+  ngOnDestroy(): void {
+    this.subscription.forEach( sub => sub.unsubscribe );
+  }
 
   get getTags(): FormArray {
     return this.storeInfoForm.get('tags') as FormArray;
@@ -91,8 +94,10 @@ export class StoreInfoFormComponent implements OnInit {
   get f() { return this.storeInfoForm.controls; }
 
   cancel(): void {
+    window.history.back();
     //this.onReset();
-    this.router.navigateByUrl('stores');
+    // this.router.navigateByUrl(`stores?id=${this.storeInfo.userId}`, { skipLocationChange: true }).then(() => {
+    //   this.router.navigate(['stores'], {queryParams:{ id: this.storeInfo.userId }});});
   }
 
   submit(): void {
@@ -133,11 +138,14 @@ export class StoreInfoFormComponent implements OnInit {
       {
        // this.onReset();
        console.log('PATCH PATCH PATCH')
-        this.router.navigate(['/stores'], {queryParams:{id: data.ownerId}})
+        //this.router.navigate(['/stores'], {queryParams:{id: data.ownerId}})
+
+        window.history.back();
       })
       return;
     } else {
-      this.router.navigate(['/form/business-hours']);
+      this.router.navigateByUrl(`stores?id=${this.storeInfo.userId}`, { skipLocationChange: true }).then(() => {
+        this.router.navigate(['stores'], {queryParams:{ id: this.storeInfo.userId }});});
     }
     //this.router.navigate(['/form/bank'])
     //this.onReset();

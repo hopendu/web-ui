@@ -13,11 +13,11 @@ export class UserControllerService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUsers(): Observable<UserProfile[]>{
+  fetchAllUsers(): Observable<UserProfile[]>{
     return this.http.get<UserProfile[]>(this.baseUrl + `user`);
   }
 
-  getAllStoreAdmin(): Observable<UserProfile[]>{
+  fetchAllStoreAdmin(): Observable<UserProfile[]>{
     return this.http.get<UserProfile[]>( this.baseUrl  + `user?latitude=0&longitude=0&range=10000&role=STORE_ADMIN`);
   }
   

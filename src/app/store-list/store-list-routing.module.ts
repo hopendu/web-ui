@@ -5,7 +5,7 @@ import { StoreListComponent } from './store-list.component';
 
 const storeListRoutes: Routes = [
   { path: '', component: StoreListComponent},
-   { path: '/', loadChildren: () => import('./store/store.module').then( m => m.StoreModule)}
+   { path: '', loadChildren: () => import('./store/store.module').then( m => m.StoreModule)}
 ];
 
 @NgModule({

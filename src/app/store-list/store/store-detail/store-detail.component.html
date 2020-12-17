@@ -1,42 +1,9 @@
-<!-- <div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
-  <div class="text-center">
-    <h3><b>{{store.name}}</b></h3>
-</div>
-<ul class="nav mb-3">
-  <li class="nav-item"><a type="button" class="nav-link" routerLink="/stores"><i class="fa fa-arrow-left"></i> Back</a></li>
-  <li class="nav-item"><a type="button" class="nav-link"  ><i class="fa fa-trash"></i> Delete </a></li>
-</ul>
-<ul class="nav nav-tabs mb-3">
-    <li class="nav-item "><a class="nav-link active" data-toggle="tab" href="#home">Store information</a></li>
-    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu1">Operating hours</a></li>
-    <li class="nav-item"><a class="nav-link " data-toggle="tab" href="#menu2">Inventory</a></li>
-</ul>
-  
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <app-store-info [id]="store.id"></app-store-info>
-      <div class="text-center">
-        <a [routerLink]="'/form/store-info'" [queryParams]="{id: store.id}" 
-                                            queryParamsHandling :null>
-        <button class="btn btn-primary btn-rounded mb-4" style="width: 200px;"> Edit info </button>
-        </a>
-      </div>
-    </div>
-    <div id="menu1" class="tab-pane fade">
-        <app-store-hours [id]="store.id"></app-store-hours>
-    </div>
-    <div id="menu2" class="tab-pane fade">
-      <app-store-inventory [id]="store.id"></app-store-inventory>
-    </div>
-</div>
-
-</div> -->
 <div class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
   <div class="text-center">
-    <h3><b>{{store.name}}</b></h3>
+    <h3><b>{{storeName}}</b></h3>
 </div>
 <ul class="nav mb-3">
-  <li class="nav-item"><a type="button" class="nav-link" [routerLink]="['back']" [queryParams]="{ id: store.ownerId}"><i class="fa fa-arrow-left"></i> Back</a></li>
+  <li class="nav-item"><a type="button" class="nav-link" routerLink="../../"><i class="fa fa-arrow-left"></i> Back</a></li>
   <li class="nav-item"><a type="button" class="nav-link"  ><i class="fa fa-trash"></i> Delete </a></li>
 </ul>
 <ul class="nav nav-tabs mb-3">
