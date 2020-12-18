@@ -1,10 +1,9 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { first } from 'rxjs/operators';
-import { StoreProfile } from 'src/app/model/store-profile';
 import { ShareStoreService } from './share-store.service';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
+import { AlertService } from 'src/app/_services/alert.service';
 
 @Component({
   selector: 'app-store-detail',
@@ -23,7 +22,8 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
   constructor(  private activeRoute: ActivatedRoute,
                 private storeService: StoreControllerService,
                 private router: Router,
-                private shareStore: ShareStoreService){
+                private shareStore: ShareStoreService,
+                private alertService: AlertService){
                 }
 
   ngOnDestroy(): void {
@@ -44,7 +44,16 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
 
   addStore(): void{}
   
-  deleteStore(): void{}
+  deleteStore(): void{
+
+  
+    this.subscription[2] = this.storeService.delete(this.shareStore.storeProfile.id).subscribe(
+      data => { this.back(); this.alertService.success(`Succesful deleted ${this.storeName}`, true); },
+      error => this.alertService.error(`Write ${this.storeName} in the input field.`)
+      ) 
+}
+    
+    
 
   back(): void {
     this.router.navigateByUrl(`stores?id=${this.shareStore.storeProfile.ownerId}`)

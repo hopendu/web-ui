@@ -34,8 +34,8 @@ export class StoreControllerService {
     return this.http.delete(this.baseUrl  +`store/`+ storeId);
   }
 
-  fetchStockByStoreId(storeId: string): Observable<StoreProfile[]>{
-    return this.http.get<StoreProfile[]>(this.baseUrl  +`store/`+ storeId +`/stock`);
+  fetchStockByStoreId(storeId: string): Observable<Stock[]>{
+    return this.http.get<Stock[]>(this.baseUrl  +`store/`+ storeId +`/stock`);
   }
 
   patchStockByStoreId(storeId: string, stock: Stock): Observable<StoreProfile>{
