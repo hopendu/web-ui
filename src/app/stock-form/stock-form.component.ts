@@ -8,7 +8,7 @@ import { StoreControllerService } from '../service/store-controller.service';
 import { first } from 'rxjs/operators';
 import { AlertService } from '../_services/alert.service';
 import { Subscription } from 'rxjs';
-
+import { NavigationService } from '../service/navigation.service';
 @Component({
   selector: 'app-stock-form',
   templateUrl: './stock-form.component.html',
@@ -27,69 +27,65 @@ export class StockFormComponent implements OnInit, OnDestroy {
   quantity: any;
   price: any;
   imageUrl: string;
-
   stock: Stock;
+  stockId: string;
   storeName: string;
   storeId: string;
   ownerId: string;
   stockName: string;
   stockList: Stock[];
-
   subscription: Subscription[] = [];
-
   constructor(private fb: FormBuilder,
               private share: ShareDataService,
               private uploadService: UploadService,
               private router: Router,
               private storeService: StoreControllerService,
               private activeRoute: ActivatedRoute,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private navigateService: NavigationService) {
   }
-
   ngOnDestroy(): void {
     this.subscription.forEach( sub => sub.unsubscribe);
   }
-
   ngOnInit(): void {
-    
     this.subscription[0] =  this.activeRoute.queryParams.subscribe( params => {
-      
-      var stockId = params['id']
+      this.stockId =  params['id']
       this.storeId = params['storeId']
-      console.log(`1. ${stockId}&${this.storeId}`)
       this.subscription[1] = this.storeService.fetchStoreById(this.storeId).subscribe( data =>{
         this.storeName = data.name;
         this.ownerId = data.ownerId;
-        console.log(`2. ${stockId}&${this.storeId}&${this.storeName}&${this.ownerId}`)
-        this.subscription[2] = this.storeService.fetchStockByStoreId(data.id).subscribe( data => {
+        if(this.stockId.match('create')){
+          this.stockForm = this.fb.group({
+            name: new FormControl('', Validators.required),
+            price: new FormControl(Number, Validators.required),
+            discountPerc: new FormControl(Number, Validators.required),
+            quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
+            description: new FormControl('', Validators.required),
+            mandatorySelection: this.fb.array([ this.selection() ])
+          });
+        } else{
+          this.subscription[2] = this.storeService.fetchStockByStoreId(data.id).subscribe( data => {
             this.stockList = data;
-            this.stock = data.find( value => value.id == stockId);
-            this.stockName = this.stock.name;
-            console.log(`3. ${this.stock.id}&${this.stock.name}&${this.storeName}&${this.ownerId}`)
-
-            this.stockForm = this.fb.group({
-              name: new FormControl(this.stock.name, Validators.required),
-              price: new FormControl(this.stock.price, Validators.required),
-              discountPerc: new FormControl(this.stock.discountPerc, Validators.required),
-              quantity: new FormControl(this.stock.quantity, [Validators.required, Validators.min(1)]),
-              description: new FormControl(this.stock.description, Validators.required),
-              mandatorySelection: this.fb.array([ this.selection() ])
+            this.stock = data.find( value => value.id == this.stockId);
+            if(!!this.stock){ 
+              this.stockName = this.stock.name;
+              this.stockForm = this.fb.group({
+                name: new FormControl(this.stock.name, Validators.required),
+                price: new FormControl(this.stock.price, Validators.required),
+                discountPerc: new FormControl(this.stock.discountPerc, Validators.required),
+                quantity: new FormControl(this.stock.quantity, [Validators.required, Validators.min(1)]),
+                description: new FormControl(this.stock.description, Validators.required),
+                mandatorySelection: this.fb.array([ this.selection() ])
+              });      
+              this.stockForm.controls['name'].disable();
+              this.stock.mandatorySelection.forEach( selection => {
+                this.mandatories.push(this.fb.group({
+                  name: new FormControl(selection.name, Validators.required),
+                  price: new FormControl(selection.price, Validators.required),
+                  selected: new FormControl(selection.selected, Validators.required),
+                  values: this.fb.array(selection.values)}));});
+                }});}})
             });
-      
-            this.stock.mandatorySelection.forEach( selection => {
-              this.mandatories.push(this.fb.group({
-                name: new FormControl(selection.name, Validators.required),
-                price: new FormControl(selection.price, Validators.required),
-                selected: new FormControl(selection.selected, Validators.required),
-                values: this.fb.array(selection.values)
-                  })
-               );
-              }
-            );
-            });
-          })
-    })
-
     this.stockForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
@@ -98,8 +94,8 @@ export class StockFormComponent implements OnInit, OnDestroy {
       description: new FormControl('', Validators.required),
       mandatorySelection: this.fb.array([ this.selection() ])
     });
+  this.ownerId = this.activeRoute.snapshot.params['oi'];
   }
-
   selection(): FormGroup {
     return this.fb.group({
       name: new FormControl('', Validators.required),
@@ -112,46 +108,36 @@ export class StockFormComponent implements OnInit, OnDestroy {
   get mandatories(): FormArray {
     return this.stockForm.get('mandatorySelection') as FormArray;
   }
-  
   get options(): FormArray {
     return this.stockForm.get('optionalSelection') as FormArray;
   }
-
   addValue(selectionOption): void{
     selectionOption.get('values').push(new FormControl(''));
   }
-
   get imagies(): FormArray {
     return this.stockForm.get('imageUrls') as FormArray;
   }
-
   addImage(): void {
     this.imagies.push(new FormControl(''));
   }
-
   deleteImage( index: number): void{
     ( this.stockForm.get('imageUrls') as FormArray).removeAt(index);
   }
-
   addMandatory(): void{
     this.mandatories.push(this.selection());
   }
-
   addOptional(): void{
     this.options.push(this.selection());
   }
-
   deleteValue(selectionOption, index): void{
     selectionOption.get('values').removeAt(index);
   }
   deleteMandatory( index): void{
     this.mandatories.removeAt(index);
   }
-
   deleteOptional(index): void{
     this.options.removeAt(index);
   }
-
   get images(): string[]{
     let images = new Array<string>();
     this.imageUrls.forEach( i => images.push(i));
@@ -161,48 +147,41 @@ export class StockFormComponent implements OnInit, OnDestroy {
 
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
-    if( !!this.stock && !!this.storeName){
+    if(!!this.storeName){
       this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.storeName));  
     }
     else this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));      
   }
 
   done(): void{
-
-    if( !!this.stock && !!this.storeId){
-      this.stock.description = this.stockForm.get('description').value;
-      this.stock.discountPerc = this.stockForm.get('discountPerc').value;
-      this.stock.images = this.images;
-      this.stock.mandatorySelection = this.stockForm.get('mandatorySelection').value;
-      this.stock.name = this.stockForm.get('name').value;
-      this.stock.price = this.stockForm.get('price').value;
-      this.stock.quantity = this.stockForm.get('quantity').value;
-      
-      if( this.stock.name.match(this.stockName)){
-        this.subscription[3] = this.storeService.patchStockByStoreId( this.storeId, this.stock).subscribe( data => {
-          this.alertService.success(`Succesful updeted. Refresh the page to view change.`, true);
-          window.history.back();
-        }); 
-      } else {
-        this.alertService.error(`Update did not take effect for the stock names are not the same.`, true)
-        window.history.back();
+    let newStock = new Stock(null,this.stockForm.get('description').value,
+      this.stockForm.get('discountPerc').value,
+      this.images,
+      this.stockForm.get('mandatorySelection').value,
+      this.stockForm.get('name').value,
+      null,
+      this.stockForm.get('price').value,
+      this.stockForm.get('quantity').value);
+    if( (!!this.stock && !!this.storeId) || ( !!this.stockId && this.stockId.match('create'))){
+      if( (newStock.name.match(this.stockName)) || ( !!this.stockId  && this.stockId.match('create'))){  
+        if(newStock.name.match(this.stockName) && !!this.stock) {
+          newStock.id = this.stock.id;
+        }
+        this.subscription[3] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data =>
+            this.alertService.success(`Succesful ${ (this.stockId.match('create')) ? 'added' : 'edited' } stock.`, true),
+            err => this.alertService.error(`Failed to ${ (!newStock.name.match(this.stockName) && !!this.stock) ? 'update' : 'add'} a stock.`, true)
+          )
       }
+      window.history.back();
       return;
-    }
-    this.share.addStock( new Stock(null,this.stockForm.get('description').value,
-    this.stockForm.get('discountPerc').value,
-    this.images,
-    this.stockForm.get('mandatorySelection').value,
-    this.stockForm.get('name').value,
-    null,
-    this.stockForm.get('price').value,
-    this.stockForm.get('quantity').value));
+    } 
+    this.share.addStock( newStock );
     this.router.navigateByUrl('/form');
     this.onReset();
   };
   
   add (): void{
-    if( !!this.stock && !!this.storeId){
+    if(( !!this.stock && !!this.storeId) || ( !!this.stockId && this.stockId.match('create'))){
       window.history.back();
       return;
     }
@@ -215,16 +194,18 @@ export class StockFormComponent implements OnInit, OnDestroy {
     this.stockForm.get('price').value,
     this.stockForm.get('quantity').value));
     this.onReset();
-    this.router.navigateByUrl('/form/stock');
+    this.router.navigateByUrl(`/form/stock?oi=${this.ownerId}`);
   };
 
-  skip (): void{
-    if( !!this.stock && !!this.storeId){
+  skip (event): void{
+    if(( !!this.stock && !!this.storeId) || ( !!this.stockId && this.stockId.match('create'))){
       window.history.back();
       return;
     }
+    event.preventDefault();
+    this.router.navigateByUrl('form', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['form'], {queryParams:{ oi: this.ownerId}});}); 
     this.onReset();
-    this.router.navigateByUrl('/form');
   };
 
   onSubmit(): void{

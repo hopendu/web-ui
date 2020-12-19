@@ -3,8 +3,11 @@
     
 </div>
 <ng-template #elseBlock>
+    <ul class="nav mb-3">
+        <li class="nav-item"><a class="nav-link active" (click)="add($event)"><i class="fa fa-plus"></i> Add </a></li>
+      </ul>
     <div class="card-deck d-flex">
-        <app-item *ngFor="let stock of stockList|async" [stock]="stock"   (clickedEventEmitter)="isClicked($event)"></app-item>
+        <app-item *ngFor="let stock of stockList|async" [stock]="stock" [id]="storeId"  (clickedEventEmitter)="isClicked($event)"></app-item>
     </div> 
 </ng-template>
 <!-- <div class="card-deck d-flex">

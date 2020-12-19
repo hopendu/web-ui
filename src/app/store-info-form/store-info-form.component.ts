@@ -3,12 +3,10 @@ import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@ang
 import { StoreInfo } from '../model/store-info';
 import { UploadService } from '../service/upload.service';
 import { ShareDataService } from '../service/share-data.service';
-import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
-import { Service } from 'aws-sdk/global';
+import { Router, ActivatedRoute } from '@angular/router';
 import { StoreControllerService } from '../service/store-controller.service';
 import { StoreProfile } from '../model/store-profile';
 import { NavigationService } from '../service/navigation.service';
-import { first } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -55,6 +53,8 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
               tags: this.fb.array([])
             });
             store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
+
+            this.storeInfoForm.controls['userId'].disable();
           })
       })
 
@@ -62,12 +62,14 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
         name: ['', Validators.required],
         description: ['', Validators.required],
         emailAddress: ['', [Validators.required, Validators.email]],
-        userId: ['', Validators.required],
+        userId: [ this.activeRoute.snapshot.queryParams['oi'], Validators.required],
         address: ['', Validators.required],
         mobileNumber:  ['', Validators.required],
         regNumber: ['', Validators.required],
         tags: this.fb.array([])
       });
+
+      this.storeInfoForm.controls['userId'].disable();
     
   }
 
@@ -139,7 +141,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
         window.history.back();
       })
       return;
-    } else {this.router.navigateByUrl('form/business-hours');
+    } else {this.router.navigate(['form/business-hours'], {queryParams:{ oi: this.storeInfoForm.get('userId').value }});
     }
   };
 

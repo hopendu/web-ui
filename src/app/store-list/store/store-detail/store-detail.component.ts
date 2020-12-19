@@ -42,7 +42,6 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
     this.hideDetailEventEmitter.emit(true);
   }
 
-  addStore(): void{}
   
   deleteStore(): void{
 
@@ -51,10 +50,8 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
       data => { this.back(); this.alertService.success(`Succesful deleted ${this.storeName}`, true); },
       error => this.alertService.error(`Write ${this.storeName} in the input field.`)
       ) 
-}
+  }
     
-    
-
   back(): void {
     this.router.navigateByUrl(`stores?id=${this.shareStore.storeProfile.ownerId}`)
     .catch( error => window.history.back());

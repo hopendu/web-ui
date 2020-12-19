@@ -245,7 +245,7 @@ h2, h3 {
 body {
   color: #888;
   background: rgb(223,147,45);
-  background: linear-gradient(0deg, rgba(223,147,45,1) 0%, rgba(255,255,255,1) 62%, rgba(223,147,45,1) 90%);
+  background: linear-gradient(280deg, rgba(223,147,45,1) 0%, rgba(255,255,255,1) 62%, rgba(223,147,45,1) 90%);
 }
 /* a {
   cursor: pointer;

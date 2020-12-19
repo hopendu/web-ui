@@ -6,6 +6,7 @@ import { StoreProfile } from 'src/app/model/store-profile';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
 import { ShareStoreService } from '../share-store.service';
 import { ShareDataService } from '../../../../service/share-data.service';
+import { AlertService } from '../../../../_services/alert.service';
 
 @Component({
   selector: 'app-store-hours',
@@ -28,6 +29,7 @@ export class StoreHoursComponent implements OnInit, OnDestroy {
                 private activeRoute: ActivatedRoute,
                 private shareStore: ShareStoreService,
                 private share: ShareDataService,
+                private alertService: AlertService,
                 private fb: FormBuilder) { 
                 }
 
@@ -85,7 +87,8 @@ editAt(index: number): void {
       this.store.businessHours[this.index].open.setMinutes(Number(start.split(':')[1]));
     }
 
-    this.subscription[2] = this.storeService.patch(this.store.id, this.store).subscribe( data => this.store = data);
+    this.subscription[2] = this.storeService.patch(this.store.id, this.store).subscribe( data => this.alertService.success(`Succesful edited hours.`, true)
+      );
     
     this.changeView = -1;
     
