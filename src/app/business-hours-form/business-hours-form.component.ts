@@ -12,7 +12,7 @@ import { ShareDataService } from '../service/share-data.service';
 })
 export class BusinessHoursFormComponent implements OnInit {
   
-  businessHours = new BusinessHours();
+  businessHours = new BusinessHours()
   hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
   timesFormGroup: FormGroup;

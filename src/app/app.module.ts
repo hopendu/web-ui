@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BankFormComponent } from './bank-form/bank-form.component';
+import { ViewComponent } from './business-hours-form/view/view.component';
 import { BusinessHoursFormComponent } from './business-hours-form/business-hours-form.component';
 import { StockFormComponent } from './stock-form/stock-form.component';
 import { StockListComponent } from './stock-list/stock-list.component';
@@ -33,6 +34,7 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +43,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     StockFormComponent,
     StoreInfoFormComponent,
     StockListComponent,
+    ViewComponent,
     StoreListComponent, StoreComponent, StoreDetailComponent, StoreInfoComponent, StoreHoursComponent, StoreInventoryComponent,
     DetailComponent,  ItemComponent, StockInfoComponent,
     StoreRegistrationFormComponent,
@@ -98,7 +101,8 @@ figure {
   width: 100%;
   height: 60%;
   margin: 0! important;
-}
+}import { ViewComponent } from './business-hours-form/view/view.component';
+
 .fixed-wrap {
   clip: rect(0, auto, auto, 0);
   position: absolute;

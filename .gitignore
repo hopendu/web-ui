@@ -45,3 +45,4 @@ testem.log
 .DS_Store
 Thumbs.db
 src/environments/environment.ts $ git rm --cached debug.log rm src/environments/environment.ts $ git commit -m Start ignoring src/environments/environment.ts
+src/environments/environment.prod..ts $ git rm --cached debug.log rm src/environments/environment.prod.ts $ git commit -m Start ignoring src/environments/environment.prod.ts

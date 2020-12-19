@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BusinessHoursRoutingModule } from './business-hours-routing.module';
-import { ViewComponent } from './view/view.component';
 
 
 
 @NgModule({
-  declarations: [ ViewComponent ],
+  declarations: [ ],
   imports: [
     CommonModule,
     BusinessHoursRoutingModule
   ],
-  exports: [ ViewComponent]
+  exports: []
 })
 export class BusinessHoursFormModule { }

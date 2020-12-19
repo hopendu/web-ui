@@ -180,10 +180,13 @@ export class StockFormComponent implements OnInit, OnDestroy {
       
       if( this.stock.name.match(this.stockName)){
         this.subscription[3] = this.storeService.patchStockByStoreId( this.storeId, this.stock).subscribe( data => {
+          this.alertService.success(`Succesful updeted. Refresh the page to view change.`, true);
           window.history.back();
         }); 
       } else {
-        window.history.back();}
+        this.alertService.error(`Update did not take effect for the stock names are not the same.`, true)
+        window.history.back();
+      }
       return;
     }
     this.share.addStock( new Stock(null,this.stockForm.get('description').value,
