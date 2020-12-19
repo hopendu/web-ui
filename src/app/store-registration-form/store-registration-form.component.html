@@ -69,12 +69,13 @@
                   <tbody>
                     <tr *ngFor="let day of businessHours; index as i">
                       <th scope="row">{{ i + 1 }}</th>
-                      <td>{{ day.day }}</td>
+                      <td>{{ day.day }}</td>  
                       <td>{{ day.open | date:'shortTime'}}</td>
                       <td>{{ day.close | date:'shortTime'}}</td>
                       <td>
                         <div class="text-left">
-                          <a (click)="btnClick(day);"><i class="fa fa-pencil fa-fw"></i></a>
+                          <!-- <a (click)="btnClick(day);"><i class="fa fa-pencil fa-fw"></i></a> -->
+                         <a class="button" (click)="btnClick(day);" ><i class="fa fa-pencil fa-fw"></i></a>
                           <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="btnClick(day);">
                           -->
                         </div>
