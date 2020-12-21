@@ -27,15 +27,4 @@ export class ItemComponent implements OnInit {
     this.clickedEventEmitter.emit(this.stock);
   }
   
-  deleteStock(): void{
-    this.storeService.fetchStoreById(this.id).subscribe( data => {
-      data.stockList =  data.stockList.filter( value => !(value.id.match(this.stock.id)));
-      this.storeService.patch(this.id, data).subscribe( data2 => {
-        this.alert.success(`Succesful deleted ${this.stock.name}.`, true)
-        window.history.back();
-      })
-
-    })
-  }
-
 }

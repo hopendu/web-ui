@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ShareStoreService } from './share-store.service';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
 import { AlertService } from 'src/app/_services/alert.service';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-store-detail',
@@ -53,7 +54,7 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
   }
     
   back(): void {
-    this.router.navigateByUrl(`stores?id=${this.shareStore.storeProfile.ownerId}`)
+    this.router.navigate([''], { queryParams : { id: this.shareStore.storeProfile.ownerId}})
     .catch( error => window.history.back());
   }  
 }

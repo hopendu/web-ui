@@ -5,7 +5,7 @@ import { UploadService } from '../service/upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareDataService } from '../service/share-data.service';
 import { StoreControllerService } from '../service/store-controller.service';
-import { first } from 'rxjs/operators';
+const { uuid } = require('uuidv4');
 import { AlertService } from '../_services/alert.service';
 import { Subscription } from 'rxjs';
 import { NavigationService } from '../service/navigation.service';
@@ -49,12 +49,12 @@ export class StockFormComponent implements OnInit, OnDestroy {
   }
   ngOnInit(): void {
     this.subscription[0] =  this.activeRoute.queryParams.subscribe( params => {
-      this.stockId =  params['id']
-      this.storeId = params['storeId']
+      this.stockName =  params['item']
+      this.storeId = params['id']
       this.subscription[1] = this.storeService.fetchStoreById(this.storeId).subscribe( data =>{
         this.storeName = data.name;
         this.ownerId = data.ownerId;
-        if(this.stockId.match('create')){
+        if(!!this.stockName && this.stockName.match('create')){
           this.stockForm = this.fb.group({
             name: new FormControl('', Validators.required),
             price: new FormControl(Number, Validators.required),
@@ -64,11 +64,8 @@ export class StockFormComponent implements OnInit, OnDestroy {
             mandatorySelection: this.fb.array([ this.selection() ])
           });
         } else{
-          this.subscription[2] = this.storeService.fetchStockByStoreId(data.id).subscribe( data => {
-            this.stockList = data;
-            this.stock = data.find( value => value.id == this.stockId);
+            this.stock = data.stockList.find( value => value.name.match(this.stockName));
             if(!!this.stock){ 
-              this.stockName = this.stock.name;
               this.stockForm = this.fb.group({
                 name: new FormControl(this.stock.name, Validators.required),
                 price: new FormControl(this.stock.price, Validators.required),
@@ -77,14 +74,14 @@ export class StockFormComponent implements OnInit, OnDestroy {
                 description: new FormControl(this.stock.description, Validators.required),
                 mandatorySelection: this.fb.array([ this.selection() ])
               });      
-              this.stockForm.controls['name'].disable();
               this.stock.mandatorySelection.forEach( selection => {
                 this.mandatories.push(this.fb.group({
                   name: new FormControl(selection.name, Validators.required),
                   price: new FormControl(selection.price, Validators.required),
                   selected: new FormControl(selection.selected, Validators.required),
                   values: this.fb.array(selection.values)}));});
-                }});}})
+              this.stockForm.controls['name'].disable();
+              }}})
             });
     this.stockForm = this.fb.group({
       name: new FormControl('', Validators.required),
@@ -162,15 +159,13 @@ export class StockFormComponent implements OnInit, OnDestroy {
       null,
       this.stockForm.get('price').value,
       this.stockForm.get('quantity').value);
-    if( (!!this.stock && !!this.storeId) || ( !!this.stockId && this.stockId.match('create'))){
-      if( (newStock.name.match(this.stockName)) || ( !!this.stockId  && this.stockId.match('create'))){  
-        if(newStock.name.match(this.stockName) && !!this.stock) {
-          newStock.id = this.stock.id;
-        }
-        this.subscription[3] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data =>
-            this.alertService.success(`Succesful ${ (this.stockId.match('create')) ? 'added' : 'edited' } stock.`, true),
+    if( (!!this.stock && !!this.storeId) || ( !!this.stockName && this.stockName.match('create'))){
+      if( (newStock.name.match(this.stockName)) || ( !!this.stockName  && this.stockName.match('create'))){  
+          newStock.id = (newStock.name.match(this.stockName) && !!this.stock) ? this.stock.id : newStock.id; 
+          this.subscription[2] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data =>
+            this.alertService.success(`Succesful ${ (this.stockName.match('create')) ? 'added' : 'edited' } stock.`, true),
             err => this.alertService.error(`Failed to ${ (!newStock.name.match(this.stockName) && !!this.stock) ? 'update' : 'add'} a stock.`, true)
-          )
+        )
       }
       window.history.back();
       return;
@@ -181,7 +176,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
   };
   
   add (): void{
-    if(( !!this.stock && !!this.storeId) || ( !!this.stockId && this.stockId.match('create'))){
+    if(( !!this.stock && !!this.storeId) || ( !!this.stockName && this.stockName.match('create'))){
       window.history.back();
       return;
     }
@@ -198,7 +193,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
   };
 
   skip (event): void{
-    if(( !!this.stock && !!this.storeId) || ( !!this.stockId && this.stockId.match('create'))){
+    if(( !!this.stock && !!this.storeId) || ( !!this.stockName && this.stockName.match('create'))){
       window.history.back();
       return;
     }
@@ -210,9 +205,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
 
   onSubmit(): void{
     if(this.stockForm.invalid) return;
-
   }
-
   onReset(): void {
     this.stockForm.reset();
     this.mandatories.clear();

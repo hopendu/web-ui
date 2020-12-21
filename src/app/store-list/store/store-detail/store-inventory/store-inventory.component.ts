@@ -41,7 +41,7 @@ export class StoreInventoryComponent implements OnInit, OnDestroy{
   add(event): void {
     event.preventDefault();
     this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['form/stock'], {queryParams:{ id: 'create', storeId: this.activeRoute.parent.snapshot.params.id }});}); 
+      this.router.navigate(['form/stock'], {queryParams:{ id: this.activeRoute.parent.snapshot.params.id, item: 'create', }});}); 
 };
 
 
