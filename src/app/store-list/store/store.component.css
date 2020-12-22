@@ -1,10 +1,12 @@
-.card {
-    justify-self: center;
+ .card {
+    
+    align-self: flex-start;
     width: 250px;
     height: 350px;
+    border-color: white;
 }
 
 img {
     width: 248px;
-    height: 250px;
-}
+    height: 200px;
+} 

@@ -1,12 +1,17 @@
-<div class="card mb-3">
-  <img src="{{(store|async)?.imageUrl}}" class="card-img-top" alt="card-image-top">
-  <div class="card-body">
-      <h5 class="card-title">{{(store|async)?.name}}</h5>
-      <p class="card-text">
-        <a [routerLink]="(store|async)?.id">
-        <button class="btn btn-primary btn-rounded mb-4" (click)="isClicked()" style="width: 200px;">View details</button>
-      </a>
-      </p>
+
+<div class="card mb-3 ml-3 shadow-sm sm-white rounded">
+  <div class="view overlay">
+    <img src="{{(store|async)?.imageUrl}}" class="card-img-top" alt="card-image-top">
+  </div>
+  <div class="card-body d-flex flex-column">
+      <div class="text-center">
+        <h6 class="card-title">{{(store|async)?.name}}</h6>
+        <p>
+          <a [routerLink]="(store|async)?.id">
+            <button class="align-self-end btn btn-primary btn-rounded mb-4" (click)="isClicked()" style="width: 200px; margin-top: auto;">View details</button>
+          </a>
+        </p>
+      </div>
   </div>
 </div>
 

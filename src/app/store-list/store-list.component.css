@@ -1,11 +1,7 @@
-.card-deck {
+.cards {
     display: flex;
-    justify-content: center;
-}
-
-@media (max-width: 800px) {
-    .card-deck {
-        flex-direction: column;
-        justify-content: center;
-      }
-}
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    max-height: 100vh;
+  }
