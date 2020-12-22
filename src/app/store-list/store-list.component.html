@@ -7,13 +7,13 @@
     <div class="text-center">
       <h3><b>Your stores</b></h3>
     </div>
-    <ul class="nav mb-3">
+    <div class="nav mb-3">
       <li class="nav-item"><a class="nav-link active" (click)="addStore($event)" ><i class="fa fa-plus"></i> Add </a></li>
-    </ul>
+    </div>
     <!-- <div class="card-deck d-flex" > -->
-        <div class="cards">
+        <ul>
             <app-store *ngFor="let store of storeList|async; index as i" [id]="store.id" (clickedEventEmitter)="isClicked($event)"></app-store>
-        </div>
+        </ul>
     <!-- </div> -->
   </ng-template>
   
