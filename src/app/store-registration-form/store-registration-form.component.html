@@ -40,7 +40,7 @@
                         </table>
                     </div>
                   </ul>
-                  <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="editStoreInfOnClick();">
+                  <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="editStoreInfOnClick();"> -->
               </div>
               </div>
             </div>
@@ -63,7 +63,7 @@
                       <th scope="col">Day</th>
                       <th scope="col">Open</th>
                       <th scope="col">Close</th>
-                      <th scope="col">Edit</th>
+                      <!-- <th scope="col">Edit</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -72,14 +72,14 @@
                       <td>{{ day.day }}</td>  
                       <td>{{ day.open | date:'shortTime'}}</td>
                       <td>{{ day.close | date:'shortTime'}}</td>
-                      <td>
-                        <div class="text-left">
+                      <!-- <td>
+                        <div class="text-left"> -->
                           <!-- <a (click)="btnClick(day);"><i class="fa fa-pencil fa-fw"></i></a> -->
-                         <a class="button" (click)="btnClick(day);" ><i class="fa fa-pencil fa-fw"></i></a>
+                         <!-- <a class="button" (click)="btnClick(day);" ><i class="fa fa-pencil fa-fw"></i></a> -->
                           <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="btnClick(day);">
                           -->
-                        </div>
-                      </td> 
+                        <!-- </div>
+                      </td>  -->
                     </tr>
                   </tbody>
                 </table>

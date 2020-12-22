@@ -5,11 +5,14 @@
         </div>
         <div class="col-md-9 card-body">
             <app-stock-info [stock]="stock"></app-stock-info> 
-            <div>
+            <div *ngIf="!!this.activeRoute.snapshot.params['id']; else elseBlock;">
                 <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 200px;"> Hide detail</button> &nbsp;
                 <button class="btn btn-primary btn-rounded mb-4" (click)="edit($event)" style="width: 200px;">Edit</button> &nbsp;
                 <a type="button" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" data-toggle="modal" data-target="#stock" >Delete </a>
             </div>
+            <ng-template #elseBlock>
+              <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 200px;"> Hide detail</button>
+            </ng-template>
             
         </div>
 </div>

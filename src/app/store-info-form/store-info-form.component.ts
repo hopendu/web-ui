@@ -8,6 +8,7 @@ import { StoreControllerService } from '../service/store-controller.service';
 import { StoreProfile } from '../model/store-profile';
 import { NavigationService } from '../service/navigation.service';
 import { Subscription } from 'rxjs';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'app-store-info-form',
@@ -32,6 +33,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
               private share: ShareDataService,
               private storeService: StoreControllerService,
               private activeRoute: ActivatedRoute,
+              private alertService : AlertService,
               private navigation: NavigationService){ }
 
   ngOnInit(): void {
@@ -138,7 +140,10 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       
      this.storeService.patch(this.id, this.store).subscribe( data => 
       {
-        window.history.back();
+        this.alertService.success('Succesfull updaed store infomation')
+        window.history.back()
+      }, err => {
+        this.alertService.error('Failed to update store infomation.')
       })
       return;
     } else {this.router.navigate(['form/business-hours'], {queryParams:{ oi: this.storeInfoForm.get('userId').value }});

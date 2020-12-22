@@ -5,7 +5,7 @@
   </div>
   <div class="card-body d-flex flex-column">
       <div class="text-center">
-        <h6 class="card-title">{{(store|async)?.name}}</h6>
+        <h6 class="card-title text-truncate">{{(store|async)?.name}}</h6>
         <p>
           <a [routerLink]="(store|async)?.id">
             <button class="align-self-end btn btn-primary btn-rounded mb-4" (click)="isClicked()" style="width: 200px; margin-top: auto;">View details</button>

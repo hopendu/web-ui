@@ -4,7 +4,7 @@ ul {
     /* Spacing between list items and each other */
     --item-spacing: 16px;
     /* Items per row in desktop */
-    --items-per-row: 3;
+    --items-per-row: 4;
   
     box-sizing: border-box;
     list-style: none;
