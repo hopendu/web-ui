@@ -223,9 +223,13 @@
         </div>      
         <br>
         <div class="text-center">
-          <button class="btn btn-default btn-rounded mb-4"  (click)="add();">Add</button> &nbsp;
-            <button class="btn btn-default btn-rounded mb-4"  (click)="skip($event);">Skip</button> &nbsp;
-            <button class="btn btn-default btn-rounded mb-4"  (click)="done();">Done</button>
+          <button class="btn btn-default btn-rounded mb-4"  (click)="add();" *ngIf="!(!!storeName)">Add</button> &nbsp;
+          <button class="btn btn-default btn-rounded mb-4"  (click)="skip($event);">
+            <span>{{!!stockName ? 'Cancel' : 'Skip'}}</span>
+          </button> &nbsp;
+          <button class="btn btn-default btn-rounded mb-4"  (click)="done();"><span>
+            {{!!stockName ? 'Submit' : 'Done'}}</span>
+          </button>
         </div>
     </div>
 

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { CustomReuseStrategy} from './util/custom-reuse-strategy';
@@ -56,6 +57,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthGuard,

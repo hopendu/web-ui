@@ -7,11 +7,18 @@ import { StoreControllerService } from 'src/app/service/store-controller.service
 import { Stock } from '../../model/stock';
 import { ShareDataService } from '../../service/share-data.service';
 import { AlertService } from '../../_services/alert.service';
+import { trigger, transition, animate, style } from '@angular/animations'
 
 @Component({
   selector: 'app-detail',
   templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css']
+  styleUrls: ['./detail.component.css'],
+  animations:[
+    trigger('fade', [
+      transition('void => *', [style({ opacity: 0 }), animate('800ms', style({ opacity: 1 }))]),
+      transition('* => void', [style({ opacity: 1 }), animate('800ms', style({ opacity: 0 }))]),
+    ])
+  ]
 })
 export class DetailComponent implements OnInit , OnDestroy {
 
@@ -19,6 +26,7 @@ export class DetailComponent implements OnInit , OnDestroy {
   @Input() stock: Stock;
   imageUrl: string;
   subscription: Subscription[] = [];
+  current = 0;
 
   constructor( private share:ShareDataService,
     private storeService: StoreControllerService,
@@ -38,6 +46,10 @@ export class DetailComponent implements OnInit , OnDestroy {
   ngOnInit() {
     this.imageUrl = this.stock.images[0];
     this.share.stock = this.stock;
+
+    setInterval(() => {
+      this.current = ++this.current % this.stock.images.length;
+    }, 5000);
   }
 
   deleteStock(): void {
