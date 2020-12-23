@@ -1,34 +1,5 @@
-ul {
-    /* Spacing between list items and the container */
-    --outer-spacing: 48px;
-    /* Spacing between list items and each other */
-    --item-spacing: 16px;
-    /* Items per row in desktop */
-    --items-per-row: 4;
-  
-    box-sizing: border-box;
-    list-style: none;
-    padding: calc(var(--outer-spacing) - var(--item-spacing) / 2);
-    display: flex;
-    flex-flow: row wrap;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: stretch;
-  
-    /* On mobile this becomes a horizontal scrolling list */
-    @media (max-width: 600px) {
-      margin: 0;
-      padding: var(--outer-spacing);
-      overflow-x: auto;
-      flex-wrap: nowrap;
-      align-items: stretch;
-  
-      /* Add a space after the last item 
-         https://stackoverflow.com/a/38997047 */
-      &:after {
-        display: block;
-        content: ' ';
-        flex: 0 0 var(--outer-spacing);
-      }
-    }
-  }
+.card-deck {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}

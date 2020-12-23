@@ -1,5 +1,5 @@
  .card {
-    
+    display: flex;
     align-self: flex-start;
     width: 250px;
     height: 350px;
@@ -10,20 +10,3 @@ img {
     width: 248px;
     height: 200px;
 } 
-
-li {
-    box-sizing: inherit;
-    display: inline-block; /* or inline-flex */
-    flex: 0 0 calc(100% / var(--items-per-row) - var(--item-spacing));
-    margin: calc(var(--item-spacing) / 2);
-  
-    @media (max-width: 600px) {
-      flex: 0 0 100%;
-      margin: 0;
-  
-      /* Item spacing */
-      & + & {
-        margin: 0 0 0 var(--item-spacing);
-      }
-    }
-  }
