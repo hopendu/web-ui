@@ -1,5 +1,6 @@
-.card-deck {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }

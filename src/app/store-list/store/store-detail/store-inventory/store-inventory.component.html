@@ -6,10 +6,7 @@
     <ul class="nav mb-3">
         <li class="nav-item"><a class="nav-link active" (click)="add($event)" data-toggle="tooltip" data-placement="top" title="Add a stock"><i class="fa fa-plus"></i> Stock </a></li>
       </ul>
-    <div class="card-deck d-flex">
+    <div class="container">
         <app-item *ngFor="let stock of stockList|async" [stock]="stock" [id]="storeId"  (clickedEventEmitter)="isClicked($event)"></app-item>
     </div> 
 </ng-template>
-<!-- <div class="card-deck d-flex">
-    <app-item *ngFor="let stock of stockList|async" [stock]="stock"></app-item>
-</div>  -->
