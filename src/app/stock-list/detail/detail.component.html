@@ -1,13 +1,13 @@
 <!-- <br><h1><b>The Stock Detail</b></h1><br> -->
 <div class="row justify-content-around" >
-        <div class="col-md-3 card-body sliders" >
+        <div class="sliders" >
           <ng-container *ngFor="let img of stock.images; let i = index">
 			    <div class="slider" *ngIf="current == i" @fade>
 				    <img src="{{img}}" class="shadow-sm sm-white m-3 rounded" style="width: 250px; height: 250px;">
 			    </div>
 		      </ng-container>
         </div>
-        <div class="col-md-9 card-body">
+        <div class="data">
             <app-stock-info [stock]="stock"></app-stock-info> 
             <div *ngIf="!!this.activeRoute.snapshot.params['id']; else elseBlock;">
                 <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 200px;"> Hide detail</button> &nbsp;

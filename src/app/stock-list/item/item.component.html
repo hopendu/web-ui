@@ -6,7 +6,7 @@
     <div class="summary flex-fill">
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><h5 class="card-title">{{ stock.name }}</h5></li>
-        <li class="list-group-item card-title description">Description:{{ stock.description }}</li>
+        <li class="list-group-item card-title">Description:{{ stock.description }}</li>
         <li class="list-group-item card-title">Price:{{ stock.price| currency:'R ' }}</li>
         <li class="list-group-item card-title">Quantity:{{ stock.quantity }}</li>
         <li class="list-group-item card-title" *ngIf=" stock.discountPerc > 0">Discount %:{{ stock.discountPerc }}</li>

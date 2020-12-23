@@ -1,4 +1,4 @@
-sliders {
+/* sliders {
     position: relative;
     width: 100vw;
     height: 66vw;
@@ -15,4 +15,22 @@ sliders {
   .img {
     width: 100%;
     height: 100%;
-  }
+  } */
+  @media(min-width: 768px){
+    .item{
+        display: flex;
+        flex-direction: row;
+    }
+    
+    .sliders {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        position: relative;
+    }
+    
+    .data {
+        display: flex;
+        flex-direction: column;
+    }   
+}
