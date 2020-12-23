@@ -1,15 +1,5 @@
-.container {
+.card-deck {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-@media(max-width: 768px){
-    .container{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     flex-direction: column;
-    margin-bottom: 1rem;
-    }
+    justify-content: center;
 }

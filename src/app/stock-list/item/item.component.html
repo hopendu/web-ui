@@ -1,19 +1,20 @@
   <div class="card mb-3">
-    <div class="item">
-      <div class="img" *ngIf="imageUrl">
-        <img src="{{imageUrl}}" class="m-4 rounded" style="width: 15rem; height: 15rem;">
+    <div class="row no-gutters justify-content-around">
+      <div class="col-md-4">
+        <img src="{{imageUrl}}" class="px-3 shadow-sm p-3 mb-5 sm-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
       </div>
-      <div class="summary flex-fill">
+      <div class="col-md-8">
         <ul class="list-group list-group-flush">
           <li class="list-group-item"><h5 class="card-title">{{ stock.name }}</h5></li>
           <li class="list-group-item card-title">Description:{{ stock.description }}</li>
           <li class="list-group-item card-title">Price:{{ stock.price| currency:'R ' }}</li>
           <li class="list-group-item card-title">Quantity:{{ stock.quantity }}</li>
           <li class="list-group-item card-title" *ngIf=" stock.discountPerc > 0">Discount %:{{ stock.discountPerc }}</li>
-          <li class="list-group-item card-title">
-            <button class="btn btn-primary mb-3" (click)="isClicked()" style="width: 200px;">View details</button> &nbsp;
-          </li>
         </ul>
+        <p class="card-text"><small class="text-muted">
+          <button class="btn btn-primary mb-3" (click)="isClicked()" style="width: 200px;">View details</button> &nbsp;
+        </small>
+      </p>
       </div>
     </div>
   </div>
