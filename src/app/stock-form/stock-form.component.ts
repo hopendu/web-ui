@@ -5,7 +5,6 @@ import { UploadService } from '../service/upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareDataService } from '../service/share-data.service';
 import { StoreControllerService } from '../service/store-controller.service';
-const { uuid } = require('uuidv4');
 import { AlertService } from '../_services/alert.service';
 import { Subscription } from 'rxjs';
 import { NavigationService } from '../service/navigation.service';
