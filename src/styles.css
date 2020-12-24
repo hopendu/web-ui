@@ -2,6 +2,16 @@
 @import '~open-iconic/font/css/open-iconic-bootstrap.css';
 @import "~font-awesome/css/font-awesome.css"; 
 
+@font-face {
+  font-family: Calibri;
+  src: url("/assets/fonts/Calibri.ttf") format("opentype");
+}
+
+@font-face {
+  font-family: Catamaran;
+  src: url("/assets/fonts/Catamaran-Medium.ttf") format("opentype");
+}
+
 form {
   background-color: white;
   border-radius: 3;
@@ -30,15 +40,20 @@ h2, h3 {
   font-weight: lighter;
 }
 
+
 body {
   color: #888;
+  font-family: Catamaran;
+  background-repeat: no-repeat !important;
   background: rgb(223,147,45);
-  background: linear-gradient(280deg, rgba(223,147,45,1) 0%, rgba(255,255,255,1) 62%, rgba(223,147,45,1) 90%);
+  background: linear-gradient(180deg, rgba(223,147,45,1) 14%, rgba(255,255,255,1) 53%, rgba(223,147,45,1) 98%);
 }
+
  a:hover {
   cursor: pointer;
   cursor: hand;
 } 
+
 button {
   font-family: Arial;
   background-color: #eee;
@@ -59,8 +74,11 @@ button:disabled {
 }
 
 .btn {
-  width: 100px;
-  background-color: #607D8B;
+  width: 200px;
+  background-color: #10a59f;
+  font-weight: 300;
+  border: none;
+  height: 50px;
 }
 
 .required {
@@ -73,17 +91,17 @@ button:disabled {
   border-radius: 8px;
 }
 
-nav a:visited, a:link {
-  color: #607D8B;
+a , a:visited, a:link {
+  color: #10a59f;
 }
 
-nav a:hover {
-  color: #039be5;
+a:hover {
+  color: #10a59f;
   background-color: #CFD8DC;
 }
 
-nav a.active {
-  color: #039be5;
+a.active {
+  color: #10a59f;
 }
 
 .navbar {
