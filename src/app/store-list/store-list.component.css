@@ -1,5 +1,14 @@
+@media(min-width: 768px){
+  .card-deck {
+    display: flex;
+    justify-content: space-around;
+  } 
+}
+@media(max-width: 768px){
+  
 .card-deck {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  }
 }

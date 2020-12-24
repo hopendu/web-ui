@@ -1,12 +1,11 @@
  .card {
-    display: flex;
-    align-self: flex-start;
-    width: 250px;
-    height: 350px;
-    border-color: white;
-}
-
-img {
-    width: 248px;
-    height: 200px;
-} 
+        display: flex;
+        width: 25vh;
+        height: 35vh;
+        border-color: white;
+    }
+    
+    img {
+        width: 24.8vh;
+        height: 20vh;
+    }    

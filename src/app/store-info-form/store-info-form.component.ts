@@ -108,7 +108,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
 
     this.submitted = true;
 
-    if (this.storeInfoForm.invalid){ ("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format."); 
+    if (this.storeInfoForm.invalid){ this.alertService.error("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format.\n4 Ensure atleast one tag iss added."); 
     console.log('invalid!!!')
     return; }
 
@@ -140,10 +140,10 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       
      this.storeService.patch(this.id, this.store).subscribe( data => 
       {
-        this.alertService.success('Succesfull updaed store infomation')
+        this.alertService.success('Succesfull updated store infomation.', true)
         window.history.back()
       }, err => {
-        this.alertService.error('Failed to update store infomation.')
+        this.alertService.error('Failed to update store infomation.', true)
       })
       return;
     } else {this.router.navigate(['form/business-hours'], {queryParams:{ oi: this.storeInfoForm.get('userId').value }});

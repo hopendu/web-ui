@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
-import { time } from 'console';
-import { Subscription, timer } from 'rxjs';
-import { delay, delayWhen, subscribeOn } from 'rxjs/operators';
+import { Subscription} from 'rxjs';
 import { StoreControllerService } from 'src/app/service/store-controller.service';
 import { Stock } from '../../model/stock';
 import { ShareDataService } from '../../service/share-data.service';
@@ -57,7 +55,7 @@ export class DetailComponent implements OnInit , OnDestroy {
         data.stockList =  data.stockList.filter( value => !(value.name.match(this.stock.name)));
         this.subscription[1] = this.storeService.patch(this.activeRoute.snapshot.params['id'], data).subscribe( data2 => {
           this.alertService.success(`Succesful deleted ${this.stock.name}.`, true)
-          //window.history.go();
+          window.history.back();
         }, 
         err => {
           this.alertService.error(`Faluire to deleted ${this.stock.name}.`, true)

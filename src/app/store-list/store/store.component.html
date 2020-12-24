@@ -8,7 +8,7 @@
         <h6 class="card-title text-truncate">{{(store|async)?.name}}</h6>
         <p>
           <a [routerLink]="(store|async)?.id">
-            <button class="align-self-end btn btn-primary btn-rounded mb-4" (click)="isClicked()" style="width: 200px; margin-top: auto;">View details</button>
+            <button class="btn btn-primary btn-rounded mb-4" (click)="isClicked()" style="width: 100%; margin-top: auto;">View details</button>
           </a>
         </p>
       </div>

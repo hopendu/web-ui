@@ -7,6 +7,7 @@ import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
 import { Stock } from '../model/stock';
 import { Router } from '@angular/router';
+import { AlertService } from '../_services/alert.service';
 
 @Component({
   selector: 'app-store-registration-form',
@@ -25,7 +26,8 @@ export class StoreRegistrationFormComponent implements OnInit {
   stock: Stock;
 
   constructor(private service: StoreControllerService,
-              private share: ShareDataService,
+              private share: ShareDataService, 
+              private alertService: AlertService,
               private router: Router) {
               }
 
@@ -105,6 +107,8 @@ export class StoreRegistrationFormComponent implements OnInit {
       this.service.create(this.storeProfile).subscribe( data => { 
         this.share.store = data; 
         this.router.navigate(['stores'], { queryParams: { id: data.ownerId}})
-      });
+        this.alertService.success('Successful created a store.', true)
+      },
+      err => this.alertService.error("Failure to create the store.", true));
   }
 }
