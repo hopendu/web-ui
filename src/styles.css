@@ -40,8 +40,8 @@ h2, h3 {
   font-weight: lighter;
 }
 
+
 body {
-  height: 100vh;
   color: #888;
   font-family: Catamaran;
   background-repeat: no-repeat !important;
@@ -53,6 +53,7 @@ body {
   cursor: pointer;
   cursor: hand;
 } 
+
 button {
   font-family: Arial;
   background-color: #eee;
@@ -90,16 +91,16 @@ button:disabled {
   border-radius: 8px;
 }
 
-nav a:visited, a:link {
+a , a:visited, a:link {
   color: #10a59f;
 }
 
-nav a:hover {
+a:hover {
   color: #10a59f;
   background-color: #CFD8DC;
 }
 
-nav a.active {
+a.active {
   color: #10a59f;
 }
 
