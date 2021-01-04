@@ -6,7 +6,7 @@
     <li class="list-group-item" *ngIf="stock.discountPerc > 0">Discount %:{{ stock.discountPerc }}</li>
     <div *ngIf="selectionOptions.length > 0">
         <div *ngFor="let selection of selectionOptions; index as i">
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" *ngIf="selection.name.length > 0">
                 <div class="panel panel-default">
                   <div class="panel-heading" role="tab" id="headingOne">
                     <h4 class="panel-title">

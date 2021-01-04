@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    margin-top: 50px;
+  }
+  
+  /* .item {
+    position: relative;
+    display: block;
+    flex: 1 1 0px;
+    transition: transform 500ms;
+  }
+  
+  .container:focus-within .item,
+  .container:hover .item {
+    transform: translateX(-25%);
+  }
+  
+  .item:focus ~ .item,
+  .item:hover ~ .item {
+    transform: translateX(25%);
+  }
+  
+  .container .item:focus,
+  .container .item:hover {
+    transform: scale(1.5);
+    z-index: 1;
+  }
+  
+  body {
+    overflow: hidden;
+  }
+  
+  .item img {
+    display: block;
+    max-width: 100%;
+  } */
+
+
+  @media(min-width: 820px){
+    .card-deck {
+      display: flex;
+      justify-content: space-around;
+    } 
+  }
+  @media(max-width: 820px){ 
+  .card-deck {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    }
+  }
+
+  .card {
+    display: flex;
+    width: 25vh;
+    height: 35vh;
+    border-color: white;
+    align-self: flex-start;
+}
+
+img {
+    width: 24.8vh;
+    height: 20vh;
+}    

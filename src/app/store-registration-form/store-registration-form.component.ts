@@ -106,8 +106,8 @@ export class StoreRegistrationFormComponent implements OnInit {
         0);
       this.service.create(this.storeProfile).subscribe( data => { 
         this.share.store = data; 
-        this.router.navigate(['stores'], { queryParams: { id: data.ownerId}})
-        this.alertService.success('Successful created a store.', true)
+        this.router.navigate(['stores'], { queryParams: { id: data.ownerId}});
+        this.alertService.success('Successful created a store.', true);
       },
       err => this.alertService.error("Failure to create the store.", true));
   }

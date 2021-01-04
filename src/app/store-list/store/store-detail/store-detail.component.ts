@@ -54,7 +54,7 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
   }
     
   back(): void {
-    this.router.navigate([''], { queryParams : { id: this.shareStore.storeProfile.ownerId}})
+    this.router.navigate(['stores'], { queryParams : { id: this.shareStore.storeProfile.ownerId}})
     .catch( error => window.history.back());
   }  
 }

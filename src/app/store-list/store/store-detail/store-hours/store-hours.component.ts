@@ -55,6 +55,9 @@ export class StoreHoursComponent implements OnInit, OnDestroy {
     isClicked() {
       this.share.toggle = false;
     }
+    cancel(): void {
+     this.changeView = -1;
+    }
 
 editAt(index: number): void {
     this.index = index;

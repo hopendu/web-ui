@@ -2,7 +2,7 @@
   
   <div class="container rounded-0">
     <div class="text-center">
-            <h3> <b>Stock Taking</b> </h3>
+            <h3> <b>Stock taking</b> </h3>
     </div>
     <div class="card-body p-3">
         <!--Body-->
@@ -75,9 +75,12 @@
                   let first = first;"
                 [formGroupName]="mandatoryIndex"
               >
+            <div *ngIf=" !!stock && mandatoryIndex === 0; else elseBlock">
+            </div>
+            <ng-template #elseBlock>
               <div class="container rounded-0">
                 <div class="text-center">
-                    <h3> <b>Mandatory Item {{mandatoryIndex + 1 }}</b> </h3>
+                    <h3> <b>Mandatory Item {{ !!stock ? mandatoryIndex : mandatoryIndex + 1 }}</b> </h3>
                 </div>
             </div> <br>
                   <div class="form-group">
@@ -114,7 +117,7 @@
                   >
                   <div class="form-group row">
                         <label for="colFormLabel" class="col-sm-2 col-form-label">Value {{valueIndex + 1}}</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                           <input type="text" [formControl]="mandatory.get('values').controls[valueIndex]" class="form-control"> 
                         </div>
                         <div class="col-sm-2">
@@ -127,9 +130,11 @@
               <div class="col-sm-2 ">
                   <button class="btn btn-default btn-rounded mb-4"  (click)="deleteMandatory(mandatoryIndex)">Delete</button>                
               </div>
-            </div>
-            </div>
-            <hr>
+            </ng-template>
+          </div>
+          </div>
+          <hr>
+      
             <!--  
         
         

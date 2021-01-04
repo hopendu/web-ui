@@ -1,0 +1,25 @@
+
+
+<div class="card-deck d-flex">
+    <a  class="item" *ngFor="let image of stock.images; index as i">
+
+
+<div class="card mb-3 shadow-sm sm-white rounded">
+  <div class="view overlay">
+    <img src="{{image}}" class="card-img-top" alt="card-image-top">
+  </div>
+  <div class="card-body d-flex flex-column">
+      <div class="text-center">
+        <p>
+          <!-- <a [routerLink]="(store|async)?.id"> -->
+            <button class="btn btn-primary btn-rounded mb-4"  (click)="deleteImage(i)" style="width: 100%; margin-top: auto;">Delete</button>
+          <!-- </a> -->
+        </p>
+      </div>
+  </div>
+</div>
+    </a>
+</div>
+  
+
+  

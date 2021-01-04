@@ -1,49 +1,55 @@
-<!-- <br><h1><b>The Stock Detail</b></h1><br> -->
-<div class="row justify-content-around" >
-        <div class="sliders" >
-          <ng-container *ngFor="let img of stock.images; let i = index">
-			    <div class="slider" *ngIf="current == i" @fade>
-				    <img src="{{img}}" class="shadow-sm sm-white m-3 rounded" style="width: 250px; height: 250px;">
-			    </div>
-		      </ng-container>
+<div class="data">
+  <app-stock-info [stock]="stock"></app-stock-info>
+    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" *ngIf="stock.images.length > 0">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              Stock images
+            </a>
+          </h4>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <app-stock-images [stock]="stock"></app-stock-images>
+          </div>
         </div>
-        <div class="data">
-            <app-stock-info [stock]="stock"></app-stock-info> 
-            <div *ngIf="!!this.activeRoute.snapshot.params['id']; else elseBlock;">
-                <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 200px;"> Hide detail</button> &nbsp;
-                <button class="btn btn-primary btn-rounded mb-4" (click)="edit($event)" style="width: 200px;">Edit</button> &nbsp;
-                <a type="button" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" data-toggle="modal" data-target="#stock" >Delete </a>
-            </div>
-            <ng-template #elseBlock>
-              <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 200px;"> Hide detail</button>
-            </ng-template>
-
-        </div>
-</div>
+      </div>
+    </div>
+          
+    <div class="text-center">
+      <div *ngIf="!!this.activeRoute.snapshot.params['id']; else elseBlock;">
+        <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 30%;"> Hide detail</button> &nbsp;
+            <button class="btn btn-primary btn-rounded mb-4" (click)="edit($event)" style="width: 30%;">Edit</button> &nbsp;
+        <a type="button" class="btn btn-primary btn-rounded mb-4" style="width: 30%;" data-toggle="modal" data-target="#stock" >Delete </a>
+      </div>
+      <ng-template #elseBlock>
+        <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 100%;"> Hide detail</button>
+      </ng-template>
+      </div>
+    </div>
 
 <!-- Modal -->
 <div class="modal fade rounded" id="stock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">You are about to delete <i style="color: rgb(214, 214, 214);;">{{stock.name}}</i> store.</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        
-          
-            <div class="modal-body">
-              
-                <label for="name" class="col-form-label">Click delete button to confirm deletion</label>
-      
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" (click)="deleteStock()" >Delete</button>
-            </div>
-          
-            
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">You are about to delete <i style="color: rgb(214, 214, 214);;">{{stock.name}}</i> store.</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      
+        
+          <div class="modal-body">
+            
+              <label for="name" class="col-form-label">Click delete button to confirm deletion</label>
+    
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" (click)="deleteStock()" >Delete</button>
+          </div>          
     </div>
   </div>
-  
+</div>
+

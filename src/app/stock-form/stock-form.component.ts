@@ -34,6 +34,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
   stockName: string;
   stockList: Stock[];
   subscription: Subscription[] = [];
+  skipIndexZero: boolean = false;
   constructor(private fb: FormBuilder,
               private share: ShareDataService,
               private uploadService: UploadService,
@@ -159,10 +160,13 @@ export class StockFormComponent implements OnInit, OnDestroy {
       this.stockForm.get('price').value,
       this.stockForm.get('quantity').value);
     if( (!!this.stock && !!this.storeId) || ( !!this.stockName && this.stockName.match('create'))){
+      
       if( (newStock.name.match(this.stockName)) || ( !!this.stockName  && this.stockName.match('create'))){  
           newStock.id = (newStock.name.match(this.stockName) && !!this.stock) ? this.stock.id : newStock.id; 
-          this.subscription[2] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data =>
-            this.alertService.success(`Succesful ${ (this.stockName.match('create')) ? 'added' : 'edited' } stock.`, true),
+          newStock.mandatorySelection = newStock.mandatorySelection.filter( selection => selection.name.length > 0 );
+          this.subscription[2] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data => {
+            this.alertService.success(`Succesful ${ (this.stockName.match('create')) ? 'added' : 'edited' } stock.`, true); 
+            },
             err => this.alertService.error(`Failed to ${ (!newStock.name.match(this.stockName) && !!this.stock) ? 'update' : 'add'} a stock.`, true)
         )
       }
