@@ -36,7 +36,6 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,8 +48,7 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     StoreListComponent, StoreComponent, StoreDetailComponent, StoreInfoComponent, StoreHoursComponent, StoreInventoryComponent,
     DetailComponent,  ItemComponent, StockInfoComponent, StockImagesComponent,
     StoreRegistrationFormComponent,
-    AlertComponent
-  ],
+    AlertComponent],
   imports: [
     BrowserModule,
     RouterModule,

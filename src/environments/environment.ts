@@ -4,12 +4,14 @@
 
 export const environment = {
   production: true,
-  accessKeyId: 'AKIATON6LVU3W77NRZBN',
-  secretAccessKey: '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',
+  accessKeyId: 'AKIAUTE3KPBGEJ6KJYJ7',
+  secretAccessKey: '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',
   region: 'us-east-1',
-  Bucket: 'izinga-aws',
+  Bucket: 'izinga-aut',
   ACL: 'public-read',
   baseUrl : 'https://api-uat.izinga.co.za/'
+
+
 };
 
 /*

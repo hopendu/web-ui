@@ -50,15 +50,19 @@ export class DetailComponent implements OnInit , OnDestroy {
     }, 5000);
   }
 
+  add(event): void {
+    
+  }
   deleteStock(): void {
        this.subscription[0] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => {
         data.stockList =  data.stockList.filter( value => !(value.name.match(this.stock.name)));
         this.subscription[1] = this.storeService.patch(this.activeRoute.snapshot.params['id'], data).subscribe( data2 => {
-          this.alertService.success(`Succesful deleted ${this.stock.name}.`, true)
+          this.alertService.success(`Succesful deleted ${this.stock.name}.`, true);
           window.history.back();
         }, 
         err => {
-          this.alertService.error(`Faluire to deleted ${this.stock.name}.`, true)
+          this.alertService.error(`Faluire to deleted ${this.stock.name}.`, true);
+          window.history.back();
         })
       })
     }

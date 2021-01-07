@@ -1,17 +1,19 @@
-<div class="row no-gutters justify-content-around">
-    <div class="col-md-4">
-      <img src="{{(store |async)?.imageUrl}}" class="px-3 shadow-sm p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
-    </div>
-    <div class="col-md-8">
-      <div class="class-body">
+ <div class="card mb-3">
+    <div class="item">
+      <div class="img rounded d-flex justify-content-center" *ngIf="(store |async)?.imageUrl">
+        <img src="{{(store |async)?.imageUrl}}" class="px-3 shadow-sm p-3 m-5 bg-white rounded" style="width: 15rem; height: 15rem;" alt="Stock Item Image">
+      </div>
+      <div class="summary flex-fill">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><h5 class="card-title">{{(store |async)?.name}}</h5></li>
-            <li class="list-group-item card-text">Description:{{ (store |async)?.description }}</li>
-            <li class="list-group-item card-text">Owner id : {{ (store |async)?.ownerId }}</li>
-            <li class="list-group-item card-text">Address : {{ (store |async)?.address }}</li>
-            <li class="list-group-item card-text">Phone #:{{ (store |async)?.mobileNumber }}</li>
-            <li class="list-group-item card-text">Email address: {{ (store |async)?.emailAddress }}</li>
-            <li class="list-group-item card-text">Registration # : {{ (store |async)?.regNumber }}</li>
+          <li class="list-group-item"><h5 class="card-title">{{(store |async)?.name}}</h5> {{ !!((store |async)?.shortName) ? (store |async)?.shortName : ''}}</li>
+          <li class="list-group-item card-text">Description: {{ (store |async)?.description }}</li>
+          <li class="list-group-item card-text">Owner id : {{ (store |async)?.ownerId }}</li>
+          <li class="list-group-item card-text">Address : {{ (store |async)?.address }}</li>
+          <li class="list-group-item card-text">Phone #: {{ (store |async)?.mobileNumber }}</li>
+          <li class="list-group-item card-text">Email address: {{ (store |async)?.emailAddress }}</li>
+          <li class="list-group-item card-text" >Website address: {{ (store |async)?.storeWebsiteUrl }}</li>
+          <li class="list-group-item card-text">Registration # : {{ (store |async)?.regNumber }}</li>
+          <li class="list-group-item card-text">
             <div *ngIf=" (store |async)?.tags.length > 0;">
               <table class="table table-sm rounded">
                   <thead class="thead-light">
@@ -28,14 +30,16 @@
                   </tbody>
               </table>
           </div>
-        </ul>
-        <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" [routerLink]='form/store-info'> -->
+          </li>
+        <li class="list-group-item card-title d-flex justify-content-center">
+          <div class="max-aut">
+            <a [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
+                                                queryParamsHandling :null>
+            <button class="btn btn-primary btn-rounded mb-4">Edit</button>
+            </a>
+          </div>
+        </li>
+      </ul>
+      </div>
     </div>
-    </div>
-  </div>
-  <div class="text-center">
-    <a [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
-                                        queryParamsHandling :null>
-    <button class="btn btn-primary btn-rounded mb-4">Edit</button>
-    </a>
   </div>

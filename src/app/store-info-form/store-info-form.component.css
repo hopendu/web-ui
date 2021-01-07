@@ -1,0 +1,49 @@
+ @media(max-width: 980px){
+
+  .tags {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  /* .button-div, .control-div{
+    margin-left: 1rem;
+  }
+   */
+  .label {
+    width: 10vw;
+  }    
+
+  .control-div {
+    flex-shrink: 2;
+  }
+
+  .button-div {
+    flex-shrink: 2;
+  } 
+
+  .btn-1 {
+    width: auto;
+  }
+} 
+
+.tags {
+  display: flex;
+  align-items:center baseline;
+}
+
+.button-div, .control-div{
+  margin-left: 1rem;
+}
+.label {
+  width: 10vw;
+}
+
+.control-div {
+  width: 80vw;
+}
+
+.button-div {
+  width: 20vw;
+}
+
+

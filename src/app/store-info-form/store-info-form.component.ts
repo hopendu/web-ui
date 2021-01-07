@@ -33,8 +33,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
               private share: ShareDataService,
               private storeService: StoreControllerService,
               private activeRoute: ActivatedRoute,
-              private alertService : AlertService,
-              private navigation: NavigationService){ }
+              private alertService : AlertService){ }
 
   ngOnInit(): void {
 
@@ -46,12 +45,14 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
             this.store = store;
             this.storeInfoForm = this.fb.group({
               name: [store.name, Validators.required],
+              shortName: [store.shortName, Validators.required],
               description: [store.description, Validators.required],
               emailAddress: [store.emailAddress, [Validators.required, Validators.email]],
               userId: [store.ownerId, Validators.required],
               address: [store.address, Validators.required],
               mobileNumber: [store.mobileNumber, Validators.required],
               regNumber: [store.regNumber, Validators.required],
+              storeWebsiteUrl: [!!store.storeWebsiteUrl ? store.storeWebsiteUrl: '' ],
               tags: this.fb.array([])
             });
             store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
@@ -62,12 +63,14 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
 
       this.storeInfoForm = this.fb.group({
         name: ['', Validators.required],
+        shortName: ['', Validators.required],
         description: ['', Validators.required],
         emailAddress: ['', [Validators.required, Validators.email]],
         userId: [ this.activeRoute.snapshot.queryParams['oi'], Validators.required],
         address: ['', Validators.required],
         mobileNumber:  ['', Validators.required],
         regNumber: ['', Validators.required],
+        storeWebsiteUrl: [''],
         tags: this.fb.array([])
       });
 
@@ -122,6 +125,8 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
         this.storeInfoForm.get('mobileNumber').value,
         this.storeInfoForm.get('name').value,
         this.storeInfoForm.get('regNumber').value,
+        this.storeInfoForm.get('shortName').value,
+        this.storeInfoForm.get('storeWebsiteUrl').value, 
         this.storeInfoForm.get('tags').value,
         'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
     );
@@ -134,6 +139,8 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       this.store.mobileNumber = this.share.storeInfo.mobileNumber;
       this.store.regNumber = this.share.storeInfo.regNumber;
       this.store.description = this.share.storeInfo.description;
+      this.store.shortName = this.share.storeInfo.shortName;
+      this.store.storeWebsiteUrl = this.share.storeInfo.storeWebsiteUrl;
       this.store.tags = this.share.storeInfo.tags;
       this.store.ownerId = this.share.storeInfo.userId;
       this.store.imageUrl = this.share.storeInfo.imageUrl;

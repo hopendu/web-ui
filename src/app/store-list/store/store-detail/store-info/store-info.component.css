@@ -1,0 +1,23 @@
+
+.img img {
+    object-fit: contain;
+}
+
+@media(min-width: 768px){
+    .item{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    
+    .img {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+    }
+    
+    .summary {
+        display: flex;
+        flex-direction: column;
+    }   
+}

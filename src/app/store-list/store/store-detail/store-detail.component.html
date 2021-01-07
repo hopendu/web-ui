@@ -10,6 +10,7 @@
     <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLink]="['info']" >Store information</a></li>
     <li class="nav-item"><a class="nav-link" routerLinkActive="active" [routerLink]="['hours']"   >Operating hours</a></li>
     <li class="nav-item"><a class="nav-link " routerLinkActive="active" [routerLink]="['stocks']" >Inventory</a></li>
+    <li class="nav-item"><a class="nav-link " routerLinkActive="active" [routerLink]="['promotions']" >Promotion</a></li>
 </ul>
 <router-outlet></router-outlet>
 </div>
@@ -32,8 +33,8 @@
               <label for="name" class="col-form-label">Click delete button to confirm deletion</label>
     
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 100%;" data-dismiss="modal">Close</button> &nbsp;
-            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 100%;" (click)="deleteStore()" >Delete</button>
+            <button type="button" class="btn btn-primary btn-lg btn-rounded mb-4" style="width: 40%;" data-dismiss="modal">Close</button> &nbsp;
+            <button type="submit" class="btn btn-primary btn-lg btn-rounded mb-4" style="width: 40%;" (click)="deleteStore()" >Delete</button>
           
           </div>
         

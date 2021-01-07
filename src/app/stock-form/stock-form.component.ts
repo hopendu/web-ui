@@ -61,6 +61,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
             discountPerc: new FormControl(Number, Validators.required),
             quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
             description: new FormControl('', Validators.required),
+            detailedDescription:  new FormControl(''),
             mandatorySelection: this.fb.array([ this.selection() ])
           });
         } else{
@@ -72,13 +73,13 @@ export class StockFormComponent implements OnInit, OnDestroy {
                 discountPerc: new FormControl(this.stock.discountPerc, Validators.required),
                 quantity: new FormControl(this.stock.quantity, [Validators.required, Validators.min(1)]),
                 description: new FormControl(this.stock.description, Validators.required),
+                detailedDescription: new FormControl(this.stock.detailedDescription),
                 mandatorySelection: this.fb.array([ this.selection() ])
               });      
               this.stock.mandatorySelection.forEach( selection => {
                 this.mandatories.push(this.fb.group({
                   name: new FormControl(selection.name, Validators.required),
                   price: new FormControl(selection.price, Validators.required),
-                  selected: new FormControl(selection.selected, Validators.required),
                   values: this.fb.array(selection.values)}));});
               this.stockForm.controls['name'].disable();
               }}})
@@ -89,6 +90,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
       discountPerc: new FormControl(Number, Validators.required),
       quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
       description: new FormControl('', Validators.required),
+      detailedDescription:  new FormControl(''),
       mandatorySelection: this.fb.array([ this.selection() ])
     });
   this.ownerId = this.activeRoute.snapshot.params['oi'];
@@ -97,7 +99,6 @@ export class StockFormComponent implements OnInit, OnDestroy {
     return this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
-      selected: new FormControl('', Validators.required),
       values: this.fb.array([])
     });
   }
@@ -152,6 +153,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
 
   done(): void{
     let newStock = new Stock(null,this.stockForm.get('description').value,
+      this.stockForm.get('detailedDescription').value,
       this.stockForm.get('discountPerc').value,
       this.images,
       this.stockForm.get('mandatorySelection').value,
@@ -184,6 +186,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
       return;
     }
     this.share.addStock( new Stock(null,this.stockForm.get('description').value,
+    this.stockForm.get('detailedDescription').value,
     this.stockForm.get('discountPerc').value,
     this.images, 
     this.stockForm.get('mandatorySelection').value,

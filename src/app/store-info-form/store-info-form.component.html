@@ -5,9 +5,9 @@
             <h3><b>Store information</b></h3>
             
         </div>
-        <div class="card-body p-3">
+        <div class="row">
             <!--Body-->
-            <div class="form-group">
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Store Name
                 <span class="required" aria-required="true"> * </span>
               </label>
@@ -17,17 +17,17 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <label for="exampleFormControlInput1">User ID
+            <div class="col-12 mb-3">
+              <label for="exampleFormControlInput1">Short name
                 <span class="required" aria-required="true"> * </span>
               </label>
-              <input type="text" formControlName="userId" class="form-control" placeholder="xxxx-xxxx-xxxx-xxxxx" [ngClass]="{ 'is-invalid': (f.userId.touched || f.userId.dirty) && f.userId.errors }">
-              <div *ngIf="(f.userId.touched || f.userId.dirty) && f.userId.errors" class="invalid-feedback">
-                <div *ngIf="f.userId.errors.required">User id is required</div>
+              <input type="text" formControlName="shortName" class="form-control" placeholder="Jika Joe" [ngClass]="{ 'is-invalid': (f.shortName.touched || f.shortName.dirty) && f.shortName.errors }">
+              <div *ngIf="(f.shortName.touched || f.shortName.dirty) && f.shortName.errors" class="invalid-feedback">
+                <div *ngIf="f.shortName.errors.required">Name is required</div>
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Address
                 <span class="required" aria-required="true"> * </span>
               </label>
@@ -37,7 +37,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Phone Number
                 <span class="required" aria-required="true"> * </span>
               </label>
@@ -47,18 +47,25 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Email Address
                 <span class="required" aria-required="true"> * </span>
               </label>
-              <input type="text" formControlName="emailAddress"  class="form-control" placeholder="agent@jikajoe.co.za" [ngClass]="{ 'is-invalid': (f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors  }">
+              <input type="text" formControlName="emailAddress"  class="form-control" placeholder="jikajoe@izinga.co.za" [ngClass]="{ 'is-invalid': (f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors  }">
               <div *ngIf="(f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors" class="invalid-feedback">
                 <div *ngIf="f.emailAddress.errors.required">The email address is required</div>
                 <div *ngIf="f.emailAddress.errors.email">Enter a vaild email address</div>
               </div>
             </div>
+
+            <div class="col-12 mb-3">
+              <label for="exampleFormControlInput1">Website Address
+                <span> (Optional) </span>
+              </label>
+              <input type="text" formControlName="storeWebsiteUrl" class="form-control" placeholder="jikajoe.co.za">
+            </div>
             
-            <div class="form-group">
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Registration Number
                 <span class="required" aria-required="true"> * </span>
               </label>
@@ -68,7 +75,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Description
                 <span class="required" aria-required="true"> * </span>
               </label>
@@ -79,36 +86,43 @@
             </div>
 
             <hr>
-      <button class="btn btn-primary btn-rounded mb-4" (click)="addTag()">Add Tag</button>
-      <div class="form-group raw tag" formArrayName="tags" *ngIf="getTags?.length > 0">
-        <div
-          class="tags"
-          *ngFor="
-            let tag of getTags.controls;
-            let tagIndex = index;
-            let first = first;"
-          [formGroupName]="tagIndex"
-        >
-        <div class="form-group row">
-              <label for="colFormLabel" class="col-sm-2 col-form-label">Tag {{tagIndex + 1}}</label>
-              <div class="col-sm-6">
-                <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
+            <div class="col-12 mb-3">
+              <button class="btn btn-primary btn-rounded" (click)="addTag()">Add Tag</button>
+            </div>
+      
+            <div class="col-12 mb-3" formArrayName="tags" *ngIf="getTags?.length > 0">
+              <div
+                class="tags"
+                *ngFor="
+                  let tag of getTags.controls;
+                  let tagIndex = index;
+                  let first = first;"
+                [formGroupName]="tagIndex"
+              >
+                <div class="label">
+                  <label for="colFormLabel" style="min-width:min-content;">Tag {{tagIndex + 1}}</label>
+                </div>
+                <div class="control-div">
+                  <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
+                </div>
+                <div class="button-div">
+                  <button class="btn btn-primary btn-rounded btn-1 mb-4 ml-4 " (click)="deleteTag(tagIndex)">Delete</button>                
+                </div>
               </div>
-              <div class="col-sm-2">
-                <button class="btn btn-primary btn-rounded mb-4"  (click)="deleteTag(tagIndex)">Delete</button>                
-              </div>
-        </div>
-      </div>
-      </div>
-      <hr>
-      <div class="container text-center">
-          <input type="file" (change)="onChange($event)">
-      </div>
-      <br>
-
+            </div>
+        <hr>
+        <div class="col-12 mb-3">
             <div class="text-center">
-              <button class="btn btn-primary btn-rounded mb-4" (click)="cancel()" style="width: 200px;"> Cancel</button> &nbsp;
-              <button class="btn btn-primary btn-rounded mb-4" (click)="submit()" style="width: 200px;">Submit</button></div>
+              <input type="file" (change)="onChange($event)">
+            </div>
+        </div>
+        <br>
+
+        <div class="col-12 mb-3">
+          <div class="text-center">
+            <button class="btn btn-primary btn-rounded mb-4" (click)="cancel()" style="width: 200px;"> Cancel</button> &nbsp;
+          <button class="btn btn-primary btn-rounded mb-4" (click)="submit()" style="width: 200px;">Submit</button></div>
+          </div>
         </div>
 
     </div>

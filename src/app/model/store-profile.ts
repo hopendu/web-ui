@@ -16,6 +16,7 @@ export class StoreProfile {
         public hasVat?: boolean,
         public id?: string,
         public imageUrl?: string,
+        public izingaTakesCommission?: Boolean,
         public latitude?: number,
         public likes?: number,
         public longitude?: number,
@@ -27,8 +28,10 @@ export class StoreProfile {
         public responseTimeMinutes?: number,
         public role?: StoreProfile.RoleEnum,
         public servicesCompleted?: number,
+        public shortName?: string,
         public stockList?: Array<Stock>,
         public storeType?: StoreProfile.StoreTypeEnum,
+        public storeWebsiteUrl?: string,
         public tags?: Array<string>,
         public verificationCode?: string,
         public yearsInService?: number){}

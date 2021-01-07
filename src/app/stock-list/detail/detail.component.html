@@ -1,4 +1,7 @@
 <div class="data">
+  <ul class="nav mb-3">
+    <li class="nav-item"><a class="nav-link active" (click)="add($event)" data-toggle="tooltip" data-placement="top" title="Add image"><i class="fa fa-plus"></i> Image </a></li>
+</ul>
   <app-stock-info [stock]="stock"></app-stock-info>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" *ngIf="stock.images.length > 0">
       <div class="panel panel-default">
@@ -24,7 +27,7 @@
         <a type="button" class="btn btn-primary btn-rounded mb-4" style="width: 30%;" data-toggle="modal" data-target="#stock" >Delete </a>
       </div>
       <ng-template #elseBlock>
-        <button class="btn btn-primary btn-rounded mb-4" (click)="hideDetail()" style="width: 100%;"> Hide detail</button>
+        <button class="btn btn-primary btn-lg btn-rounded mb-4" (click)="hideDetail()"> Hide detail</button>
       </ng-template>
       </div>
     </div>
@@ -34,7 +37,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You are about to delete <i style="color: rgb(214, 214, 214);;">{{stock.name}}</i> store.</h5>
+        <h5 class="modal-title" id="exampleModalLabel">You are about to delete <i style="color: red;">{{stock.name}}</i> store.</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
