@@ -1,0 +1,15 @@
+<div class="card mb-3">
+  <div class="item">
+    <div class="img rounded justify-content-center" *ngIf="promotion.imageUrl">
+      <img src="{{promotion.imageUrl}}" class="m-4" style="width: 15rem; height: 15rem;">
+    </div>
+    <div class="summary flex-fill">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h5 class="card-title">{{ promotion.title }}</h5></li>
+        <li class="list-group-item card-title">See promo:   <a href="promotion.actionUrl">{{ promotion.actionUrl }}</a> </li>
+        <li class="list-group-item card-title">Last until: {{ promotion.expiryDate | date }} at {{ promotion.expiryDate | date:'h:mm' }} </li>
+        <li class="list-group-item card-title">Message: {{promotion.message}}</li> 
+      </ul>
+    </div>
+  </div>
+</div>
