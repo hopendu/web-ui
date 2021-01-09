@@ -52,6 +52,7 @@ export class StoreInventoryComponent implements OnInit, OnDestroy{
 
   isClicked(event: Stock): void {
     this.stock = event;
+    console.log(`stock id ${this.stock.id}`)
     this.status = !this.status;
   }
 }

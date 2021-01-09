@@ -21,6 +21,7 @@ import { StoreDetailComponent} from './store-list/store/store-detail/store-detai
 import { StoreHoursComponent } from './store-list/store/store-detail/store-hours/store-hours.component';
 import { StoreInfoComponent } from './store-list/store/store-detail/store-info/store-info.component';
 import { StoreInventoryComponent } from './store-list/store/store-detail/store-inventory/store-inventory.component';
+import { StorePromotionComponent } from './store-list/store/store-detail/store-promotion/store-promotion.component';
 import { DetailComponent } from './stock-list/detail/detail.component';
 import { ItemComponent } from './stock-list/item/item.component';
 import { StockInfoComponent } from './stock-list/stock-info/stock-info.component';
@@ -36,6 +37,9 @@ import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
+import { PromotionFormComponent } from './promotion-form/promotion-form.component';
+import { ImageFormComponent } from './image-form/image-form.component';
+import { PromotionItemComponent} from './store-list/store/store-detail/store-promotion/promotion-item/promotion-item.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +52,11 @@ import { ErrorInterceptor } from './_helpers/error.interceptor';
     StoreListComponent, StoreComponent, StoreDetailComponent, StoreInfoComponent, StoreHoursComponent, StoreInventoryComponent,
     DetailComponent,  ItemComponent, StockInfoComponent, StockImagesComponent,
     StoreRegistrationFormComponent,
-    AlertComponent],
+    AlertComponent,
+    StorePromotionComponent,
+    PromotionFormComponent,
+    ImageFormComponent,
+    PromotionItemComponent],
   imports: [
     BrowserModule,
     RouterModule,

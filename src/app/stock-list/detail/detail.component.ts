@@ -6,6 +6,8 @@ import { Stock } from '../../model/stock';
 import { ShareDataService } from '../../service/share-data.service';
 import { AlertService } from '../../_services/alert.service';
 import { trigger, transition, animate, style } from '@angular/animations'
+import { PromotionControllerService } from '../../service/promotion-controller.service';
+import { Promotion } from 'src/app/model/promotion';
 
 @Component({
   selector: 'app-detail',
@@ -28,6 +30,7 @@ export class DetailComponent implements OnInit , OnDestroy {
 
   constructor( private share:ShareDataService,
     private storeService: StoreControllerService,
+    private promotioService: PromotionControllerService,
     private alertService: AlertService,
     private router: Router, 
     public activeRoute: ActivatedRoute) {
@@ -51,10 +54,16 @@ export class DetailComponent implements OnInit , OnDestroy {
   }
 
   add(event): void {
-    
   }
+
+  addPromotion(event): void {
+    event.preventDefault();
+     this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
+     this.router.navigate(['form/promotion'], {queryParams:{ id: this.activeRoute.parent.snapshot.params.id, item: this.stock.id }});})
+  };
+
   deleteStock(): void {
-       this.subscription[0] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => {
+    this.subscription[0] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => {
         data.stockList =  data.stockList.filter( value => !(value.name.match(this.stock.name)));
         this.subscription[1] = this.storeService.patch(this.activeRoute.snapshot.params['id'], data).subscribe( data2 => {
           this.alertService.success(`Succesful deleted ${this.stock.name}.`, true);

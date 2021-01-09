@@ -12,6 +12,7 @@ const routes: Routes = [
   {path: 'form/store-info', loadChildren: () => import('./store-info-form/store-info-form.module').then( m => m.StoreInfoFormModule)},
   {path: 'form/stock-list',loadChildren: () => import('./stock-list/stock-list.module').then( m => m.StockListModule)},
   {path: 'stores', loadChildren: () => import('./store-list/store-list.module').then( m => m.StoreListModule) },
+  { path: 'form/promotion', loadChildren: () => import('./promotion-form/promotion-form.module').then( m => m.PromotionFormModule)},
   {path: '**', redirectTo: 'stores'}
 
 ];

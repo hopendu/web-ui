@@ -1,6 +1,8 @@
 import { Bank } from '../model/bank';
 import { Stock } from '../model/stock';
 import { BusinessHours } from '../model/business-hours';
+import { Messenger } from './messenger';
+import { StoreType } from './store-type';
 
 export class StoreProfile {
     constructor(
@@ -30,7 +32,8 @@ export class StoreProfile {
         public servicesCompleted?: number,
         public shortName?: string,
         public stockList?: Array<Stock>,
-        public storeType?: StoreProfile.StoreTypeEnum,
+        public storeMessenger?: Messenger,
+        public storeType?: StoreType.StoreTypeEnum,
         public storeWebsiteUrl?: string,
         public tags?: Array<string>,
         public verificationCode?: string,

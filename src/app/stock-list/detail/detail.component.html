@@ -1,6 +1,7 @@
 <div class="data">
   <ul class="nav mb-3">
     <li class="nav-item"><a class="nav-link active" (click)="add($event)" data-toggle="tooltip" data-placement="top" title="Add image"><i class="fa fa-plus"></i> Image </a></li>
+    <li class="nav-item"><a class="nav-link active"  (click)="addPromotion($event)" data-toggle="tooltip" data-placement="top" title="Add promotion"><i class="fa fa-plus"></i> Promotion </a></li>
 </ul>
   <app-stock-info [stock]="stock"></app-stock-info>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false" *ngIf="stock.images.length > 0">
