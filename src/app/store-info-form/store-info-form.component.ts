@@ -153,7 +153,9 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
         this.alertService.error('Failed to update store infomation.', true)
       })
       return;
-    } else {this.router.navigate(['form/business-hours'], {queryParams:{ oi: this.storeInfoForm.get('userId').value }});
+    } else {
+      this.router.navigateByUrl('form', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['form'], {queryParams:{ oi: this.storeInfoForm.get('userId').value }});});
     }
   };
 

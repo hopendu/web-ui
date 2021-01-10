@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Promotion } from 'src/app/model/promotion';
 
 @Component({
@@ -10,8 +11,9 @@ export class PromotionItemComponent implements OnInit {
 
   @Input() promotion: Promotion;
   
-  constructor() { }
+  constructor( private router: Router) { }
 
   ngOnInit(): void {
   }
+
 }

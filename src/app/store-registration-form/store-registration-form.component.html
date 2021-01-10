@@ -1,13 +1,13 @@
 <form FormGroup='storeProfileRegistrationForm' (onSubmit)="onSubmit()"  class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
-  <div class="accordion" id="myAccordion">
+  <!-- <div class="accordion" id="myAccordion"> -->
     <h2 class="mb-0">
                 <a data-toggle="collapse" data-target="#collapseOne"><div class="text-center">
                   <b><h3>The store information</h3></b>
                 </div></a>
             </h2>
             <hr>
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#myAccordion">
-           
+        <!-- <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#myAccordion">
+            -->
           <div class="card">
             <div class="row no-gutters">
               <div class="col-md-4">
@@ -40,13 +40,12 @@
                         </table>
                     </div>
                   </ul>
-                  <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="editStoreInfOnClick();"> -->
               </div>
               </div>
             </div>
           </div>
-        </div>
-        <h2 class="mb-0">
+        <!-- </div> -->
+        <!-- <h2 class="mb-0">
                 <a data-toggle="collapse" data-target="#collapseTwo"><div class="text-center">
                   <b><h3>Operating hours</h3></b>
                 </div></a>
@@ -63,7 +62,6 @@
                       <th scope="col">Day</th>
                       <th scope="col">Open</th>
                       <th scope="col">Close</th>
-                      <!-- <th scope="col">Edit</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -72,23 +70,12 @@
                       <td>{{ day.day }}</td>  
                       <td>{{ day.open | date:'shortTime'}}</td>
                       <td>{{ day.close | date:'shortTime'}}</td>
-                      <!-- <td>
-                        <div class="text-left"> -->
-                          <!-- <a (click)="btnClick(day);"><i class="fa fa-pencil fa-fw"></i></a> -->
-                         <!-- <a class="button" (click)="btnClick(day);" ><i class="fa fa-pencil fa-fw"></i></a> -->
-                          <!-- <input type="submit" value="Edit" class="btn btn-default btn-rounded mb-4" (click)="btnClick(day);">
-                          -->
-                        <!-- </div>
-                      </td>  -->
                     </tr>
                   </tbody>
                 </table>
            
             </div>
             <ng-template #elseBlock>
-                <!-- <div class="row">
-                    <pre>You first need to add business operating hours to be able to view them on this panel.</pre>
-                </div>  -->
 
                 <div *ngIf="status; else elseBlock">
                   <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
@@ -115,7 +102,6 @@
         <hr>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#myAccordion">
             <div class="card-body">
-              <!-- <app-stock-list></app-stock-list> -->
               <div *ngIf="status; else elseBlock">
                 <app-detail [stock]="stock"  (hideDetailEventEmitter)="hideDetail($event)"></app-detail>
             </div>
@@ -125,8 +111,8 @@
                 </div> 
             </ng-template>
             </div>
-        </div>
-</div>
+        </div> -->
+<!-- </div> -->
 
   <br>
   

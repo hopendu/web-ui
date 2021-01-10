@@ -42,5 +42,5 @@ export class StorePromotionComponent implements OnInit {
     event.preventDefault();
      this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
      this.router.navigate(['form/promotion'], {queryParams:{ id: this.activeRoute.parent.snapshot.params.id}});})
-  };;
+  };
 }
