@@ -1,6 +1,6 @@
 <div class="data">
   <ul class="nav mb-3">
-    <li class="nav-item"><a class="nav-link active" (click)="add($event)" data-toggle="tooltip" data-placement="top" title="Add image"><i class="fa fa-plus"></i> Image </a></li>
+    <li class="nav-item"><a class="nav-link active" data-toggle="modal" data-target="#image"><i class="fa fa-plus"></i> Image </a></li>
     <li class="nav-item"><a class="nav-link active"  (click)="addPromotion($event)" data-toggle="tooltip" data-placement="top" title="Add promotion"><i class="fa fa-plus"></i> Promotion </a></li>
 </ul>
   <app-stock-info [stock]="stock"></app-stock-info>
@@ -33,8 +33,8 @@
       </div>
     </div>
 
-<!-- Modal -->
-<div class="modal fade rounded" id="stock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<!-- Modal 1 -->
+<div class="modal fade rounded" id="stock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 75vh; height: 50vh;">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -50,10 +50,43 @@
               <label for="name" class="col-form-label">Click delete button to confirm deletion</label>
     
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 200px;" (click)="deleteStock()" >Delete</button>
+            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" (click)="deleteStock()" >Delete</button>
           </div>          
     </div>
   </div>
+</div>
+</div>
+<!-- Modal 2 -->
+<div class="modal fade rounded" id="image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 75vh; height: 50vh;">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="text-center">
+          <h4 class="modal-title" id="exampleModalLabel"><b>Add image form</b></h4>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+        
+          <div class="modal-body">
+            
+            <div class="col-12 mb-3">
+              <div class="text-center">
+                <input type="file" (change)="onChange($event)">
+              </div>
+          </div>
+          <br>
+          
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" (click)="submit()" >Submit</button>
+          </div>          
+    </div>
+  </div>
+</div>
 </div>
 

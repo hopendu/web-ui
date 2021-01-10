@@ -38,7 +38,6 @@ import { UserService } from './_services/user.service';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { PromotionFormComponent } from './promotion-form/promotion-form.component';
-import { ImageFormComponent } from './image-form/image-form.component';
 import { PromotionItemComponent} from './store-list/store/store-detail/store-promotion/promotion-item/promotion-item.component'
 @NgModule({
   declarations: [
@@ -55,7 +54,6 @@ import { PromotionItemComponent} from './store-list/store/store-detail/store-pro
     AlertComponent,
     StorePromotionComponent,
     PromotionFormComponent,
-    ImageFormComponent,
     PromotionItemComponent],
   imports: [
     BrowserModule,

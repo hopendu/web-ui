@@ -8,6 +8,7 @@ import { AlertService } from '../../_services/alert.service';
 import { trigger, transition, animate, style } from '@angular/animations'
 import { PromotionControllerService } from '../../service/promotion-controller.service';
 import { Promotion } from 'src/app/model/promotion';
+import { UploadService } from '../../service/upload.service';
 
 @Component({
   selector: 'app-detail',
@@ -21,16 +22,17 @@ import { Promotion } from 'src/app/model/promotion';
   ]
 })
 export class DetailComponent implements OnInit , OnDestroy {
-
+  toFile: { item: (arg0: number) => any; };
   @Output() hideDetailEventEmitter = new EventEmitter<Boolean>();
   @Input() stock: Stock;
   imageUrl: string;
   subscription: Subscription[] = [];
   current = 0;
+  storeName: string;
 
   constructor( private share:ShareDataService,
     private storeService: StoreControllerService,
-    private promotioService: PromotionControllerService,
+    private uploadService: UploadService,
     private alertService: AlertService,
     private router: Router, 
     public activeRoute: ActivatedRoute) {
@@ -53,8 +55,13 @@ export class DetailComponent implements OnInit , OnDestroy {
     }, 5000);
   }
 
-  add(event): void {
-  }
+  onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
+    this.toFile = event.target.files;
+    this.stock.images = !!this.stock.images ? this.stock.images : [];
+    this.subscription[0] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => this.storeName = data.name);
+    const file = this.toFile.item(0);
+     this.stock.images.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeName));
+     }
 
   addPromotion(event): void {
     event.preventDefault();
@@ -83,4 +90,15 @@ export class DetailComponent implements OnInit , OnDestroy {
         this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
         this.router.navigate(['form/stock'], {queryParams:{ id: this.activeRoute.parent.snapshot.params.id, item: this.stock.name }});})
     })};
+
+    submit(): void {
+      this.subscription[1] = this.storeService.patchStockByStoreId(this.activeRoute.snapshot.params['id'], this.stock).subscribe( data => { 
+      
+      this.alertService.success("Successfull added the image")},
+    error => {
+      this.stock.images = this.stock.images.length === 0 ? null : this.stock.images;
+      this.alertService.error("Failed to add the image")
+    })
+    window.history.back();
+  };
 }
