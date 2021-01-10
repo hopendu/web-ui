@@ -19,7 +19,8 @@ export class StorePromotionComponent implements OnInit {
 
   constructor(  private storeService: StoreControllerService,
                 private promotionService: PromotionControllerService,
-                private activeRoute: ActivatedRoute) { 
+                private activeRoute: ActivatedRoute,
+                private router: Router) { 
                 }
 
   ngOnDestroy(): void {
@@ -36,4 +37,10 @@ export class StorePromotionComponent implements OnInit {
         )      
     })
   }
+
+  add(event): void {
+    event.preventDefault();
+     this.router.navigateByUrl('/form/stock-list', { skipLocationChange: true }).then(() => {
+     this.router.navigate(['form/promotion'], {queryParams:{ id: this.activeRoute.parent.snapshot.params.id}});})
+  };;
 }

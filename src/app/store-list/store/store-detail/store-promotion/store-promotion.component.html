@@ -1,3 +1,6 @@
+<ul class="nav mb-3">
+        <li class="nav-item"><a class="nav-link active" (click)="add($event)" data-toggle="tooltip" data-placement="top" title="Indipendent of stock"><i class="fa fa-plus"></i> Promotion </a></li>
+    </ul>
 <div class="card-deck">
       <app-promotion-item *ngFor="let promotion of promotionList" [promotion]="promotion"></app-promotion-item>
       

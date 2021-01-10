@@ -61,7 +61,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
           "",
           "",
           store.id,
-          this.stockId,
+          !!this.stockId ? this.stockId : null,
           store.storeType,
           new Date()
          );
