@@ -1,4 +1,5 @@
 import { BusinessHours } from './business-hours';
+import { StoreProfile } from './store-profile';
 
 export class StoreInfo {
     constructor(
@@ -12,5 +13,8 @@ export class StoreInfo {
         public shortName?: string,
         public storeWebsiteUrl?: string,
         public tags?: Array<string>,
-        public imageUrl?: string){}
+        public imageUrl?: string,
+        public longitude?: number,
+        public latitude?: number,
+        public storeType?: StoreProfile.StoreTypeEnum ){}
 }

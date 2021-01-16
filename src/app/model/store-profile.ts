@@ -49,6 +49,7 @@ export namespace StoreProfile {
         STORE: 'STORE' as RoleEnum,
         MESSENGER: 'MESSENGER' as RoleEnum
     };
+    
     export const StoreTypeEnum = {
         FOOD: 'FOOD' as StoreTypeEnum,
         CLOTHING: 'CLOTHING' as StoreTypeEnum,

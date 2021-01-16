@@ -49,7 +49,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
             this.storeType = store.storeType; 
              this.promotionForm = this.fb.group({
               title: ['', Validators.required],
-              actionUrl: ['', Validators.required],
+              actionUrl: [''],
               message: ['', Validators.required],
               date: ['', Validators.required],
               start: ['', Validators.required] });
@@ -70,7 +70,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
 
             this.promotionForm = this.fb.group({
                 title: ['', Validators.required],
-                actionUrl: ['', Validators.required],
+                actionUrl: [''],
                 message: ['', Validators.required],
                 date: ['', Validators.required],
                 start: ['', Validators.required]});

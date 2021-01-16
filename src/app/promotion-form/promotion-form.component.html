@@ -19,12 +19,9 @@
 
             <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Link
-                <span class="required" aria-required="true"> * </span>
+                <span> (Option) </span>
               </label>
-              <input type="text" formControlName="actionUrl" class="form-control" placeholder="Action url" [ngClass]="{ 'is-invalid': (f.actionUrl.touched || f.actionUrl.dirty) && f.actionUrl.errors }">
-              <div *ngIf="(f.actionUrl.touched || f.actionUrl.dirty) && f.actionUrl.errors" class="invalid-feedback">
-                <div *ngIf="f.actionUrl.errors.required">Link is required</div>
-              </div>
+              <input type="text" formControlName="actionUrl" class="form-control" placeholder="Action url">
             </div>
 
             <div class="col-12 mb-3">

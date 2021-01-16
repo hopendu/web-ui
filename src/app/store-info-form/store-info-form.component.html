@@ -38,6 +38,34 @@
             </div>
 
             <div class="col-12 mb-3">
+              <label for="exampleFormControlInput1">Latitude
+                <span class="required" aria-required="true"> * </span>
+              </label>
+              <input type="text" formControlName="latitude" class="form-control"  [ngClass]="{ 'is-invalid': (f.latitude.touched || f.latitude.dirty) && f.latitude.errors }">
+              <div *ngIf="(f.latitude.touched || f.latitude.dirty) && f.latitude.errors" class="invalid-feedback">
+                <div *ngIf="f.latitude.errors.required">Latitude is required</div>
+              </div>
+            </div>
+
+
+
+            <div class="col-12 mb-3">
+              <label for="exampleFormControlInput1">Longitude
+                <span class="required" aria-required="true"> * </span>
+              </label>
+              <input type="text" formControlName="longitude" class="form-control"  [ngClass]="{ 'is-invalid': (f.longitude.touched || f.longitude.dirty) && f.longitude.errors }">
+              <div *ngIf="(f.longitude.touched || f.longitude.dirty) && f.longitude.errors" class="invalid-feedback">
+                <div *ngIf="f.longitude.errors.required">Longitude is required</div>
+              </div>
+            </div>
+
+
+
+
+
+           
+
+            <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Phone Number
                 <span class="required" aria-required="true"> * </span>
               </label>
@@ -49,13 +77,9 @@
 
             <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Email Address
-                <span class="required" aria-required="true"> * </span>
+                <span > (Optional)</span>
               </label>
               <input type="text" formControlName="emailAddress"  class="form-control" placeholder="jikajoe@izinga.co.za" [ngClass]="{ 'is-invalid': (f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors  }">
-              <div *ngIf="(f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors" class="invalid-feedback">
-                <div *ngIf="f.emailAddress.errors.required">The email address is required</div>
-                <div *ngIf="f.emailAddress.errors.email">Enter a vaild email address</div>
-              </div>
             </div>
 
             <div class="col-12 mb-3">
@@ -67,12 +91,9 @@
             
             <div class="col-12 mb-3">
               <label for="exampleFormControlInput1">Registration Number
-                <span class="required" aria-required="true"> * </span>
+                <span > (Optional) </span>
               </label>
               <input type="text" formControlName="regNumber" class="form-control" placeholder="0000/000000/00" [ngClass]="{ 'is-invalid': (f.regNumber.touched || f.regNumber.dirty) && f.regNumber.errors }">
-              <div *ngIf="(f.regNumber.touched || f.regNumber.dirty) && f.regNumber.errors" class="invalid-feedback">
-                <div *ngIf="f.regNumber.errors.required">Company registration number is required</div>
-              </div>
             </div>
 
             <div class="col-12 mb-3">
@@ -83,6 +104,21 @@
               <div *ngIf="(f.description.touched || f.description.dirty) && f.description.errors" class="invalid-feedback">
                 <div *ngIf="f.regNumber.errors.required">Company registration number is required</div>
               </div>
+            </div>
+
+
+
+            <div class="col-12 mb-3">
+          <label for="inputState">Store type</label> 
+          <div>
+            <select id="storeType" formControlName="storeType">
+              <!-- <option [value]="type.key" *ngFor="let type of storeTypeEnum | keyvalue"> {{ type.key}}</option> -->
+           <option selected>FOOD</option>
+            <option >CLOTHING</option>
+            <option >SALON</option>
+            <option >CAR_WASH</option>
+          </select>
+          </div>
             </div>
 
             <hr>
@@ -130,3 +166,4 @@
       
   </form>
 
+{{ storeInfoForm.value |json}}

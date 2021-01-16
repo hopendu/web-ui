@@ -9,6 +9,7 @@ import { StoreProfile } from '../model/store-profile';
 import { NavigationService } from '../service/navigation.service';
 import { Subscription } from 'rxjs';
 import { AlertService } from '../_services/alert.service';
+import { share } from 'rxjs/operators';
 
 @Component({
   selector: 'app-store-info-form',
@@ -24,6 +25,8 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
   storeInfoForm: FormGroup;
   id: string = null;
   store: StoreProfile;
+  storeTypeEnum: StoreProfile.StoreTypeEnum;
+  storeType: FormControl;
 
   subscription: Subscription[] = [];
   
@@ -36,6 +39,8 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
               private alertService : AlertService){ }
 
   ngOnInit(): void {
+
+    StoreProfile.StoreTypeEnum.FOOD
 
     this.subscription[0] =this.activeRoute.queryParams.subscribe( params => 
       {
@@ -53,6 +58,9 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
               mobileNumber: [store.mobileNumber, Validators.required],
               regNumber: [store.regNumber, Validators.required],
               storeWebsiteUrl: [!!store.storeWebsiteUrl ? store.storeWebsiteUrl: '' ],
+              longitude: [store.longitude, Validators.required],
+              latitude: [store.latitude, Validators.required],
+              storeType: [store.storeType, Validators.required],
               tags: this.fb.array([])
             });
             store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
@@ -65,12 +73,15 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
         name: ['', Validators.required],
         shortName: ['', Validators.required],
         description: ['', Validators.required],
-        emailAddress: ['', [Validators.required, Validators.email]],
+        emailAddress: ['', Validators.email],
         userId: [ this.activeRoute.snapshot.queryParams['oi'], Validators.required],
         address: ['', Validators.required],
         mobileNumber:  ['', Validators.required],
-        regNumber: ['', Validators.required],
+        regNumber: [''],
         storeWebsiteUrl: [''],
+        longitude: [0, Validators.required],
+        latitude: [0, Validators.required],
+        storeType: [StoreProfile.StoreTypeEnum.FOOD, Validators.required],
         tags: this.fb.array([])
       });
 
@@ -129,6 +140,10 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
         this.storeInfoForm.get('storeWebsiteUrl').value, 
         this.storeInfoForm.get('tags').value,
         'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
+        ,this.storeInfoForm.get('longitude').value, 
+        this.storeInfoForm.get('latitude').value,
+        this.storeInfoForm.get('storeType').value
+
     );
 
     if(!!this.id){
@@ -144,6 +159,9 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       this.store.tags = this.share.storeInfo.tags;
       this.store.ownerId = this.share.storeInfo.userId;
       this.store.imageUrl = this.share.storeInfo.imageUrl;
+      this.store.latitude = this.share.storeInfo.latitude;
+      this.store.longitude = this.share.storeInfo.longitude;
+      this.store.storeType = this.share.storeInfo.storeType;
       
      this.storeService.patch(this.id, this.store).subscribe( data => 
       {
