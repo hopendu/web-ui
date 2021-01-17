@@ -55,9 +55,6 @@ body {
 } 
 
 button {
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
@@ -74,16 +71,18 @@ button:disabled {
 }
 
 .btn {
-  width: 200px;
+
   background-color: #10a59f;
   font-weight: 300;
   border: none;
   height: 50px;
 }
 
-.required {
-  color: red;
+.danger, .required {
+  color: #d66247;
 }
+
+
 
 /* Navigation link styles */
 .nav {

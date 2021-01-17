@@ -86,7 +86,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       });
 
       this.storeInfoForm.controls['userId'].disable();
-    
+    this.addTag();
   }
 
   ngOnDestroy(): void {
