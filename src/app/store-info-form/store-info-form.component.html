@@ -145,11 +145,11 @@
                   <label for="colFormLabel" >Tag {{tagIndex + 1}}</label>
                 </div>
                 <div class="row" *ngIf="getTags?.length > 0">
-                  <div class="col-md-11">
+                  <div class="col-11">
                       <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
                   
                   </div>
-                  <div class="col-md-1">
+                  <div class="col-1 d-flex align-items-end ">
 
                   <a class="button danger" (click)="deleteTag(tagIndex)"><i class="fa fa-trash fa-2x"></i></a>
                   
