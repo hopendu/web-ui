@@ -21,7 +21,7 @@
               <label for="exampleFormControlInput1">Short name
                 <span class="required" aria-required="true"> * </span>
               </label>
-              <input type="text" formControlName="shortName" class="form-control" placeholder="Jika Joe" [ngClass]="{ 'is-invalid': (f.shortName.touched || f.shortName.dirty) && f.shortName.errors }">
+              <input type="text" formControlName="shortName" class="form-control" placeholder="jikajoe" [ngClass]="{ 'is-invalid': (f.shortName.touched || f.shortName.dirty) && f.shortName.errors }">
               <div *ngIf="(f.shortName.touched || f.shortName.dirty) && f.shortName.errors" class="invalid-feedback">
                 <div *ngIf="f.shortName.errors.required">Name is required</div>
               </div>
@@ -121,7 +121,6 @@
           <label for="inputState">Store type</label> 
           <div>
             <select id="storeType" formControlName="storeType">
-              <!-- <option [value]="type.key" *ngFor="let type of storeTypeEnum | keyvalue"> {{ type.key}}</option> -->
            <option selected>FOOD</option>
             <option >CLOTHING</option>
             <option >SALON</option>
@@ -134,7 +133,7 @@
 
             <div class="row" formArrayName="tags" >
               <div
-                class="tags col-11"
+                class="tags col-11 align-items-start align-items-sm-start"
                 *ngFor="
                   let tag of getTags.controls;
                   let tagIndex = index;
@@ -145,11 +144,11 @@
                   <label for="colFormLabel" >Tag {{tagIndex + 1}}</label>
                 </div>
                 <div class="row" *ngIf="getTags?.length > 0">
-                  <div class="col-11">
+                  <div class="col-11 align-items-start align-items-sm-start">
                       <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
                   
                   </div>
-                  <div class="col-1 d-flex align-items-end ">
+                  <div class="col-1 d-flex align-items-end align-items-sm-end">
 
                   <a class="button danger" (click)="deleteTag(tagIndex)"><i class="fa fa-trash fa-2x"></i></a>
                   
@@ -161,7 +160,7 @@
                 </div>
               </div>
               
-                <div class="col-1 d-flex align-items-end">
+                <div class="col-1 d-flex align-items-end align-items-sm-end">
                    <a class="button" (click)="addTag()"><i class="fa fa-plus-circle fa-2x"></i></a>
                 </div>
             
