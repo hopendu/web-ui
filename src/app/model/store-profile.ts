@@ -37,7 +37,11 @@ export class StoreProfile {
         public storeWebsiteUrl?: string,
         public tags?: Array<string>,
         public verificationCode?: string,
-        public yearsInService?: number){}
+        public yearsInService?: number,
+        public brandPrimaryColor?: string,
+        public brandSecondaryColor?: string,
+        public collectAllowed?: string,
+        public freeDeliveryMinAmount?: number){}
 }
 // tslint:disable-next-line: no-namespace
 export namespace StoreProfile {

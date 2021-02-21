@@ -29,68 +29,76 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
   storeType: FormControl;
 
   subscription: Subscription[] = [];
-  
+
   constructor(private uploadService: UploadService,
-              private fb: FormBuilder,
-              private router: Router, 
-              private share: ShareDataService,
-              private storeService: StoreControllerService,
-              private activeRoute: ActivatedRoute,
-              private alertService : AlertService){ }
+    private fb: FormBuilder,
+    private router: Router,
+    private share: ShareDataService,
+    private storeService: StoreControllerService,
+    private activeRoute: ActivatedRoute,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
 
     StoreProfile.StoreTypeEnum.FOOD
 
-    this.subscription[0] =this.activeRoute.queryParams.subscribe( params => 
-      {
-        this.id = params['id']
-        this.subscription[1] = this.storeService.fetchStoreById(this.id).subscribe( store => 
-          {
-            this.store = store;
-            this.storeInfoForm = this.fb.group({
-              name: [store.name, Validators.required],
-              shortName: [store.shortName, Validators.required],
-              description: [store.description, Validators.required],
-              emailAddress: [store.emailAddress, [Validators.required, Validators.email]],
-              userId: [store.ownerId, Validators.required],
-              address: [store.address, Validators.required],
-              mobileNumber: [store.mobileNumber, Validators.required],
-              regNumber: [store.regNumber, Validators.required],
-              storeWebsiteUrl: [!!store.storeWebsiteUrl ? store.storeWebsiteUrl: '' ],
-              longitude: [store.longitude, Validators.required],
-              latitude: [store.latitude, Validators.required],
-              storeType: [store.storeType, Validators.required],
-              tags: this.fb.array([])
-            });
-            store.tags.forEach( tag => this.getTags.push(new FormControl(tag)));
+    this.subscription[0] = this.activeRoute.queryParams.subscribe(params => {
+      this.id = params['id']
+      this.subscription[1] = this.storeService.fetchStoreById(this.id).subscribe(store => {
+        this.store = store;
+        this.storeInfoForm = this.fb.group({
+          name: [store.name, Validators.required],
+          shortName: [store.shortName, Validators.required],
+          description: [store.description, Validators.required],
+          emailAddress: [store.emailAddress, [Validators.required, Validators.email]],
+          userId: [store.ownerId, Validators.required],
+          address: [store.address, Validators.required],
+          mobileNumber: [store.mobileNumber, Validators.required],
+          regNumber: [store.regNumber, Validators.required],
+          storeWebsiteUrl: [!!store.storeWebsiteUrl ? store.storeWebsiteUrl : ''],
+          longitude: [store.longitude, Validators.required],
+          latitude: [store.latitude, Validators.required],
+          storeType: [store.storeType, Validators.required],
+          collectAllowed: [store.collectAllowed],
+          brandPrimaryColor: [store.brandPrimaryColor],
+          brandSecondaryColor: [store.brandSecondaryColor],
+          freeDeliveryMinAmount: [store.freeDeliveryMinAmount],
+          izingaTakesCommission: [store.izingaTakesCommission],
+          tags: this.fb.array([])
+        });
+        store.tags.forEach(tag => this.getTags.push(new FormControl(tag)));
 
-            this.storeInfoForm.controls['userId'].disable();
-          })
+        this.storeInfoForm.controls['userId'].disable();
       })
+    })
 
-      this.storeInfoForm = this.fb.group({
-        name: ['', Validators.required],
-        shortName: ['', Validators.required],
-        description: ['', Validators.required],
-        emailAddress: ['', Validators.email],
-        userId: [ this.activeRoute.snapshot.queryParams['oi'], Validators.required],
-        address: ['', Validators.required],
-        mobileNumber:  ['', Validators.required],
-        regNumber: [''],
-        storeWebsiteUrl: [''],
-        longitude: [0, Validators.required],
-        latitude: [0, Validators.required],
-        storeType: [StoreProfile.StoreTypeEnum.FOOD, Validators.required],
-        tags: this.fb.array([])
-      });
+    this.storeInfoForm = this.fb.group({
+      name: ['', Validators.required],
+      shortName: ['', Validators.required],
+      description: ['', Validators.required],
+      emailAddress: ['', Validators.email],
+      userId: [this.activeRoute.snapshot.queryParams['oi'], Validators.required],
+      address: ['', Validators.required],
+      mobileNumber: ['', Validators.required],
+      regNumber: [''],
+      storeWebsiteUrl: [''],
+      longitude: [0, Validators.required],
+      latitude: [0, Validators.required],
+      storeType: [StoreProfile.StoreTypeEnum.FOOD, Validators.required],
+      collectAllowed: [true],
+      brandPrimaryColor: [''],
+      brandSecondaryColor: [''],
+      freeDeliveryMinAmount: [0],
+      izingaTakesCommission: [false],
+      tags: this.fb.array([])
+    });
 
-      this.storeInfoForm.controls['userId'].disable();
+    this.storeInfoForm.controls['userId'].disable();
     this.addTag();
   }
 
   ngOnDestroy(): void {
-   if(!!this.subscription) this.subscription.forEach( sub => sub.unsubscribe );
+    if (!!this.subscription) this.subscription.forEach(sub => sub.unsubscribe);
   }
 
   get getTags(): FormArray {
@@ -101,12 +109,18 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
     this.getTags.push(new FormControl(''));
   }
 
-  deleteTag( index: number): void{
-    ( this.storeInfoForm.get('tags') as FormArray).removeAt(index);
+  deleteTag(index: number): void {
+    (this.storeInfoForm.get('tags') as FormArray).removeAt(index);
   }
 
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
+  }
+
+  changeCommissionValue(e) {
+    this.storeInfoForm.get('izingaTakesCommission').setValue(e.target.value, {
+      onlySelf: true
+    })
   }
 
   get f() { return this.storeInfoForm.controls; }
@@ -122,31 +136,41 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
 
     this.submitted = true;
 
-    if (this.storeInfoForm.invalid){ this.alertService.error("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format.\n4 Ensure atleast one tag iss added."); 
-    console.log('invalid!!!')
-    return; }
+    if (this.storeInfoForm.invalid) {
+      this.alertService.error("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format.\n4 Ensure atleast one tag iss added.");
+      console.log('invalid!!!')
+      return;
+    }
 
-    const file = this.toFile.item(0);
-
+    var imagesLogoUrl = ''
+    if(!this.toFile == null && this.toFile.item(0) != null) {
+      const file = this.toFile.item(0);
+      imagesLogoUrl = 'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
+    }
+    
     this.share.storeInfo = new StoreInfo(
-        this.storeInfoForm.get('address').value,
-        this.storeInfoForm.get('description').value,
-        this.storeInfoForm.get('emailAddress').value,
-        this.storeInfoForm.get('userId').value,
-        this.storeInfoForm.get('mobileNumber').value,
-        this.storeInfoForm.get('name').value,
-        this.storeInfoForm.get('regNumber').value,
-        this.storeInfoForm.get('shortName').value,
-        this.storeInfoForm.get('storeWebsiteUrl').value, 
-        this.storeInfoForm.get('tags').value,
-        'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
-        ,this.storeInfoForm.get('longitude').value, 
-        this.storeInfoForm.get('latitude').value,
-        this.storeInfoForm.get('storeType').value
-
+      this.storeInfoForm.get('address').value,
+      this.storeInfoForm.get('description').value,
+      this.storeInfoForm.get('emailAddress').value,
+      this.storeInfoForm.get('userId').value,
+      this.storeInfoForm.get('mobileNumber').value,
+      this.storeInfoForm.get('name').value,
+      this.storeInfoForm.get('regNumber').value,
+      this.storeInfoForm.get('shortName').value,
+      this.storeInfoForm.get('storeWebsiteUrl').value,
+      this.storeInfoForm.get('tags').value,
+      imagesLogoUrl
+      , this.storeInfoForm.get('longitude').value,
+      this.storeInfoForm.get('latitude').value,
+      this.storeInfoForm.get('storeType').value,
+      this.storeInfoForm.get('brandPrimaryColor').value,
+      this.storeInfoForm.get('brandSecondaryColor').value,
+      this.storeInfoForm.get('collectAllowed').value,
+      this.storeInfoForm.get('freeDeliveryMinAmount').value,
+      this.storeInfoForm.get('izingaTakesCommission').value
     );
 
-    if(!!this.id){
+    if (!!this.id) {
 
       this.store.name = this.share.storeInfo.name;
       this.store.address = this.share.storeInfo.address;
@@ -158,13 +182,17 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       this.store.storeWebsiteUrl = this.share.storeInfo.storeWebsiteUrl;
       this.store.tags = this.share.storeInfo.tags;
       this.store.ownerId = this.share.storeInfo.userId;
-      this.store.imageUrl = this.share.storeInfo.imageUrl;
+      this.store.imageUrl =  this.share.storeInfo.imageUrl.length > 0 ? this.share.storeInfo.imageUrl : this.store.imageUrl;
       this.store.latitude = this.share.storeInfo.latitude;
       this.store.longitude = this.share.storeInfo.longitude;
       this.store.storeType = this.share.storeInfo.storeType;
-      
-     this.storeService.patch(this.id, this.store).subscribe( data => 
-      {
+      this.store.brandPrimaryColor = this.share.storeInfo.brandPrimaryColor;
+      this.store.brandSecondaryColor = this.share.storeInfo.brandSecondaryColor;
+      this.store.collectAllowed = this.share.storeInfo.collectAllowed;
+      this.store.freeDeliveryMinAmount = this.share.storeInfo.freeDeliveryMinAmount;
+      this.store.izingaTakesCommission = this.share.storeInfo.izingaTakesCommission;
+
+      this.storeService.patch(this.id, this.store).subscribe(data => {
         this.alertService.success('Succesfull updated store infomation.', true)
         window.history.back()
       }, err => {
@@ -173,7 +201,8 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
       return;
     } else {
       this.router.navigateByUrl('form', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['form'], {queryParams:{ oi: this.storeInfoForm.get('userId').value }});});
+        this.router.navigate(['form'], { queryParams: { oi: this.storeInfoForm.get('userId').value } });
+      });
     }
   };
 
@@ -184,6 +213,6 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
   }
 
   allEntriesAreValid(tags: string[]): boolean {
-    return !!tags.find( tag => tag.length === 0);
+    return !!tags.find(tag => tag.length === 0);
   }
 }

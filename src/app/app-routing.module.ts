@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'stores', pathMatch: 'full'},
+  {path: '', redirectTo: 'signin', pathMatch: 'full'},
+  {path: 'signin', component: SignInComponent},
   {path: 'form', loadChildren: () => import('./store-registration-form/store-registration-form.module').then( m => m.StoreRegistrationFormModule)},
   {path: 'form/bank', loadChildren: () => import('./bank-form/bank-form.module').then( m => m.BankFormModule)},
   {path: 'form/business-hours', loadChildren: () => import('./business-hours-form/business-hours-form.module').then( m => m.BusinessHoursFormModule)},

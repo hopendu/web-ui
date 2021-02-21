@@ -1,185 +1,245 @@
-<form [formGroup]="storeInfoForm"  class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
-  
-      <div class="container rounded-0">
-        <div class="text-center">
-            <h3><b>Store information</b></h3>
-            
-        </div>
-       
-            <!--Body-->
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Store Name
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="name" class="form-control" placeholder='Jika Joe (Pty) Ltd' [ngClass]="{ 'is-invalid': (f.name.touched || f.name.dirty) && f.name.errors }">
-              <div *ngIf="(f.name.touched || f.name.dirty) && f.name.errors" class="invalid-feedback">
-                <div *ngIf="f.name.errors.required">Store name is required</div>
-              </div>
-            </div>
+<form [formGroup]="storeInfoForm" class="pt-5 px-3 shadow-lg p-3 mb-5 bg-white rounded">
 
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Short name
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="shortName" class="form-control" placeholder="jikajoe" [ngClass]="{ 'is-invalid': (f.shortName.touched || f.shortName.dirty) && f.shortName.errors }">
-              <div *ngIf="(f.shortName.touched || f.shortName.dirty) && f.shortName.errors" class="invalid-feedback">
-                <div *ngIf="f.shortName.errors.required">Name is required</div>
-              </div>
-            </div>
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Address
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="address"  class="form-control" placeholder="36 Jimmy Avanue Magoowzer 4025" [ngClass]="{ 'is-invalid': (f.address.touched || f.address.dirty) && f.address.errors }">
-              <div *ngIf="(f.address.touched || f.address.dirty) && f.address.errors" class="invalid-feedback">
-                <div *ngIf="f.address.errors.required">The address details are required</div>
-              </div>
-            </div>
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Latitude
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="latitude" class="form-control"  [ngClass]="{ 'is-invalid': (f.latitude.touched || f.latitude.dirty) && f.latitude.errors }">
-              <div *ngIf="(f.latitude.touched || f.latitude.dirty) && f.latitude.errors" class="invalid-feedback">
-                <div *ngIf="f.latitude.errors.required">Latitude is required</div>
-              </div>
-            </div>
-
-
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Longitude
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="longitude" class="form-control"  [ngClass]="{ 'is-invalid': (f.longitude.touched || f.longitude.dirty) && f.longitude.errors }">
-              <div *ngIf="(f.longitude.touched || f.longitude.dirty) && f.longitude.errors" class="invalid-feedback">
-                <div *ngIf="f.longitude.errors.required">Longitude is required</div>
-              </div>
-            </div>
-
-
-
-
-
-           
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Phone Number
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="mobileNumber"  class="form-control" placeholder="0615248524" [ngClass]="{ 'is-invalid': (f.mobileNumber.touched || f.mobileNumber.dirty) && f.mobileNumber.errors }">
-              <div *ngIf="(f.mobileNumber.touched || f.mobileNumber.dirty) && f.mobileNumber.errors" class="invalid-feedback">
-                <div *ngIf="f.mobileNumber.errors.required">The mobile number is required</div>
-              </div>
-            </div>
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Email Address
-                <span > (Optional)</span>
-              </label>
-              <input type="text" formControlName="emailAddress"  class="form-control" placeholder="jikajoe@izinga.co.za" [ngClass]="{ 'is-invalid': (f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors  }">
-            </div>
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Website Address
-                <span> (Optional) </span>
-              </label>
-              <input type="text" formControlName="storeWebsiteUrl" class="form-control" placeholder="jikajoe.co.za">
-            </div>
-            
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Registration Number
-                <span > (Optional) </span>
-              </label>
-              <input type="text" formControlName="regNumber" class="form-control" placeholder="0000/000000/00" [ngClass]="{ 'is-invalid': (f.regNumber.touched || f.regNumber.dirty) && f.regNumber.errors }">
-            </div>
-
-            <div class="col-12 mb-3">
-              <label for="exampleFormControlInput1">Description
-                <span class="required" aria-required="true"> * </span>
-              </label>
-              <input type="text" formControlName="description" class="form-control" placeholder="Jika serves Joe" [ngClass]="{ 'is-invalid': (f.description.touched || f.description.dirty) && f.description.errors }">
-              <div *ngIf="(f.description.touched || f.description.dirty) && f.description.errors" class="invalid-feedback">
-                <div *ngIf="f.regNumber.errors.required">Company registration number is required</div>
-              </div>
-            </div>
-
-            <div class="col-12 mb-3">
-          <label for="exampleFormControlInput1">Upload store image
-                <span class="required" aria-required="true"> * </span>
-              </label>
-            
-              <div>
-                <input type="file" (change)="onChange($event)">
-              </div>
-            
-        </div>
-
-            <div class="col-12 mb-3">
-          <label for="inputState">Store type</label> 
-          <div>
-            <select id="storeType" formControlName="storeType">
-           <option selected>FOOD</option>
-            <option >CLOTHING</option>
-            <option >SALON</option>
-            <option >CAR_WASH</option>
-          </select>
-          </div>
-            </div>
-
-          <div class="col-12">
-
-            <div class="row" formArrayName="tags" >
-              <div
-                class="tags col-11 align-items-start align-items-sm-start"
-                *ngFor="
-                  let tag of getTags.controls;
-                  let tagIndex = index;
-                  let first = first;"
-                [formGroupName]="tagIndex"
-              >
-                <div class="label">
-                  <label for="colFormLabel" >Tag {{tagIndex + 1}}</label>
-                </div>
-                <div class="row" *ngIf="getTags?.length > 0">
-                  <div class="col-11 align-items-start align-items-sm-start">
-                      <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control"> 
-                  
-                  </div>
-                  <div class="col-1 d-flex align-items-end align-items-sm-end">
-
-                  <a class="button danger" (click)="deleteTag(tagIndex)"><i class="fa fa-trash fa-2x"></i></a>
-                  
-                  
-
-                  </div>
-                  
-
-                </div>
-              </div>
-              
-                <div class="col-1 d-flex align-items-end align-items-sm-end">
-                   <a class="button" (click)="addTag()"><i class="fa fa-plus-circle fa-2x"></i></a>
-                </div>
-            
-        </div>
-          </div>
-            
-        
-    
-
-        <div class="col-12 mt-3">
-          
-          
-        <div class="text-center">
-            <button class="btn btn-primary btn-rounded mb-4" (click)="submit()" style="width: 200px;">Submit</button>
-        
-        </div>
-        </div>
+  <div class="container rounded-0">
+    <div class="text-center">
+      <h3><b>Store information</b></h3>
 
     </div>
 
-      
-  </form>
+    <!--Body-->
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Store Name
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="name" class="form-control" placeholder='Jika Joe (Pty) Ltd'
+        [ngClass]="{ 'is-invalid': (f.name.touched || f.name.dirty) && f.name.errors }">
+      <div *ngIf="(f.name.touched || f.name.dirty) && f.name.errors" class="invalid-feedback">
+        <div *ngIf="f.name.errors.required">Store name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Short name
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="shortName" class="form-control" placeholder="jikajoe"
+        [ngClass]="{ 'is-invalid': (f.shortName.touched || f.shortName.dirty) && f.shortName.errors }">
+      <div *ngIf="(f.shortName.touched || f.shortName.dirty) && f.shortName.errors" class="invalid-feedback">
+        <div *ngIf="f.shortName.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Brand Primary Color
+      </label>
+      <input type="text" formControlName="brandPrimaryColor" class="form-control" placeholder="jikajoe"
+        [ngClass]="{ 'is-invalid': (f.brandPrimaryColor.touched || f.brandPrimaryColor.dirty) && f.brandPrimaryColor.errors }">
+      <div *ngIf="(f.brandPrimaryColor.touched || f.brandPrimaryColor.dirty) && f.brandPrimaryColor.errors"
+        class="invalid-feedback">
+        <div *ngIf="f.brandPrimaryColor.errors.required">Primary Color is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Brand Secondary Color
+      </label>
+      <input type="text" formControlName="brandSecondaryColor" class="form-control" placeholder="jikajoe"
+        [ngClass]="{ 'is-invalid': (f.brandSecondaryColor.touched || f.brandSecondaryColor.dirty) && f.brandSecondaryColor.errors }">
+      <div *ngIf="(f.brandSecondaryColor.touched || f.brandSecondaryColor.dirty) && f.brandSecondaryColor.errors"
+        class="invalid-feedback">
+        <div *ngIf="f.brandSecondaryColor.errors.required">Secondary Color is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Collection Allowed
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="collectAllowed" class="form-control" placeholder="jikajoe"
+        [ngClass]="{ 'is-invalid': (f.collectAllowed.touched || f.collectAllowed.dirty) && f.collectAllowed.errors }">
+      <div *ngIf="(f.collectAllowed.touched || f.collectAllowed.dirty) && f.collectAllowed.errors"
+        class="invalid-feedback">
+        <div *ngIf="f.collectAllowed.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Free Delivery Min Amount
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="freeDeliveryMinAmount" class="form-control" placeholder="jikajoe"
+        [ngClass]="{ 'is-invalid': (f.freeDeliveryMinAmount.touched || f.freeDeliveryMinAmount.dirty) && f.freeDeliveryMinAmount.errors }">
+      <div *ngIf="(f.freeDeliveryMinAmount.touched || f.freeDeliveryMinAmount.dirty) && f.freeDeliveryMinAmount.errors"
+        class="invalid-feedback">
+        <div *ngIf="f.freeDeliveryMinAmount.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Izinga Takes Commission
+      </label>
+      <select formControlName="izingaTakesCommission" id="izingaTakesCommission" class="form-control" (change)="changeCommissionValue($event)">
+        <option>true</option>
+        <option>false</option>
+      </select>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Address
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="address" class="form-control" placeholder="36 Jimmy Avanue Magoowzer 4025"
+        [ngClass]="{ 'is-invalid': (f.address.touched || f.address.dirty) && f.address.errors }">
+      <div *ngIf="(f.address.touched || f.address.dirty) && f.address.errors" class="invalid-feedback">
+        <div *ngIf="f.address.errors.required">The address details are required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Latitude
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="latitude" class="form-control"
+        [ngClass]="{ 'is-invalid': (f.latitude.touched || f.latitude.dirty) && f.latitude.errors }">
+      <div *ngIf="(f.latitude.touched || f.latitude.dirty) && f.latitude.errors" class="invalid-feedback">
+        <div *ngIf="f.latitude.errors.required">Latitude is required</div>
+      </div>
+    </div>
+
+
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Longitude
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="longitude" class="form-control"
+        [ngClass]="{ 'is-invalid': (f.longitude.touched || f.longitude.dirty) && f.longitude.errors }">
+      <div *ngIf="(f.longitude.touched || f.longitude.dirty) && f.longitude.errors" class="invalid-feedback">
+        <div *ngIf="f.longitude.errors.required">Longitude is required</div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Phone Number
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="mobileNumber" class="form-control" placeholder="0615248524"
+        [ngClass]="{ 'is-invalid': (f.mobileNumber.touched || f.mobileNumber.dirty) && f.mobileNumber.errors }">
+      <div *ngIf="(f.mobileNumber.touched || f.mobileNumber.dirty) && f.mobileNumber.errors" class="invalid-feedback">
+        <div *ngIf="f.mobileNumber.errors.required">The mobile number is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Email Address
+        <span> (Optional)</span>
+      </label>
+      <input type="text" formControlName="emailAddress" class="form-control" placeholder="jikajoe@izinga.co.za"
+        [ngClass]="{ 'is-invalid': (f.emailAddress.touched || f.emailAddress.dirty) && f.emailAddress.errors  }">
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Website Address
+        <span> (Optional) </span>
+      </label>
+      <input type="text" formControlName="storeWebsiteUrl" class="form-control" placeholder="jikajoe.co.za">
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Registration Number
+        <span> (Optional) </span>
+      </label>
+      <input type="text" formControlName="regNumber" class="form-control" placeholder="0000/000000/00"
+        [ngClass]="{ 'is-invalid': (f.regNumber.touched || f.regNumber.dirty) && f.regNumber.errors }">
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Description
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="description" class="form-control" placeholder="Jika serves Joe"
+        [ngClass]="{ 'is-invalid': (f.description.touched || f.description.dirty) && f.description.errors }">
+      <div *ngIf="(f.description.touched || f.description.dirty) && f.description.errors" class="invalid-feedback">
+        <div *ngIf="f.regNumber.errors.required">Company registration number is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Upload store image
+        <span class="required" aria-required="true"> * </span>
+      </label>
+
+      <div>
+        <input type="file" (change)="onChange($event)">
+      </div>
+
+    </div>
+
+    <div class="col-12 mb-3">
+      <label for="inputState">Store type</label>
+      <div>
+        <select id="storeType" formControlName="storeType">
+          <option selected>FOOD</option>
+          <option>CLOTHING</option>
+          <option>SALON</option>
+          <option>CAR_WASH</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-12">
+
+      <div class="row" formArrayName="tags">
+        <div class="tags col-11 align-items-start align-items-sm-start" *ngFor="
+                  let tag of getTags.controls;
+                  let tagIndex = index;
+                  let first = first;" [formGroupName]="tagIndex">
+          <div class="label">
+            <label for="colFormLabel">Tag {{tagIndex + 1}}</label>
+          </div>
+          <div class="row" *ngIf="getTags?.length > 0">
+            <div class="col-11 align-items-start align-items-sm-start">
+              <input type="text" [formControl]="getTags.controls[tagIndex]" class="form-control">
+
+            </div>
+            <div class="col-1 d-flex align-items-end align-items-sm-end">
+
+              <a class="button danger" (click)="deleteTag(tagIndex)"><i class="fa fa-trash fa-2x"></i></a>
+
+
+
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="col-1 d-flex align-items-end align-items-sm-end">
+          <a class="button" (click)="addTag()"><i class="fa fa-plus-circle fa-2x"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="col-12 mt-3">
+
+
+      <div class="text-center">
+        <button class="btn btn-primary btn-rounded mb-4" (click)="submit()" style="width: 200px;">Submit</button>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</form>

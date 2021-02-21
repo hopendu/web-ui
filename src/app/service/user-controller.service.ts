@@ -7,7 +7,7 @@ import { environment  } from '../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
-export class UserControllerService { 
+export class UserControllerService {
 
   baseUrl = environment.baseUrl;
 
@@ -32,5 +32,9 @@ export class UserControllerService {
   delete( userId: string): Observable<UserProfile>{
     return this.http.delete(this.baseUrl  +`user/`+ userId);
   }
+
+  findUser(cellNumber: string): Observable<UserProfile> {
+    return this.http.get(this.baseUrl  +`user/`+ cellNumber);
+  } 
 
 }

@@ -16,5 +16,10 @@ export class StoreInfo {
         public imageUrl?: string,
         public longitude?: number,
         public latitude?: number,
-        public storeType?: StoreProfile.StoreTypeEnum ){}
+        public storeType?: StoreProfile.StoreTypeEnum,
+        public brandPrimaryColor?: string,
+        public brandSecondaryColor?: string,
+        public collectAllowed?: string,
+        public freeDeliveryMinAmount?: number,
+        public izingaTakesCommission?: Boolean){}
 }
