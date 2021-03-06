@@ -58,9 +58,7 @@ export class DetailComponent implements OnInit , OnDestroy {
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
     this.stock.images = !!this.stock.images ? this.stock.images : [];
-    this.subscription[0] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => this.storeName = data.name);
-    const file = this.toFile.item(0);
-     this.stock.images.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeName));
+    this.subscription[0] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => this.stock.images.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), data.name)));
      }
 
   addPromotion(event): void {

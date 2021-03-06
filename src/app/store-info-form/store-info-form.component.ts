@@ -143,10 +143,10 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
     }
 
     var imagesLogoUrl = ''
-    if(!this.toFile == null && this.toFile.item(0) != null) {
-      const file = this.toFile.item(0);
-      imagesLogoUrl = 'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
-    }
+    const file =  (!(this.toFile == null) && (this.toFile.item(0) != null)) ? this.toFile.item(0) : null; 
+      
+    imagesLogoUrl = 'https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(file, this.storeInfoForm.get('name').value)
+    
     
     this.share.storeInfo = new StoreInfo(
       this.storeInfoForm.get('address').value,

@@ -48,6 +48,10 @@ export class StockFormComponent implements OnInit, OnDestroy {
     this.subscription.forEach( sub => sub.unsubscribe);
   }
   ngOnInit(): void {
+
+
+
+
     this.subscription[0] =  this.activeRoute.queryParams.subscribe( params => {
       this.stockName =  params['item']
       this.storeId = params['id']
@@ -84,6 +88,13 @@ export class StockFormComponent implements OnInit, OnDestroy {
               this.stockForm.controls['name'].disable();
               }}})
             });
+
+
+
+
+
+
+
     this.stockForm = this.fb.group({
       name: new FormControl('', Validators.required),
       price: new FormControl(Number, Validators.required),
@@ -94,7 +105,9 @@ export class StockFormComponent implements OnInit, OnDestroy {
       mandatorySelection: this.fb.array([ this.selection() ])
     });
   this.ownerId = this.activeRoute.snapshot.params['oi'];
-  }
+  
+
+} //EOgOnIt
   selection(): FormGroup {
     return this.fb.group({
       name: new FormControl('', Validators.required),
@@ -145,7 +158,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
 
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
     this.toFile = event.target.files;
-    if(!!this.storeName){
+    if(this.storeName){
       this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.storeName));  
     }
     else this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));      
