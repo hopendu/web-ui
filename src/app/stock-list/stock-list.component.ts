@@ -9,6 +9,7 @@ import { ShareDataService } from '../service/share-data.service';
   styleUrls: ['./stock-list.component.css']
 })
 export class StockListComponent implements OnInit {
+
   stock: Stock;
   stockList = new Array<Stock>();
   status = false;
@@ -34,9 +35,9 @@ export class StockListComponent implements OnInit {
     this.stock = event;
     this.status = true;
   }
+
   back = function () {
     this.router.navigate(['/form']);
-    //this.router.navigate(['/form/bank'])
   };
 
 }

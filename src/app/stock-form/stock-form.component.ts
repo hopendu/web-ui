@@ -70,7 +70,8 @@ export class StockFormComponent implements OnInit, OnDestroy {
           });
         } else{
             this.stock = data.stockList.find( value => value.name.match(this.stockName));
-            if(!!this.stock){ 
+            if(!!this.stock){
+              this.imageUrls = this.stock.images; 
               this.stockForm = this.fb.group({
                 name: new FormControl(this.stock.name, Validators.required),
                 price: new FormControl(this.stock.price, Validators.required),
@@ -164,6 +165,12 @@ export class StockFormComponent implements OnInit, OnDestroy {
     else this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));      
   }
 
+  // onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {
+  //   this.toFile = event.target.files;
+  //   this.stock.images = !!this.stock.images ? this.stock.images : [];
+  //   this.subscription[2] = this.storeService.fetchStoreById(this.activeRoute.snapshot.params['id']).subscribe( data => this.stock.images.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), data.name)));
+  //   }
+
   done(): void{
     let newStock = new Stock(null,this.stockForm.get('description').value,
       this.stockForm.get('detailedDescription').value,
@@ -179,7 +186,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
       if( (newStock.name.match(this.stockName)) || ( !!this.stockName  && this.stockName.match('create'))){  
           newStock.id = (newStock.name.match(this.stockName) && !!this.stock) ? this.stock.id : newStock.id; 
           newStock.mandatorySelection = newStock.mandatorySelection.filter( selection => selection.name.length > 0 );
-          this.subscription[2] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data => {
+          this.subscription[3] = this.storeService.patchStockByStoreId(this.storeId, newStock).subscribe( data => {
             this.alertService.success(`Succesful ${ (this.stockName.match('create')) ? 'added' : 'edited' } stock.`, true); 
             },
             err => this.alertService.error(`Failed to ${ (!newStock.name.match(this.stockName) && !!this.stock) ? 'update' : 'add'} a stock.`, true)
