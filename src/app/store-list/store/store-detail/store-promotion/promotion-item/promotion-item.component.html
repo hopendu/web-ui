@@ -6,7 +6,7 @@
     <div class="summary flex-fill">
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><h5 class="card-title">{{ promotion.title }}</h5></li>
-        <li class="list-group-item card-title">See promo:   <a href="promotion.actionUrl">{{ promotion.actionUrl }}</a> </li>
+        <li class="list-group-item card-title" *ngIf="promotion.actionUrl.length > 0">See promo:   <a href="promotion.actionUrl">{{ promotion.actionUrl }}</a> </li>
         <li class="list-group-item card-title">Last until: {{ promotion.expiryDate | date }} at {{ promotion.expiryDate | date:'h:mm' }} </li>
         <li class="list-group-item card-title">Message: {{promotion.message}}</li> 
       </ul>

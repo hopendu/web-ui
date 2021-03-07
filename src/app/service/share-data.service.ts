@@ -4,7 +4,6 @@ import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
 import { SelectionOption } from '../model/selection-option';
 import { Stock } from '../model/stock';
-import { StoreInfo } from '../model/store-info';
 import { StoreProfile } from '../model/store-profile';
 
 @Injectable({
@@ -17,7 +16,6 @@ export class ShareDataService {
   public stockForm: FormGroup;
   public stock: Stock;
   public toggle: Boolean;
-  public storeInfo: StoreInfo;
   public stockList = new Array<Stock>();
   public editBusinessHours: BusinessHours = new BusinessHours();
   private businessHours = new Array<BusinessHours>();

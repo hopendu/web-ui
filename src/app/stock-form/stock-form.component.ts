@@ -162,7 +162,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
     if(this.storeName){
       this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.storeName));  
     }
-    else this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.storeInfo.name));      
+    else this.imageUrls.push('https://izinga-aws.s3.amazonaws.com/' + this.uploadService.fileUpload(this.toFile.item(0), this.share.store.name));      
   }
 
   // onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {

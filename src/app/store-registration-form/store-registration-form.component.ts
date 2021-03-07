@@ -1,7 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { StoreControllerService } from '../service/store-controller.service';
 import { StoreProfile } from '../model/store-profile';
-import { StoreInfo } from '../model/store-info';
 import { ShareDataService } from '../service/share-data.service';
 import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
@@ -18,7 +17,6 @@ export class StoreRegistrationFormComponent implements OnInit {
 
   tags: string[];
   bank: Bank;
-  storeInfo: StoreInfo;
   storeProfile: StoreProfile;
   stockList = new Array<Stock>();
   businessHours : BusinessHours[];
@@ -33,10 +31,9 @@ export class StoreRegistrationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.bank = this.share.bank;
-    this.storeInfo = this.share.storeInfo;
+    this.storeProfile = this.share.store;
     this.stockList = this.share.stockList;
     this.businessHours = this.share.getBusinessHours();
-    this.tags = this.storeInfo.tags;
   }
 
   hideDetail(event) {
@@ -50,7 +47,7 @@ export class StoreRegistrationFormComponent implements OnInit {
 
   onChange(): void{
     this.bank = this.share.bank;
-    this.storeInfo = this.share.storeInfo;
+    this.storeProfile = this.share.store;
     this.stockList = this.share.stockList;
   }
 
@@ -75,39 +72,6 @@ export class StoreRegistrationFormComponent implements OnInit {
   
   onSubmit(): void {
       this.onChange();
-      this.storeProfile = new StoreProfile(
-        this.storeInfo.address,
-        0, 
-        null, 
-        this.businessHours, 
-        new Date(),
-        this.storeInfo.description,
-        this.storeInfo.emailAddress,
-        true, 
-        new Date(), 
-        false, 
-        null, 
-        this.storeInfo.imageUrl,
-        false,
-        this.storeInfo.latitude,
-        0,
-        this.storeInfo.longitude,
-        this.storeInfo.mobileNumber, 
-        new Date(), 
-        this.storeInfo.name,
-        this.storeInfo.userId,
-        this.storeInfo.regNumber,
-        0, 
-        StoreProfile.RoleEnum.STORE,
-        0,
-        this.storeInfo.shortName,
-        this.stockList,
-        null, 
-        this.storeInfo.storeType,
-        this.storeInfo.storeWebsiteUrl,
-        this.storeInfo.tags,
-        '', 
-        0);
       this.service.create(this.storeProfile).subscribe( data => { 
         this.share.store = data; 
         this.router.navigate(['stores'], { queryParams: { id: data.ownerId}});

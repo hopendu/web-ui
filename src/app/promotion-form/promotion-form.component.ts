@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { StoreInfo } from '../model/store-info';
 import { StoreControllerService } from '../service/store-controller.service';
 import { UploadService } from '../service/upload.service';
 import { AlertService } from '../_services/alert.service';

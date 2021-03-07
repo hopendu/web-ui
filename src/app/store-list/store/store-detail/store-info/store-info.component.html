@@ -11,11 +11,11 @@
           <li class="list-group-item card-text">Owner id : {{ (store |async)?.ownerId }}</li>
           <li class="list-group-item card-text">Address : {{ (store |async)?.address }}</li>
           <li class="list-group-item card-text">Phone #: {{ (store |async)?.mobileNumber }}</li>
-          <li class="list-group-item card-text">Email address: {{ (store |async)?.emailAddress }}</li>
-          <li class="list-group-item card-text" >Website address: {{ (store |async)?.storeWebsiteUrl }}</li>
-          <li class="list-group-item card-text">Registration # : {{ (store |async)?.regNumber }}</li>
-          <li class="list-group-item card-text" >Latitude: {{ (store |async)?.latitude }}</li>
-          <li class="list-group-item card-text">Longitude : {{ (store |async)?.longitude }}</li>
+          <li class="list-group-item card-text" *ngIf=" (store |async)?.emailAddress.length > 0;" >Email address: {{ (store |async)?.emailAddress }}</li>
+          <li class="list-group-item card-text"  *ngIf=" (store |async)?.storeWebsiteUrl.length > 0;">Website address: {{ (store |async)?.storeWebsiteUrl }}</li>
+          <li class="list-group-item card-text" *ngIf=" (store |async)?.regNumber.length > 0;" >Registration # : {{ (store |async)?.regNumber }}</li>
+          <li class="list-group-item card-text" *ngIf=" (store |async)?.latitude > 0;">Latitude: {{ (store |async)?.latitude }}</li>
+          <li class="list-group-item card-text" *ngIf=" (store |async)?.longitude > 0;">Longitude : {{ (store |async)?.longitude }}</li>
           <li class="list-group-item card-text">Store type : {{ (store |async)?.storeType }}</li>
           <li class="list-group-item card-text">
             <div *ngIf=" (store |async)?.tags.length > 0;">

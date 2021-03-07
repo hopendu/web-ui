@@ -11,19 +11,19 @@
           <div class="card">
             <div class="row no-gutters">
               <div class="col-md-4">
-                <img src="{{storeInfo.imageUrl}}" class="px-3 shadow-sm p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
+                <img src="{{storeProfile.imageUrl}}" class="px-3 shadow-sm p-3 mb-5 bg-white rounded" style="width: 250px; height: 250px;" alt="Stock Item Image">
               </div>
               <div class="col-md-8">
                 <div class="class-body">
                   <ul class="list-group list-group-flush">
-                      <li class="list-group-item"><h5 class="card-title">{{storeInfo.name}}</h5></li>
-                      <li class="list-group-item card-text">Description:{{ storeInfo.description }}</li>
-                      <li class="list-group-item card-text">Owner id : {{ storeInfo.userId }}</li>
-                      <li class="list-group-item card-text">Address : {{ storeInfo.address }}</li>
-                      <li class="list-group-item card-text">Phone #:{{ storeInfo.mobileNumber }}</li>
-                      <li class="list-group-item card-text">Email address: {{ storeInfo.emailAddress }}</li>
-                      <li class="list-group-item card-text">Registration # : {{ storeInfo.regNumber }}</li>
-                      <div *ngIf=" storeInfo.tags.length > 0;">
+                      <li class="list-group-item"><h5 class="card-title">{{storeProfile.name}}</h5></li>
+                      <li class="list-group-item card-text">Description:{{ storeProfile.description }}</li>
+                      <li class="list-group-item card-text">Owner id : {{ storeProfile.ownerId }}</li>
+                      <li class="list-group-item card-text">Address : {{ storeProfile.address }}</li>
+                      <li class="list-group-item card-text">Phone #:{{ storeProfile.mobileNumber }}</li>
+                      <li class="list-group-item card-text" *ngIf=" storeProfile.emailAddress.length > 0;">Email address: {{ storeProfile.emailAddress }}</li>
+                      <li class="list-group-item card-text"  *ngIf=" storeProfile.regNumber.length > 0;">Registration # : {{ storeProfile.regNumber }}</li>
+                      <div *ngIf=" storeProfile.tags.length > 0;">
                         <table class="table table-sm rounded">
                             <thead class="thead-light">
                             <tr>
@@ -32,7 +32,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let value of storeInfo.tags; index as i">
+                            <tr *ngFor="let value of storeProfile.tags; index as i">
                                 <th scope="row">{{ i + 1 }}</th>
                                 <td>{{ value }}</td>
                             </tr>
