@@ -39,7 +39,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { PromotionFormComponent } from './promotion-form/promotion-form.component';
 import { PromotionItemComponent} from './store-list/store/store-detail/store-promotion/promotion-item/promotion-item.component';
-import { SignInComponent } from './sign-in/sign-in.component'
+import { SignInComponent } from './sign-in/sign-in.component';
+import { ImageComponent } from './stock-images/image/image.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { SignInComponent } from './sign-in/sign-in.component'
     StorePromotionComponent,
     PromotionFormComponent,
     PromotionItemComponent,
-    SignInComponent],
+    SignInComponent,
+    ImageComponent],
   imports: [
     BrowserModule,
     RouterModule,
