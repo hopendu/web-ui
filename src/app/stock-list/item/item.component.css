@@ -7,12 +7,14 @@
     .item{
         display: flex;
         flex-direction: row;
+        justify-content: center;
     }
     
     .img {
         display: flex;
         flex-direction: column;
-        align-self: center;
+        object-fit: contain;
+        
     }
     
     .summary {
