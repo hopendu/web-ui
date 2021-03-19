@@ -1,6 +1,8 @@
 {
-  "hosting": {
+  "hosting": [{
+    
     "public": "dist/izinga-food-market-client",
+    "target": "uat",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,5 +14,20 @@
         "destination": "/index.html"
       }
     ]
-  }
+  },
+{ 
+    "public": "dist/izinga-food-market-client",
+    "target": "prod",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }]
 }

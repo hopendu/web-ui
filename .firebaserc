@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "izinga-proj"
+  },
+  "targets": {
+    "izinga-proj": {
+      "hosting": {
+        "uat": [
+          "izinga-proj"
+        ],
+        "prod": [
+          "admin-zinga"
+        ]
+      }
+    }
   }
 }

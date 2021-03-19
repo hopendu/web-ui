@@ -17,7 +17,7 @@
 
 
 export const environment = {
-  production: true,
+  production: false,
   accessKeyId: 'AKIATON6LVU3W77NRZBN',
   secretAccessKey: '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',
   region: 'us-east-1',

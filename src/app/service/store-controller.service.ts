@@ -43,6 +43,6 @@ export class StoreControllerService {
   }
 
   fetchStoreListByOwnerId(ownerId: string): Observable<StoreProfile[]>{
-    return this.http.get<StoreProfile[]>(`https://api-uat.izinga.co.za/store?latitude=0&longitude=0&ownerId=`+ownerId+`&range=100000&size=0&storeType=FOOD`);
+    return this.http.get<StoreProfile[]>(this.baseUrl +`/store?latitude=0&longitude=0&ownerId=`+ownerId+`&range=100000&size=0&storeType=FOOD`);
   }
 }
