@@ -48,7 +48,9 @@ export class StoreDetailComponent implements OnInit, OnDestroy {
 
   
     this.subscription[2] = this.storeService.delete(this.shareStore.storeProfile.id).subscribe(
-      data => { this.back(); this.alertService.success(`Succesful deleted ${this.storeName}`, true); },
+      data => { 
+        this.back();
+        this.alertService.success(`Succesful deleted ${this.storeName}`, true); },
       error => this.alertService.error(`Write ${this.storeName} in the input field.`)
       ) 
   }
