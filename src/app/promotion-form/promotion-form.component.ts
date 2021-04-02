@@ -121,6 +121,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
     this.alertService.success('Succcessful added promotion.',true), err => {
       this.alertService.error('Failed to add promotion', true)
     }});
+    this.onReset();
     window.history.back();
   };
 
