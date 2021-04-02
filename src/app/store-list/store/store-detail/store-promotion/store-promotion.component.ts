@@ -31,7 +31,7 @@ export class StorePromotionComponent implements OnInit {
     this.subscription[0] = this.activeRoute.parent.params.subscribe( param => {
       var id = param['id']
       this.storeId = id;
-
+     
      this.subscription[1] = this.storeService.fetchStoreById(id).subscribe( data =>
         this.subscription[2] = this.promotionService.fetchAllPromotionsByStoreIdAndStoreType(id, data.storeType).subscribe( promoData => this.promotionList = promoData)
         )      
