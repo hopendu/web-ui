@@ -1,4 +1,12 @@
- <div class="card mb-3">
+<ul class="nav mb-3">
+  <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Edit store info">
+  <a class="button" class="nav-link" [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
+                                                queryParamsHandling :null>
+            <i class="fa fa-pencil fa-fw"></i>Edit info
+            </a>
+  </li>
+</ul>
+<div class="card mb-3">
     <div class="item">
       <div class="img rounded d-flex justify-content-center" *ngIf="(store |async)?.imageUrl">
         <img src="{{(store |async)?.imageUrl}}" class="px-3 shadow-sm p-3 m-5 bg-white rounded" style="width: 15rem; height: 15rem;" alt="Stock Item Image">
@@ -35,14 +43,14 @@
               </table>
           </div>
           </li>
-        <li class="list-group-item card-title d-flex justify-content-center">
+        <!-- <li class="list-group-item card-title d-flex justify-content-center">
           <div class="max-aut">
             <a [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
                                                 queryParamsHandling :null>
             <button class="btn btn-primary btn-rounded mb-4">Edit</button>
             </a>
           </div>
-        </li>
+        </li> -->
       </ul>
       </div>
     </div>
