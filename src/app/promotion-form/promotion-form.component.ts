@@ -60,7 +60,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
           "",
           "",
           store.id,
-          !!this.stockId ? this.stockId : null,
+          this.stockId,
           store.storeType,
           new Date()
          );
@@ -102,13 +102,13 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
 
     this.submitted = true;
 
-    if (this.promotionForm.invalid){ this.alertService.error("WARNING: INVALID INPUT!\n1. All fields must be field.\n2. Use email address formart (i.e. xx@.yy.com) for email address.\n3. Ensure correct phone number format.\n4 Ensure atleast one tag iss added."); 
+    if (this.promotionForm.invalid){ this.alertService.error("WARNING: INVALID INPUT."); 
     console.log('invalid!!!')
     return; }
 
     this.promotion.message = this.promotionForm.get('message').value;
     this.promotion.expiryDate = new Date(this.promotionForm.get('date').value);
-    this.promotion.actionUrl = !!this.promotionForm.get('actionUrl').value ? this.promotionForm.get('actionUrl').value : this.promotion.actionUrl;
+    this.promotion.actionUrl = !!this.promotionForm.get('actionUrl').value ? this.promotionForm.get('actionUrl').value : null ;
     this.promotion.imageUrl = this.imageUrl;
     this.promotion.title = this.promotionForm.get('title').value;
 
