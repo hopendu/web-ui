@@ -22,9 +22,10 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, 
     {
-      paramsInheritanceStrategy: 'always',
-      preloadingStrategy: PreloadAllModules
-    }  )],
+    paramsInheritanceStrategy: 'always',
+    preloadingStrategy: PreloadAllModules,
+    relativeLinkResolution: 'legacy'
+}  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
