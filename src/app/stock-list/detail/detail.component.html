@@ -34,7 +34,7 @@
     </div>
 
 <!-- Modal 1 -->
-<div class="modal fade rounded" id="stock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 75vh; height: 50vh;">
+<div class="modal fade rounded" id="stock" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -50,15 +50,15 @@
               <label for="name" class="col-form-label">Click delete button to confirm deletion</label>
     
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" (click)="deleteStock()" >Delete</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary"  (click)="deleteStock()" >Delete</button>
           </div>          
     </div>
   </div>
 </div>
 </div>
 <!-- Modal 2 -->
-<div class="modal fade rounded" id="image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width: 75vh; height: 50vh;">
+<div class="modal fade rounded" id="image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,13 +79,13 @@
               </div>
           </div>
           <br>
-          
+         </div> 
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary btn-rounded mb-4" style="width: 40%;" (click)="submit()" >Submit</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="submit()" >Submit</button>
           </div>          
-    </div>
+    
   </div>
 </div>
 </div>
