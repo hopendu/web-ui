@@ -2,7 +2,7 @@
     <li class="list-group-item"><h4 class="card-title">{{ stock.name }}</h4></li>
     <li class="list-group-item">Description: {{ stock.description }}</li>
     <li class="list-group-item card-text" *ngIf="stock.detailedDescription.length > 0">Detailed description: {{ stock.detailedDescription }}</li>
-    <li class="list-group-item">Price: {{ stock.price| currency:'R ' }}</li>
+    <li class="list-group-item">Store Price: {{ stock.storePrice| currency:'R ' }}</li>
     <li class="list-group-item">Quantity: {{ stock.quantity }}</li>
     <li class="list-group-item" *ngIf="stock.discountPerc > 0">Discount %: {{ stock.discountPerc }}</li>
     <div *ngIf="selectionOptions.length > 0">

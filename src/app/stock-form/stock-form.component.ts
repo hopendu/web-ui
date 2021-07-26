@@ -74,7 +74,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
               this.imageUrls = this.stock.images; 
               this.stockForm = this.fb.group({
                 name: new FormControl(this.stock.name, Validators.required),
-                price: new FormControl(this.stock.price, Validators.required),
+                price: new FormControl(this.stock.storePrice, Validators.required),
                 discountPerc: new FormControl(this.stock.discountPerc, Validators.required),
                 quantity: new FormControl(this.stock.quantity, [Validators.required, Validators.min(1)]),
                 description: new FormControl(this.stock.description, Validators.required),

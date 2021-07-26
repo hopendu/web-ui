@@ -8,7 +8,7 @@ export class Stock {
                 public mandatorySelection?: SelectionOption[],
                 public name?: string,
                 public optionalSelection?: SelectionOption[],
-                public price?: number,
+                public storePrice?: number,
                 public quantity?: number){}
 }
 
