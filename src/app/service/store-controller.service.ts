@@ -15,7 +15,7 @@ export class StoreControllerService {
   constructor(private http: HttpClient) { }
 
   fetchAllStores(): Observable<StoreProfile[]>{
-    return this.http.get<StoreProfile[]>(this.baseUrl  +`store`);
+    return this.http.get<StoreProfile[]>(this.baseUrl  +`store?range=100000&size=0&storeType=FOOD`);
   }
 
   fetchStoreById(id: string): Observable<StoreProfile> {

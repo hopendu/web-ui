@@ -7,6 +7,8 @@ import { UserService } from '../_services/user.service';
 import { mergeMap, map, delay, filter } from 'rxjs/operators';
 import { UserControllerService } from '../service/user-controller.service';
 import { Basket } from '../model/basket';
+import { StoreProfile } from '../model/store-profile';
+import { StoreControllerService } from '../service/store-controller.service';
 
 @Component({
   selector: 'app-orders',
@@ -18,6 +20,7 @@ export class OrdersComponent implements OnInit {
   orders: Order[];
   sortedData: Order[];
   customers: UserProfile[] = [];
+  shops: StoreProfile[] = []
   customerRanking: Map<string, number> = new Map();
   isMapChanged = false;
   totalSales = 0
@@ -28,9 +31,12 @@ export class OrdersComponent implements OnInit {
   profit = 0
   period = 0
 
-  constructor(private orderService: OrderService, private userService: UserControllerService) { }
+  constructor(private orderService: OrderService, 
+    private userService: UserControllerService, 
+    private storeService: StoreControllerService) { }
 
   ngOnInit(): void {
+    this.storeService.fetchAllStores().subscribe(stores => this.shops = stores)
     this.orderService.getAllOrders()
     .pipe(
       mergeMap(orders => {
@@ -48,7 +54,8 @@ export class OrdersComponent implements OnInit {
         var customerId = order.customerId
         this.customerRanking.set(customerId, this.customerRanking.get(customerId) != null ? this.customerRanking.get(customerId) + 1 : 1)
         return this.userService.findUser(customerId)
-      })
+      }
+      )
     ).subscribe(customer => {
       this.customers.push(customer)
     }, (error)  => {
@@ -101,6 +108,10 @@ export class OrdersComponent implements OnInit {
 
   getUser(id) {
     return this.customers.find(c => c.id == id)
+  }
+
+  getShop(id) {
+    return this.shops.find(c => c.id == id)
   }
 
   totalStorePrice(basket: Basket): number {

@@ -56,8 +56,8 @@
 <table class="table table-light" matSort (matSortChange)="sortData($event)">
     <thead class="thead-dark">
         <tr>
-            <th scope="col" mat-sort-header="shopId">Shop Id</th>
-            <th scope="col" mat-sort-header="customerId">Customer Id</th>
+            <th scope="col" mat-sort-header="shopId">Shop Name</th>
+            <th scope="col" mat-sort-header="customerId">Customer Name</th>
             <th scope="col" mat-sort-header="totalAmount">Total Amount</th>
             <th scope="col" mat-sort-header="shippingFee">Delivery</th>
             <th scope="col" mat-sort-header="driver">Driver</th>
@@ -65,7 +65,7 @@
     </thead>
 
     <tr *ngFor="let order of sortedData">
-        <td>{{order.shopId}}</td>
+        <td>{{getShop(order.shopId)?.name}}</td>
         <td>{{getUser(order.customerId)?.name}}</td>
         <td>{{order.totalAmount | currency:'R'}}</td>
         <td>{{order.shippingData.fee | currency:'R'}}</td>
