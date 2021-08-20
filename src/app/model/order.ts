@@ -13,7 +13,7 @@ import { Basket } from './basket';
 import { ShippingData } from './shippingData';
 
 
-export interface Order { 
+export class Order { 
     basket: Basket;
     basketAmount?: number;
     customerId: string;

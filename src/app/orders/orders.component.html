@@ -1,3 +1,6 @@
+<div class="d-flex justify-content-center mb-5">
+    <div class="h5 header">Period of {{period}} months</div>
+</div>
 <div class="row" *ngIf="isMapChanged">
     <div class="col">
         <table class="table table-light" matSort (matSortChange)="sortCustomers($event)">
@@ -28,8 +31,16 @@
                 <td>{{totalSales | currency:'R'}}</td>
             </tr>
             <tr>
-                <td>Costs</td>
-                <td>{{totalCosts | currency:'R'}}</td>
+                <td>Shop Costs</td>
+                <td>{{shopCosts | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Driver Costs</td>
+                <td>{{driverCosts | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Transaction Fee</td>
+                <td>{{transactionFee | currency:'R'}}</td>
             </tr>
             <tr>
                 <td>Profit</td>
