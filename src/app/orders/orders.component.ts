@@ -21,7 +21,7 @@ export class OrdersComponent implements OnInit {
   sortedData: Order[];
   customers: UserProfile[] = [];
   shops: StoreProfile[] = []
-  customerRanking: Map<string, number> = new Map();
+  customerRanking: Map<string, Spender> = new Map();
   isMapChanged = false;
   totalSales = 0
   shopCosts = 100
@@ -51,10 +51,17 @@ export class OrdersComponent implements OnInit {
         return orders
       }),
       mergeMap(order => {
-        var customerId = order.customerId
-        this.customerRanking.set(customerId, this.customerRanking.get(customerId) != null ? this.customerRanking.get(customerId) + 1 : 1)
-        return this.userService.findUser(customerId)
-      }
+          var customerId = order.customerId
+          var spender = this.customerRanking.get(customerId)
+          if(spender == null) {
+            spender = new Spender(customerId, 1, order.totalAmount)
+            this.customerRanking.set(customerId, spender)
+          } else {
+            spender.orders = spender.orders + 1
+            spender.totalAmount = spender.totalAmount + order.totalAmount
+          }
+          return this.userService.findUser(customerId)
+        }
       )
     ).subscribe(customer => {
       this.customers.push(customer)
@@ -120,4 +127,16 @@ export class OrdersComponent implements OnInit {
     .reduce((a,b) => a+b);
  }
 
+}
+
+class Spender {
+  customerId: string
+  orders: number
+  totalAmount: number
+
+  constructor(customerId, orders: number, totalAmount: number) {
+    this.customerId = customerId
+    this.orders = orders
+    this.totalAmount = totalAmount
+  }
 }
