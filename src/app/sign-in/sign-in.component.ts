@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
   signIn() {
     this.userService.findUser(this.cellNumber)
       .subscribe(user => {
-        this.router.navigate(['stores'], {
+        this.router.navigate(['menu'], {
           queryParams: {
             "id" : user.id
           }

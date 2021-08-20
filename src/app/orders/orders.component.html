@@ -1,0 +1,63 @@
+<div class="row" *ngIf="isMapChanged">
+    <div class="col">
+        <table class="table table-light" matSort (matSortChange)="sortCustomers($event)">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" mat-sort-header="customer">Customer</th>
+                    <th scope="col" mat-sort-header="phone">Phone</th>
+                    <th scope="col" mat-sort-header="orders">No. of Orders</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let customer of customerRanking | keyvalue">
+                <td>{{getUser(customer.key)?.name}}</td>
+                <td>{{getUser(customer.key)?.mobileNumber}}</td>
+                <td>{{customer.value}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col">
+        <table class="table table-light" matSort (matSortChange)="sortCustomers($event)">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" mat-sort-header="customer">Category</th>
+                    <th scope="col" mat-sort-header="phone">Amount</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>Sales</td>
+                <td>{{totalSales | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Costs</td>
+                <td>{{totalCosts | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Profit</td>
+                <td>{{profit | currency:'R'}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="col">
+
+    </div>
+</div>
+
+<table class="table table-light" matSort (matSortChange)="sortData($event)">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" mat-sort-header="shopId">Shop Id</th>
+            <th scope="col" mat-sort-header="customerId">Customer Id</th>
+            <th scope="col" mat-sort-header="totalAmount">Total Amount</th>
+            <th scope="col" mat-sort-header="shippingFee">Delivery</th>
+            <th scope="col" mat-sort-header="driver">Driver</th>
+        </tr>
+    </thead>
+
+    <tr *ngFor="let order of sortedData">
+        <td>{{order.shopId}}</td>
+        <td>{{getUser(order.customerId)?.name}}</td>
+        <td>{{order.totalAmount | currency:'R'}}</td>
+        <td>{{order.shippingData.fee | currency:'R'}}</td>
+        <td>{{order.shippingData.messengerId}}</td>
+    </tr>
+</table>

@@ -12,6 +12,10 @@
   src: url("/assets/fonts/Catamaran-Medium.ttf") format("opentype");
 }
 
+.header {
+  color: white;
+}
+
 form {
   background-color: white;
   border-radius: 3;

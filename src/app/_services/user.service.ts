@@ -11,7 +11,7 @@ export class UserService {
         return this.http.get<UserProfile[]>(`/users`);
     }
 
-    getById(id: number) {
+    getById(id: number| String) {
         return this.http.get(`/users/` + id);
     }
 

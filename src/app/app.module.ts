@@ -35,12 +35,18 @@ import { AlertService } from './_services/alert.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
+import { OrderService } from './service/order-service.service'
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { PromotionFormComponent } from './promotion-form/promotion-form.component';
 import { PromotionItemComponent} from './store-list/store/store-detail/store-promotion/promotion-item/promotion-item.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { ImageComponent } from './stock-images/image/image.component'
+import { ImageComponent } from './stock-images/image/image.component';
+import { MenuComponent } from './menu/menu.component';
+import { OrdersComponent } from './orders/orders.component'
+
+import {MatSortModule} from '@angular/material/sort';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +64,9 @@ import { ImageComponent } from './stock-images/image/image.component'
     PromotionFormComponent,
     PromotionItemComponent,
     SignInComponent,
-    ImageComponent],
+    ImageComponent,
+    MenuComponent,
+    OrdersComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -66,13 +74,15 @@ import { ImageComponent } from './stock-images/image/image.component'
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSortModule
   ],
   providers: [
     AuthGuard,
         AlertService,
         AuthenticationService,
         UserService,
+        OrderService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
