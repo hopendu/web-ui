@@ -12,9 +12,16 @@ export class OrderService {
 
   constructor(private http: HttpClient) { }
 
+  get headers(){ 
+    return {
+    "Content-type": "application/json",
+    "app-version": "2.5.0",
+    };
+  }
+
   getAllOrders() {
     return this.http
-        .get<Array<Order>>(`${environment.baseUrl}/order`)
+        .get<Array<Order>>(`${environment.baseUrl}/order`, {headers: this.headers})
         .pipe(
           catchError((error: HttpErrorResponse) => {
             return throwError(error)

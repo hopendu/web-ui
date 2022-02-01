@@ -5,5 +5,5 @@ export const environment = {
   region: 'us-east-1',
   Bucket: 'izinga-aws',
   ACL: 'public-read',
-  baseUrl : 'https://api.izinga.co.za/'
+  baseUrl : 'https://api.izinga.co.za'
 };
