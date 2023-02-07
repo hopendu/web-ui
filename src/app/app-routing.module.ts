@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { MenuComponent } from './menu/menu.component';
 import { OrdersComponent } from './orders/orders.component';
+import { PayoutOrdersComponent } from './recon/payout-orders/payout-orders.component';
+import { ReconComponent } from './recon/recon.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 
 
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path: 'stores', loadChildren: () => import('./store-list/store-list.module').then( m => m.StoreListModule) },
   {path: 'menu', component: MenuComponent },
   {path: 'orders', component: OrdersComponent },
+  {path: 'recon', component: ReconComponent },
+  {path: 'recon/payout', component: PayoutOrdersComponent },
   { path: 'form/promotion', loadChildren: () => import('./promotion-form/promotion-form.module').then( m => m.PromotionFormModule)},
   {path: '**', redirectTo: 'stores'}
 

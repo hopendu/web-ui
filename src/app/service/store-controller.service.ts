@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Stock } from '../model/stock';
 import { environment } from 'src/environments/environment';
+import { PayoutBundle } from '../model/payoutBundle';
 
 @Injectable({
   providedIn: 'root'
@@ -51,5 +52,13 @@ export class StoreControllerService {
 
   fetchStoreListByOwnerId(ownerId: string): Observable<StoreProfile[]>{
     return this.http.get<StoreProfile[]>(this.baseUrl +`/store?latitude=0&longitude=0&ownerId=`+ownerId+`&range=100000&size=0&storeType=FOOD`, {headers: this.headers});
+  }
+
+  getShopPayouts(): Observable<PayoutBundle>{
+    return this.http.get<PayoutBundle>(this.baseUrl  +`https://api.izinga.co.za/recon/shopPayoutBundle`, {headers: this.headers});
+  }
+
+  getMessengerPayouts(): Observable<PayoutBundle>{
+    return this.http.get<PayoutBundle>(this.baseUrl  +`https://api.izinga.co.za/recon/messengerPayoutBundle`, {headers: this.headers});
   }
 }

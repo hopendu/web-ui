@@ -41,9 +41,9 @@ export namespace Order {
         ONLINE: 'ONLINE' as OrderTypeEnum,
         INSTORE: 'INSTORE' as OrderTypeEnum
     };
-    export type PaymentTypeEnum = 'UKHESHE' | 'CASH' | "OZOW" | "PAYFAST";
+    export type PaymentTypeEnum = 'SPEED_POINT' | 'CASH' | "OZOW" | "PAYFAST";
     export const PaymentTypeEnum = {
-        UKHESHE: 'UKHESHE' as PaymentTypeEnum,
+        SPEED_POINT: 'SPEED_POINT' as PaymentTypeEnum,
         CASH: 'CASH' as PaymentTypeEnum,
         OZOW: 'OZOW' as PaymentTypeEnum,
         PAYFAST: 'PAYFAST' as PaymentTypeEnum

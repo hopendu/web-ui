@@ -29,20 +29,33 @@
                 </tr>
             </thead>
             <tr>
-                <td>Sales</td>
-                <td>{{totalSales | currency:'R'}}</td>
-            </tr>
-            <tr>
                 <td>Shop Costs</td>
-                <td>({{shopCosts | currency:'R'}})</td>
+                <td>-{{shopCosts | currency:'R'}}</td>
             </tr>
             <tr>
                 <td>Driver Costs</td>
-                <td>({{driverCosts | currency:'R'}})</td>
+                <td>-{{driverCosts | currency:'R'}}</td>
             </tr>
             <tr>
-                <td>Transaction Fee</td>
-                <td>({{transactionFee | currency:'R'}})</td>
+                <td>Delivery Fees</td>
+                <td>{{deliveryCosts | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Service Fees</td>
+                <td>{{serviceFees | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Markup Fees</td>
+                <td>{{markupFees | currency:'R'}}</td>
+            </tr>
+            <tr>
+                <td>Payment Gateway</td>
+                <td>-{{transactionFee | currency:'R'}}</td>
+            </tr>
+            <hr/>
+            <tr>
+                <td>Sales</td>
+                <td>{{totalSales | currency:'R'}}</td>
             </tr>
             <tr>
                 <td>Profit</td>

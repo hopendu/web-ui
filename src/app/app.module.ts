@@ -36,6 +36,7 @@ import { AuthGuard } from './_guards/auth.guard';
 import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { OrderService } from './service/order-service.service'
+import { PayoutService } from './service/payout-service'
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { PromotionFormComponent } from './promotion-form/promotion-form.component';
@@ -46,6 +47,8 @@ import { MenuComponent } from './menu/menu.component';
 import { OrdersComponent } from './orders/orders.component'
 
 import {MatSortModule} from '@angular/material/sort';
+import { ReconComponent } from './recon/recon.component';
+import { PayoutOrdersComponent } from './recon/payout-orders/payout-orders.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,9 @@ import {MatSortModule} from '@angular/material/sort';
     SignInComponent,
     ImageComponent,
     MenuComponent,
-    OrdersComponent],
+    OrdersComponent,
+    ReconComponent,
+    PayoutOrdersComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -83,6 +88,7 @@ import {MatSortModule} from '@angular/material/sort';
         AuthenticationService,
         UserService,
         OrderService,
+        PayoutService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
         { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },

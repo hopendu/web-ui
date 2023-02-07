@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center mb-5">
+    <div class="h5 header">Recon Payouts</div>
+</div>
+
+<div class="text-center">
+    <span>Shop Payout {{payoutBundle.payoutTotalAmount | currency:'R'}}</span>
+    <a [href]="shopCsvFileUrl" target="_blank">
+        <span class="btn btn-default btn-rounded ml-5">Download File</span>
+    </a>
+    <button (click)="updateShopPayouts()" class="btn btn-default btn-rounded ml-5">Payment Completed</button>
+</div>
+
+<table *ngIf="payoutBundle" class="table table-light mt-3 table-striped" matSort (matSortChange)="sortData($event)">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" mat-sort-header="shopName">Shop Name</th>
+            <th scope="col" mat-sort-header="bank">Bank</th>
+            <th scope="col" mat-sort-header="totalAmount">Total Amount</th>
+            <th scope="col" mat-sort-header="accountNumber">Account Number</th>
+            <th scope="col" mat-sort-header="type">Type</th>
+        </tr>
+    </thead>
+
+    <tr *ngFor="let payout of payoutBundle.payouts">
+      <td><a [routerLink]="'payout'" [queryParams]="{bundle: payoutBundle.id, payout: payout.toId}">{{payout.toName}}</a></td>  
+      <td><a [routerLink]="'payout'" [queryParams]="{bundle: payoutBundle.id, payout: payout.toId}">{{payout.toBankName}}</a></td>
+      <td><a [routerLink]="'payout'" [queryParams]="{bundle: payoutBundle.id, payout: payout.toId}">{{payout.total | currency:'R'}}</a></td>
+      <td><a [routerLink]="'payout'" [queryParams]="{bundle: payoutBundle.id, payout: payout.toId}">{{payout.toAccountNumber}}</a></td>
+      <td><a [routerLink]="'payout'" [queryParams]="{bundle: payoutBundle.id, payout: payout.toId}">{{payout.toType}}</a></td>
+    </tr>
+</table>
+
+<div class="text-center mt-5">
+    <span>Driver Payouts {{driverPayoutBundle.payoutTotalAmount | currency:'R'}}</span>
+    <a [href]="driverCsvFileUrl" target="_blank" class="ml-5">
+        <span class="btn btn-default btn-rounded">Download File</span>
+    </a>
+    <button (click)="updateMessengerPayouts()" class="btn btn-default btn-rounded ml-5">Payment Completed</button>
+</div>
+
+<table *ngIf="driverPayoutBundle" class="table table-light mt-3 table-striped" matSort (matSortChange)="sortMessengerData($event)">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" mat-sort-header="shopName">Driver Name</th>
+            <th scope="col" mat-sort-header="bank">Bank</th>
+            <th scope="col" mat-sort-header="totalAmount">Total Amount</th>
+            <th scope="col" mat-sort-header="accountNumber">Account Number</th>
+            <th scope="col" mat-sort-header="type">Type</th>
+        </tr>
+    </thead>
+    
+    <tr *ngFor="let payout of driverPayoutBundle.payouts">
+        <td><a [routerLink]="'payout'" [queryParams]="{bundle: driverPayoutBundle.id, payout: payout.toId}">{{payout.toName}}</a></td>  
+        <td><a [routerLink]="'payout'" [queryParams]="{bundle: driverPayoutBundle.id, payout: payout.toId}">{{payout.toBankName}}</a></td>
+        <td><a [routerLink]="'payout'" [queryParams]="{bundle: driverPayoutBundle.id, payout: payout.toId}">{{payout.total | currency:'R'}}</a></td>
+        <td><a [routerLink]="'payout'" [queryParams]="{bundle: driverPayoutBundle.id, payout: payout.toId}">{{payout.toAccountNumber}}</a></td>
+        <td><a [routerLink]="'payout'" [queryParams]="{bundle: driverPayoutBundle.id, payout: payout.toId}">{{payout.toType}}</a></td>
+    </tr>
+
+</table>

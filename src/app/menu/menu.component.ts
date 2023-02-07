@@ -28,6 +28,15 @@ export class MenuComponent implements OnInit {
         
   }
 
+  goToRecon() {
+    this.router.navigate(['recon'], {
+          queryParams: {
+            "id" : this.userId
+          }
+        })
+      
+}
+
   goToStores() {
     this.router.navigate(['stores'], {
           queryParams: {

@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center mb-5">
+    <div class="h5 header">Recon Payouts</div>
+</div>
+
+<div *ngIf="payout">
+    <div class="payout-info">
+        <div>Name: {{payout.toName}}</div>
+        <div>Bank: {{payout.toBankName}}</div>
+        <div>Account: {{payout.toAccountNumber}}</div>
+        <div>Type: {{payout.toType}}</div>
+        <div>Payout Amount: {{payout.total | currency:'R'}}</div>
+        <div>Paid: {{payout.paid}}</div>
+        <table class="table table-light mt-3" matSort (matSortChange)="sortData($event)">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" mat-sort-header="shopId">Shop</th>
+                    <th scope="col" mat-sort-header="customerId">Customer</th>
+                    <th scope="col" mat-sort-header="totalAmount">Order</th>
+                    <th scope="col" mat-sort-header="shippingFee">Delivery</th>
+                </tr>
+            </thead>
+
+            <tr *ngFor="let order of sortedData">
+                <td>{{order.shippingData.fromAddress}}</td>
+                <td>
+                    <div class="bold">{{getUser(order.customerId).name}}</div>
+                    <div class="small">{{order.shippingData.toAddress}}</div>
+                </td>
+                <td>{{order.basketAmount|currency:'R'}}</td>
+                <td>{{order.shippingData.fee|currency:'R'}}</td>
+            </tr>
+        </table>
+    </div>

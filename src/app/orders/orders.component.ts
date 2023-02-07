@@ -30,6 +30,9 @@ export class OrdersComponent implements OnInit {
   transactionFeePerc = 0.035
   profit = 0
   period = 0
+  deliveryCosts = 0
+  serviceFees = 0
+  markupFees = 0
 
   constructor(private orderService: OrderService, 
     private userService: UserControllerService, 
@@ -40,11 +43,14 @@ export class OrdersComponent implements OnInit {
     this.orderService.getAllOrders()
     .pipe(
       mergeMap(orders => {
-        orders = orders.filter(order => order.paymentType == Order.PaymentTypeEnum.PAYFAST)
-        this.sortedData = orders.filter(order => order.paymentType == Order.PaymentTypeEnum.PAYFAST)
-        this.period =  new Date(orders[orders.length -1].date).getMonth() - new Date(orders[0].date).getMonth()
-        this.driverCosts = this.driverCosts * this.period
+        orders = orders.filter(order => order.paymentType == Order.PaymentTypeEnum.PAYFAST || order.paymentType == Order.PaymentTypeEnum.SPEED_POINT)
+        this.sortedData = orders.filter(order => order.paymentType == Order.PaymentTypeEnum.PAYFAST || order.paymentType == Order.PaymentTypeEnum.SPEED_POINT)
+        this.period =  this.monthDiff(new Date(orders[orders.length -1].date), new Date(orders[0].date))
+        this.driverCosts = this.driverCosts * (this.period - 2 ) //first 2 months driver was not working
         this.totalSales = orders.map(order => order.totalAmount).reduce((a,b) => a +b)
+        this.serviceFees = orders.map(order => order.serviceFee).reduce((a,b) => a +b)
+        this.deliveryCosts = orders.map(order => order.shippingData.fee).reduce((a,b) => a +b)
+        this.markupFees = orders.map(order => this.totalSellingPrice(order.basket) - this.totalStorePrice(order.basket)).reduce((a,b) => a +b)
         this.shopCosts = orders.map(order => this.totalStorePrice(order.basket)).reduce((a,b) => a+b)
         this.transactionFee = this.totalSales * this.transactionFeePerc
         this.profit = this.totalSales - this.shopCosts - this.transactionFee - this.driverCosts
@@ -106,6 +112,7 @@ export class OrdersComponent implements OnInit {
         case 'orders': return this.compare(a[0], b[0], isAsc);
         default: return 0;
       }
+      
     }));
   }
 
@@ -126,6 +133,21 @@ export class OrdersComponent implements OnInit {
     .map(item => (item.storePrice != 0 ? item.storePrice: item.price) * item.quantity)
     .reduce((a,b) => a+b);
  }
+
+ totalSellingPrice(basket: Basket): number {
+  return basket.items
+  .map(item => (item.price) * item.quantity)
+  .reduce((a,b) => a+b);
+}
+
+monthDiff(d1, d2) {
+  var months;
+  months = Math.abs((d2.getFullYear() - d1.getFullYear()) * 12);
+  console.log(`months is ${months}` )
+  months -= d1.getMonth();
+  months += d2.getMonth();
+  return months <= 0 ? 0 : months;
+}
 
 }
 
