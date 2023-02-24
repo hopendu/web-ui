@@ -8,6 +8,7 @@ import { StoreControllerService } from 'src/app/service/store-controller.service
 import { StoreProfile } from 'src/app/model/store-profile';
 import { UserProfile } from 'src/app/model/user-profile';
 import { UserControllerService } from 'src/app/service/user-controller.service';
+import { PayoutBundle } from 'src/app/model/payoutBundle';
 
 @Component({
   selector: 'app-payout-orders',
@@ -17,6 +18,7 @@ import { UserControllerService } from 'src/app/service/user-controller.service';
 export class PayoutOrdersComponent implements OnInit {
   
   payout: Payout;
+  pastPayouts: Payout[];
   sortedData: Order[];
   shops: StoreProfile[];
   customers: UserProfile[] = [];
@@ -32,9 +34,16 @@ export class PayoutOrdersComponent implements OnInit {
           .subscribe(resp => {
             this.payout = resp
             this.sortedData = resp.orders
-            //this.loadShop(resp.orders.map(ord => ord.shopId))
             this.loadCustomers(resp.orders.map(ord => ord.customerId))
+            this.loadPastPayouts(this.payout.toId, )
           })
+    })
+  }
+
+  loadPastPayouts(toId: string) {
+    this.payoutService.getPastPayouts(toId, PayoutBundle.TypeEnum.MESSENGER)
+    .subscribe(py => {
+      this.pastPayouts = py
     })
   }
 

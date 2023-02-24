@@ -1,11 +1,11 @@
  .card {
         display: flex;
-        width: 25vh;
-        height: 35vh;
+        width: 200px;
         border-color: white;
     }
     
     img {
-        width: 24.8vh;
-        height: 20vh;
+        width: 200px;
+        height: 150px;
+        object-fit: cover;
     }    

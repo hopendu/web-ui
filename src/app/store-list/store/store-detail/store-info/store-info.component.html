@@ -1,6 +1,6 @@
 <ul class="nav mb-3">
   <li class="nav-item" data-toggle="tooltip" data-placement="top" title="Edit store info">
-  <a class="button" class="nav-link" [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
+  <a class="button" class="nav-link" [routerLink]="'/form/store-info'" [queryParams]="{id: store?.id}" 
                                                 queryParamsHandling :null>
             <i class="fa fa-pencil fa-fw"></i>Edit info
             </a>
@@ -8,25 +8,25 @@
 </ul>
 <div class="card mb-3">
     <div class="item">
-      <div class="img rounded d-flex justify-content-center" *ngIf="(store |async)?.imageUrl">
-        <img src="{{(store |async)?.imageUrl}}" class="px-3 shadow-sm p-3 m-5 bg-white rounded" style="width: 15rem; height: 15rem;" alt="Stock Item Image">
+      <div class="img rounded d-flex justify-content-center" *ngIf="store?.imageUrl">
+        <img src="{{store?.imageUrl}}" class="px-3 shadow-sm p-3 m-5 bg-white rounded" style="width: 15rem; height: 15rem;" alt="Stock Item Image">
       </div>
       <div class="summary flex-fill">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item"><h5 class="card-title">{{(store |async)?.name}}</h5> 
-            {{ !!((store |async)?.shortName) ? (store |async)?.shortName : ''}}</li>
-          <li class="list-group-item card-text">Description: {{ (store |async)?.description }}</li>
-          <li class="list-group-item card-text">Owner id : {{ (store |async)?.ownerId }}</li>
-          <li class="list-group-item card-text">Address : {{ (store |async)?.address }}</li>
-          <li class="list-group-item card-text">Phone #: {{ (store |async)?.mobileNumber }}</li>
-          <li class="list-group-item card-text" *ngIf=" (store |async)?.emailAddress.length > 0;" >Email address: {{ (store |async)?.emailAddress }}</li>
-          <li class="list-group-item card-text"  *ngIf=" (store |async)?.storeWebsiteUrl.length > 0;">Website address: {{ (store |async)?.storeWebsiteUrl }}</li>
-          <li class="list-group-item card-text" *ngIf=" (store |async)?.regNumber.length > 0;" >Registration # : {{ (store |async)?.regNumber }}</li>
-          <li class="list-group-item card-text" *ngIf=" (store |async)?.latitude > 0;">Latitude: {{ (store |async)?.latitude }}</li>
-          <li class="list-group-item card-text" *ngIf=" (store |async)?.longitude > 0;">Longitude : {{ (store |async)?.longitude }}</li>
-          <li class="list-group-item card-text">Store type : {{ (store |async)?.storeType }}</li>
+          <li class="list-group-item"><h5 class="card-title">{{store?.name}}</h5> 
+            {{ !!(store?.shortName) ? store?.shortName : ''}}</li>
+          <li class="list-group-item card-text">Description: {{ store?.description }}</li>
+          <li class="list-group-item card-text">Owner id : {{ store?.ownerId }}</li>
+          <li class="list-group-item card-text">Address : {{ store?.address }}</li>
+          <li class="list-group-item card-text">Phone #: {{ store?.mobileNumber }}</li>
+          <li class="list-group-item card-text" *ngIf=" store?.emailAddress.length > 0;" >Email address: {{ store?.emailAddress }}</li>
+          <li class="list-group-item card-text"  *ngIf=" store?.storeWebsiteUrl.length > 0;">Website address: {{ store?.storeWebsiteUrl }}</li>
+          <li class="list-group-item card-text" *ngIf=" store?.regNumber.length > 0;" >Registration # : {{ store?.regNumber }}</li>
+          <li class="list-group-item card-text" *ngIf=" store?.latitude > 0;">Latitude: {{ store?.latitude }}</li>
+          <li class="list-group-item card-text" *ngIf=" store?.longitude > 0;">Longitude : {{ store?.longitude }}</li>
+          <li class="list-group-item card-text">Store type : {{ store?.storeType }}</li>
           <li class="list-group-item card-text">
-            <div *ngIf=" (store |async)?.tags.length > 0;">
+            <div *ngIf="store?.tags.length > 0;">
               <table class="table table-sm rounded">
                   <thead class="thead-light">
                   <tr>
@@ -35,7 +35,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr *ngFor="let value of (store |async)?.tags; index as i">
+                  <tr *ngFor="let value of store?.tags; index as i">
                       <th scope="row">{{ i + 1 }}</th>
                       <td>{{ value }}</td>
                   </tr>
@@ -45,7 +45,7 @@
           </li>
         <!-- <li class="list-group-item card-title d-flex justify-content-center">
           <div class="max-aut">
-            <a [routerLink]="'/form/store-info'" [queryParams]="{id: (store |async)?.id}" 
+            <a [routerLink]="'/form/store-info'" [queryParams]="{id: store?.id}" 
                                                 queryParamsHandling :null>
             <button class="btn btn-primary btn-rounded mb-4">Edit</button>
             </a>

@@ -11,7 +11,7 @@
       <label for="exampleFormControlInput1">Store Name
         <span class="required" aria-required="true"> * </span>
       </label>
-      <input type="text" formControlName="name" class="form-control" placeholder='Jika Joe (Pty) Ltd'
+      <input type="text" formControlName="name" class="form-control" placeholder='KFC West Street'
         [ngClass]="{ 'is-invalid': (f.name.touched || f.name.dirty) && f.name.errors }">
       <div *ngIf="(f.name.touched || f.name.dirty) && f.name.errors" class="invalid-feedback">
         <div *ngIf="f.name.errors.required">Store name is required</div>
@@ -22,7 +22,7 @@
       <label for="exampleFormControlInput1">Short name
         <span class="required" aria-required="true"> * </span>
       </label>
-      <input type="text" formControlName="shortName" class="form-control" placeholder="jikajoe"
+      <input type="text" formControlName="shortName" class="form-control" placeholder="kfc-weststreet"
         [ngClass]="{ 'is-invalid': (f.shortName.touched || f.shortName.dirty) && f.shortName.errors }">
       <div *ngIf="(f.shortName.touched || f.shortName.dirty) && f.shortName.errors" class="invalid-feedback">
         <div *ngIf="f.shortName.errors.required">Name is required</div>
@@ -30,9 +30,21 @@
     </div>
 
     <div class="col-12 mb-3">
+      <label for="exampleFormControlInput1">Franchise Name
+        <span class="required" aria-required="true"> * </span>
+      </label>
+      <input type="text" formControlName="franchiseName" class="form-control" placeholder="KFC"
+        [ngClass]="{ 'is-invalid': (f.franchiseName.touched || f.franchiseName.dirty) && f.franchiseName.errors }">
+      <div *ngIf="(f.franchiseName.touched || f.franchiseName.dirty) && f.franchiseName.errors"
+        class="invalid-feedback">
+        <div *ngIf="f.franchiseName.errors.required">Name is required</div>
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
       <label for="exampleFormControlInput1">Brand Primary Color
       </label>
-      <input type="text" formControlName="brandPrimaryColor" class="form-control" placeholder="jikajoe"
+      <input type="text" formControlName="brandPrimaryColor" class="form-control" placeholder="Red"
         [ngClass]="{ 'is-invalid': (f.brandPrimaryColor.touched || f.brandPrimaryColor.dirty) && f.brandPrimaryColor.errors }">
       <div *ngIf="(f.brandPrimaryColor.touched || f.brandPrimaryColor.dirty) && f.brandPrimaryColor.errors"
         class="invalid-feedback">
@@ -43,7 +55,7 @@
     <div class="col-12 mb-3">
       <label for="exampleFormControlInput1">Brand Secondary Color
       </label>
-      <input type="text" formControlName="brandSecondaryColor" class="form-control" placeholder="jikajoe"
+      <input type="text" formControlName="brandSecondaryColor" class="form-control" placeholder="White"
         [ngClass]="{ 'is-invalid': (f.brandSecondaryColor.touched || f.brandSecondaryColor.dirty) && f.brandSecondaryColor.errors }">
       <div *ngIf="(f.brandSecondaryColor.touched || f.brandSecondaryColor.dirty) && f.brandSecondaryColor.errors"
         class="invalid-feedback">
@@ -55,7 +67,7 @@
       <label for="exampleFormControlInput1">Collection Allowed
         <span class="required" aria-required="true"> * </span>
       </label>
-      <input type="text" formControlName="collectAllowed" class="form-control" placeholder="jikajoe"
+      <input type="text" formControlName="collectAllowed" class="form-control" placeholder="false"
         [ngClass]="{ 'is-invalid': (f.collectAllowed.touched || f.collectAllowed.dirty) && f.collectAllowed.errors }">
       <div *ngIf="(f.collectAllowed.touched || f.collectAllowed.dirty) && f.collectAllowed.errors"
         class="invalid-feedback">
@@ -67,7 +79,7 @@
       <label for="exampleFormControlInput1">Free Delivery Min Amount
         <span class="required" aria-required="true"> * </span>
       </label>
-      <input type="text" formControlName="freeDeliveryMinAmount" class="form-control" placeholder="jikajoe"
+      <input type="text" formControlName="freeDeliveryMinAmount" class="form-control" placeholder="0"
         [ngClass]="{ 'is-invalid': (f.freeDeliveryMinAmount.touched || f.freeDeliveryMinAmount.dirty) && f.freeDeliveryMinAmount.errors }">
       <div *ngIf="(f.freeDeliveryMinAmount.touched || f.freeDeliveryMinAmount.dirty) && f.freeDeliveryMinAmount.errors"
         class="invalid-feedback">
@@ -78,7 +90,8 @@
     <div class="col-12 mb-3">
       <label for="exampleFormControlInput1">Izinga Takes Commission
       </label>
-      <select formControlName="izingaTakesCommission" id="izingaTakesCommission" class="form-control" (change)="changeCommissionValue($event)">
+      <select formControlName="izingaTakesCommission" id="izingaTakesCommission" class="form-control"
+        (change)="changeCommissionValue($event)">
         <option>true</option>
         <option>false</option>
       </select>
@@ -106,8 +119,6 @@
       </div>
     </div>
 
-
-
     <div class="col-12 mb-3">
       <label for="exampleFormControlInput1">Longitude
         <span class="required" aria-required="true"> * </span>
@@ -119,11 +130,9 @@
       </div>
     </div>
 
-
-
-
-
-
+    <div class="col-12 mb-3">
+      <img [src]="'https://maps.googleapis.com/maps/api/staticmap?center='+ f.latitude.value + ',' + f.longitude.value + '&zoom=15&size=400x200&key=AIzaSyB1KhGf_VDF8VDUT0pNddLXB1Hls_dtR0U&markers=color:blue|label:Shop'">
+    </div>
 
     <div class="col-12 mb-3">
       <label for="exampleFormControlInput1">Phone Number
@@ -194,7 +203,6 @@
     </div>
 
     <div class="col-12">
-
       <div class="row" formArrayName="tags">
         <div class="tags col-11 align-items-start align-items-sm-start" *ngFor="
                   let tag of getTags.controls;
@@ -209,37 +217,24 @@
 
             </div>
             <div class="col-1 d-flex align-items-end align-items-sm-end">
-
               <a class="button danger" (click)="deleteTag(tagIndex)"><i class="fa fa-trash fa-2x"></i></a>
-
-
-
             </div>
-
-
           </div>
         </div>
 
         <div class="col-1 d-flex align-items-end align-items-sm-end">
           <a class="button" (click)="addTag()"><i class="fa fa-plus-circle fa-2x"></i></a>
         </div>
-
       </div>
+      <small>If the shop is a restaurant add a tag 'restaurant'</small><br/>
+      <small>If the shop is a for groceries add a tag 'groceries'</small>
     </div>
-
-
 
 
     <div class="col-12 mt-3">
-
-
       <div class="text-center">
         <button class="btn btn-primary btn-rounded mb-4" (click)="submit()" style="width: 200px;">Submit</button>
-
       </div>
     </div>
-
   </div>
-
-
 </form>

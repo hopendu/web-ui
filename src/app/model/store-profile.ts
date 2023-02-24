@@ -31,6 +31,7 @@ export class StoreProfile {
         public role?: StoreProfile.RoleEnum,
         public servicesCompleted?: number,
         public shortName?: string,
+        public franchiseName?: string,
         public stockList?: Array<Stock>,
         public storeMessenger?: Messenger,
         public storeType?: StoreType.StoreTypeEnum,

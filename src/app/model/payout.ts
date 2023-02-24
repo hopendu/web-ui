@@ -20,6 +20,7 @@ export interface Payout {
     emailSubject: string;
     fromReference: string;
     id?: string;
+    bundleId?: string
     modifiedDate?: Date;
     paid: boolean;
     orders: Array<Order>
@@ -31,6 +32,7 @@ export interface Payout {
     toReference: string;
     toType: Payout.ToTypeEnum;
     total: number;
+    createdDate: Date;
 }
 
 export namespace Payout {

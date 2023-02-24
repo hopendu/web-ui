@@ -12,7 +12,7 @@ import { ShareStoreService } from '../share-store.service';
 })
 export class StoreInfoComponent implements OnInit, OnDestroy {
 
-  store: Observable<StoreProfile>;
+  store: StoreProfile;
   
   subscription: Subscription;
 
@@ -29,7 +29,11 @@ export class StoreInfoComponent implements OnInit, OnDestroy {
 
     this.subscription = this.activeRoute.parent.params.subscribe( param => {
       var id = param['id']
-      this.store =  ( !!this.shareStore.storeProfile && ( this.shareStore.storeProfile.id.match(id))) ? of(this.shareStore.storeProfile) : this.storeService.fetchStoreById(id);
+      if(!!this.shareStore.storeProfile && ( this.shareStore.storeProfile.id.match(id))) {
+        this.store = this.shareStore.storeProfile
+      } else {
+        this.storeService.fetchStoreById(id).subscribe(store => this.store = store)
+      }
     })
 
   }

@@ -46,6 +46,20 @@ export class PayoutService {
   }
 
   getPayout(payoutId: string, bundleId: string): Observable<Payout> {
-    return this.http.get<Payout>(this.baseUrl  +`/recon/payout?payoutBundleId=${bundleId}&payoutId=${payoutId}`, {headers: this.headers});
+    return this.http.get<Payout>(this.baseUrl  +`/recon/payoutBundle/${bundleId}/payout/${payoutId}`, {headers: this.headers});
   }
+
+  getPastPayouts(toId: string, type: PayoutBundle.TypeEnum): Observable<Array<Payout>> {
+    var fromDate = new Date()
+    fromDate.setMonth(fromDate.getMonth() - 3);
+    var toDate = new Date()
+    var params = {
+      "fromDate": fromDate.toISOString(),
+      "toDate": toDate.toISOString(),
+      "payoutType": type.toString(),
+      "toId": toId
+    }
+    return this.http.get<Array<Payout>>(`${this.baseUrl}/recon/payout`,   {headers: this.headers, params: params});
+  }
+
 }

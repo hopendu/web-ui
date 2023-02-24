@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center mb-5">
-    <div class="h5 header">Recon Payouts</div>
+    <div class="h5 header">Pending Payout</div>
 </div>
 
 <div *ngIf="payout">
@@ -31,3 +31,27 @@
             </tr>
         </table>
     </div>
+
+<div *ngIf="pastPayouts">
+    <div class="d-flex justify-content-center mb-5 mt-5">
+        <div class="h5 header">Past Payouts</div>
+    </div>
+
+    <table class="table table-light mt-3">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col" >Date</th>
+                <th scope="col">Bank</th>
+                <th scope="col">Account Number</th>
+                <th scope="col">Amount</th>
+            </tr>
+        </thead>
+
+        <tr *ngFor="let payout of pastPayouts">
+            <td><a [routerLink]="" [queryParams]="{bundle: payout.bundleId, payout: payout.toId}">{{payout.date | date: 'd MMM y h:mma'}}</a></td>
+            <td><a [routerLink]="" [queryParams]="{bundle: payout.bundleId, payout: payout.toId}">{{payout.toBankName}}</a></td>
+            <td><a [routerLink]="" [queryParams]="{bundle: payout.bundleId, payout: payout.toId}">{{payout.toAccountNumber}}</a></td>
+            <td><a [routerLink]="" [queryParams]="{bundle: payout.bundleId, payout: payout.toId}">{{payout.total |currency:'R'}}</a></td>
+        </tr>
+    </table>
+</div>     

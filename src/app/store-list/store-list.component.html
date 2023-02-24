@@ -10,7 +10,7 @@
     <div class="nav mb-3">
       <li class="nav-item"><a class="nav-link active" (click)="addStore($event)" data-toggle="tooltip" data-placement="top" title="Add a store"><i class="fa fa-plus"></i> Store </a></li>
     </div>
-    <div class="card-deck d-flex" >
+    <div class="card-deck row d-flex justify-content-center" >
           <app-store *ngFor="let store of storeList|async; index as i" [id]="store.id" (clickedEventEmitter)="isClicked($event)"></app-store>
     </div>
   </ng-template>
