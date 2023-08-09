@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BusinessHours } from '../model/business-hours';
-import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, Validators, UntypedFormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareDataService } from '../service/share-data.service';
 
@@ -16,14 +16,14 @@ export class BusinessHoursFormComponent implements OnInit {
   day: number;
   ownerId: string;
   submitted = false;
-  timesFormGroup: FormGroup;
+  timesFormGroup: UntypedFormGroup;
   days = new Array<number>();
   hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
   businessHours = new BusinessHours();
   urlParams = new URLSearchParams(window.location.search);
 
-  constructor(  private fb: FormBuilder,
+  constructor(  private fb: UntypedFormBuilder,
                 private share: ShareDataService,
                 private router: Router,
                 private activeRouter: ActivatedRoute){}

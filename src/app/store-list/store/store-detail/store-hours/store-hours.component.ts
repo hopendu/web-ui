@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of, Subscription } from 'rxjs';
 import { StoreProfile } from 'src/app/model/store-profile';
@@ -20,7 +20,7 @@ export class StoreHoursComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
 
 
-  timesFormGroup: FormGroup;
+  timesFormGroup: UntypedFormGroup;
   index: number;
   changeView = -1;
   EDIT_HOURS = 0;
@@ -30,7 +30,7 @@ export class StoreHoursComponent implements OnInit, OnDestroy {
                 private shareStore: ShareStoreService,
                 private share: ShareDataService,
                 private alertService: AlertService,
-                private fb: FormBuilder) { 
+                private fb: UntypedFormBuilder) { 
                 }
 
   ngOnDestroy(): void {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BusinessHours } from 'src/app/model/business-hours';
 import { ShareDataService } from 'src/app/service/share-data.service';
@@ -15,12 +15,12 @@ export class ViewComponent implements OnInit {
   businessHours = new BusinessHours();
   hours = new Array<Hours>();
   daysOfTheWeek = daysOfTheWeek;
-  timesFormGroup: FormGroup;
+  timesFormGroup: UntypedFormGroup;
   submitted = false;
   day: BusinessHours.DayEnum;
   // days = new Array<number>();
 
-  constructor(  private fb: FormBuilder,
+  constructor(  private fb: UntypedFormBuilder,
                 private share: ShareDataService,
                 private router: Router,
                 private _location: Location){}

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormArray, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormArray, Validators, UntypedFormControl } from '@angular/forms';
 import { UploadService } from '../service/upload.service';
 import { ShareDataService } from '../service/share-data.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -21,11 +21,11 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
   toFile: { item: (arg0: number) => any; };
   submitted = false;
   show = true;
-  storeInfoForm: FormGroup;
+  storeInfoForm: UntypedFormGroup;
   id: string = null;
   store: StoreProfile;
   storeTypeEnum: StoreProfile.StoreTypeEnum;
-  storeType: FormControl;
+  storeType: UntypedFormControl;
 
 
 
@@ -41,7 +41,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
 
   constructor(private uploadService: UploadService,
     private service: StoreControllerService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private router: Router,
     private share: ShareDataService,
     private storeService: StoreControllerService,
@@ -81,7 +81,7 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
           izingaTakesCommission: [store.izingaTakesCommission],
           tags: this.fb.array([])
         });
-        store.tags.forEach(tag => this.getTags.push(new FormControl(tag)));
+        store.tags.forEach(tag => this.getTags.push(new UntypedFormControl(tag)));
 
         this.storeInfoForm.controls['userId'].disable();
       })
@@ -121,16 +121,16 @@ export class StoreInfoFormComponent implements OnInit, OnDestroy {
     if (!!this.subscription) this.subscription.forEach(sub => sub.unsubscribe);
   }
 
-  get getTags(): FormArray {
-    return this.storeInfoForm.get('tags') as FormArray;
+  get getTags(): UntypedFormArray {
+    return this.storeInfoForm.get('tags') as UntypedFormArray;
   }
 
   addTag(): void {
-    this.getTags.push(new FormControl(''));
+    this.getTags.push(new UntypedFormControl(''));
   }
 
   deleteTag(index: number): void {
-    (this.storeInfoForm.get('tags') as FormArray).removeAt(index);
+    (this.storeInfoForm.get('tags') as UntypedFormArray).removeAt(index);
   }
 
   onChange(event: { target: { files: { item: (arg0: number) => any; }; }; }): void {

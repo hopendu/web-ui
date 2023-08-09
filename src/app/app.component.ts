@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,10 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 export class AppComponent {
   title = 'izinga-food-market-client';
 
-  timeFormGroup: FormGroup;
-  arr: FormArray;
+  timeFormGroup: UntypedFormGroup;
+  arr: UntypedFormArray;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: UntypedFormBuilder) { }
 
   ngOnInit() {
     this.timeFormGroup = this.fb.group({
@@ -26,11 +26,11 @@ export class AppComponent {
       pay: ['']
     })
   }
-get f(): FormArray {
-  return this.timeFormGroup.get("arr") as FormArray;
+get f(): UntypedFormArray {
+  return this.timeFormGroup.get("arr") as UntypedFormArray;
 }
   addItem() {
-    this.arr = this.timeFormGroup.get('arr') as FormArray;
+    this.arr = this.timeFormGroup.get('arr') as UntypedFormArray;
     this.arr.push(this.createItem());
   }
 

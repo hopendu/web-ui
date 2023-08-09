@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Stock } from '../model/stock';
-import { FormArray, FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, Validators, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { UploadService } from '../service/upload.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShareDataService } from '../service/share-data.service';
@@ -16,7 +16,7 @@ import { NavigationService } from '../service/navigation.service';
 export class StockFormComponent implements OnInit, OnDestroy {
   toFile: { item: (arg0: number) => any; };
   submitted = false;
-  stockForm: FormGroup;
+  stockForm: UntypedFormGroup;
   selectedFile: any;
   stocks = new Array<Stock>();
   imageUrls = new Array<string>();
@@ -35,7 +35,7 @@ export class StockFormComponent implements OnInit, OnDestroy {
   stockList: Stock[];
   subscription: Subscription[] = [];
   skipIndexZero: boolean = false;
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private share: ShareDataService,
               private uploadService: UploadService,
               private router: Router,
@@ -60,12 +60,12 @@ export class StockFormComponent implements OnInit, OnDestroy {
         this.ownerId = data.ownerId;
         if(!!this.stockName && this.stockName.match('create')){
           this.stockForm = this.fb.group({
-            name: new FormControl('', Validators.required),
-            price: new FormControl(Number, Validators.required),
-            discountPerc: new FormControl(Number, Validators.required),
-            quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
-            description: new FormControl('', Validators.required),
-            detailedDescription:  new FormControl(''),
+            name: new UntypedFormControl('', Validators.required),
+            price: new UntypedFormControl(Number, Validators.required),
+            discountPerc: new UntypedFormControl(Number, Validators.required),
+            quantity: new UntypedFormControl(Number, [Validators.required, Validators.min(1)]),
+            description: new UntypedFormControl('', Validators.required),
+            detailedDescription:  new UntypedFormControl(''),
             mandatorySelection: this.fb.array([ this.selection() ])
           });
         } else{
@@ -73,18 +73,18 @@ export class StockFormComponent implements OnInit, OnDestroy {
             if(!!this.stock){
               this.imageUrls = this.stock.images; 
               this.stockForm = this.fb.group({
-                name: new FormControl(this.stock.name, Validators.required),
-                price: new FormControl(this.stock.storePrice, Validators.required),
-                discountPerc: new FormControl(this.stock.discountPerc, Validators.required),
-                quantity: new FormControl(this.stock.quantity, [Validators.required, Validators.min(1)]),
-                description: new FormControl(this.stock.description, Validators.required),
-                detailedDescription: new FormControl(this.stock.detailedDescription),
+                name: new UntypedFormControl(this.stock.name, Validators.required),
+                price: new UntypedFormControl(this.stock.storePrice, Validators.required),
+                discountPerc: new UntypedFormControl(this.stock.discountPerc, Validators.required),
+                quantity: new UntypedFormControl(this.stock.quantity, [Validators.required, Validators.min(1)]),
+                description: new UntypedFormControl(this.stock.description, Validators.required),
+                detailedDescription: new UntypedFormControl(this.stock.detailedDescription),
                 mandatorySelection: this.fb.array([ this.selection() ])
               });      
               this.stock.mandatorySelection.forEach( selection => {
                 this.mandatories.push(this.fb.group({
-                  name: new FormControl(selection.name, Validators.required),
-                  price: new FormControl(selection.price, Validators.required),
+                  name: new UntypedFormControl(selection.name, Validators.required),
+                  price: new UntypedFormControl(selection.price, Validators.required),
                   values: this.fb.array(selection.values)}));});
               this.stockForm.controls['name'].disable();
               }}})
@@ -97,43 +97,43 @@ export class StockFormComponent implements OnInit, OnDestroy {
 
 
     this.stockForm = this.fb.group({
-      name: new FormControl('', Validators.required),
-      price: new FormControl(Number, Validators.required),
-      discountPerc: new FormControl(Number, Validators.required),
-      quantity: new FormControl(Number, [Validators.required, Validators.min(1)]),
-      description: new FormControl('', Validators.required),
-      detailedDescription:  new FormControl(''),
+      name: new UntypedFormControl('', Validators.required),
+      price: new UntypedFormControl(Number, Validators.required),
+      discountPerc: new UntypedFormControl(Number, Validators.required),
+      quantity: new UntypedFormControl(Number, [Validators.required, Validators.min(1)]),
+      description: new UntypedFormControl('', Validators.required),
+      detailedDescription:  new UntypedFormControl(''),
       mandatorySelection: this.fb.array([ this.selection() ])
     });
   this.ownerId = this.activeRoute.snapshot.params['oi'];
   
 
 } //EOgOnIt
-  selection(): FormGroup {
+  selection(): UntypedFormGroup {
     return this.fb.group({
-      name: new FormControl('', Validators.required),
-      price: new FormControl(Number, Validators.required),
+      name: new UntypedFormControl('', Validators.required),
+      price: new UntypedFormControl(Number, Validators.required),
       values: this.fb.array([])
     });
   }
   get f() { return this.stockForm.controls; }
-  get mandatories(): FormArray {
-    return this.stockForm.get('mandatorySelection') as FormArray;
+  get mandatories(): UntypedFormArray {
+    return this.stockForm.get('mandatorySelection') as UntypedFormArray;
   }
-  get options(): FormArray {
-    return this.stockForm.get('optionalSelection') as FormArray;
+  get options(): UntypedFormArray {
+    return this.stockForm.get('optionalSelection') as UntypedFormArray;
   }
   addValue(selectionOption): void{
-    selectionOption.get('values').push(new FormControl(''));
+    selectionOption.get('values').push(new UntypedFormControl(''));
   }
-  get imagies(): FormArray {
-    return this.stockForm.get('imageUrls') as FormArray;
+  get imagies(): UntypedFormArray {
+    return this.stockForm.get('imageUrls') as UntypedFormArray;
   }
   addImage(): void {
-    this.imagies.push(new FormControl(''));
+    this.imagies.push(new UntypedFormControl(''));
   }
   deleteImage( index: number): void{
-    ( this.stockForm.get('imageUrls') as FormArray).removeAt(index);
+    ( this.stockForm.get('imageUrls') as UntypedFormArray).removeAt(index);
   }
   addMandatory(): void{
     this.mandatories.push(this.selection());

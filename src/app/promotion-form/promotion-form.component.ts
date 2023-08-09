@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StoreControllerService } from '../service/store-controller.service';
@@ -20,7 +20,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
   toFile: { item: (arg0: number) => any; };
   submitted = false;
   stockId: string;
-  promotionForm: FormGroup;
+  promotionForm: UntypedFormGroup;
   id: string = null;
   storeName: string;
   imageUrl: string;
@@ -30,7 +30,7 @@ export class PromotionFormComponent  implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   
   constructor(private uploadService: UploadService,
-              private fb: FormBuilder,
+              private fb: UntypedFormBuilder,
               private storeService: StoreControllerService,
               private promotionService: PromotionControllerService,
               private activeRoute: ActivatedRoute,

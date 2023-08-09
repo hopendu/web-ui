@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Bank } from '../model/bank';
 import { ShareDataService } from '../service/share-data.service';
@@ -11,9 +11,9 @@ import { ShareDataService } from '../service/share-data.service';
 })
 export class BankFormComponent implements OnInit {
 
-  bankFormGroup : FormGroup;
+  bankFormGroup : UntypedFormGroup;
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private router: Router,
               private share: ShareDataService) { }
 

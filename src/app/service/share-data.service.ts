@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { Bank } from '../model/bank';
 import { BusinessHours } from '../model/business-hours';
 import { SelectionOption } from '../model/selection-option';
@@ -13,7 +13,7 @@ export class ShareDataService {
 
   public bank: Bank;
   public store: StoreProfile;
-  public stockForm: FormGroup;
+  public stockForm: UntypedFormGroup;
   public stock: Stock;
   public toggle: Boolean;
   public stockList = new Array<Stock>();
