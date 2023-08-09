@@ -22,7 +22,7 @@
     "@angular/platform-browser-dynamic": "^13.4.0",
     "@angular/router": "^13.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
-    "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@ng-bootstrap/ng-bootstrap": "^11.0.0",
     "aws-sdk": "^2.884.0",
     "bootstrap": "^4.6.0",
     "font-awesome": "^4.7.0",
