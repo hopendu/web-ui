@@ -23,7 +23,7 @@ export const environment = {
   region: 'us-east-1',
   Bucket: 'izinga-aws',
   ACL: 'public-read',
-  baseUrl : 'http://localhost/'
+  baseUrl : 'https://api.izinga.co.za'
 };
 /*
  * For easier debugging in development mode, you can import the following file

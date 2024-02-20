@@ -23,7 +23,7 @@ export class StoreControllerService {
   }
 
   fetchAllStores(): Observable<StoreProfile[]>{
-    return this.http.get<StoreProfile[]>(this.baseUrl  +`store?range=100000&size=0&storeType=FOOD`, {headers: this.headers});
+    return this.http.get<StoreProfile[]>(this.baseUrl  +`/store?range=100000&size=0&storeType=FOOD`, {headers: this.headers});
   }
 
   fetchStoreById(id: string): Observable<StoreProfile> {
