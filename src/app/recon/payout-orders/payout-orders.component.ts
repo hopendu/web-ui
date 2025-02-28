@@ -41,7 +41,7 @@ export class PayoutOrdersComponent implements OnInit {
   }
 
   loadPastPayouts(toId: string) {
-    this.payoutService.getPastPayouts(toId, PayoutBundle.TypeEnum.MESSENGER)
+    this.payoutService.getPastPayoutsForUser(toId, PayoutBundle.TypeEnum.MESSENGER)
     .subscribe(py => {
       this.pastPayouts = py
     })

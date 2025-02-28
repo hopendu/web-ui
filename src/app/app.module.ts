@@ -49,6 +49,7 @@ import { OrdersComponent } from './orders/orders.component'
 import {MatSortModule} from '@angular/material/sort';
 import { ReconComponent } from './recon/recon.component';
 import { PayoutOrdersComponent } from './recon/payout-orders/payout-orders.component';
+import { ReconDashboardComponent } from './recon-dashboard/recon-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { PayoutOrdersComponent } from './recon/payout-orders/payout-orders.compo
     MenuComponent,
     OrdersComponent,
     ReconComponent,
-    PayoutOrdersComponent],
+    PayoutOrdersComponent,
+    ReconDashboardComponent],
   imports: [
     BrowserModule,
     RouterModule,

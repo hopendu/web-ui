@@ -50,11 +50,10 @@ h2, h3 {
 
 
 body {
-  color: #888;
+  color: #ffffff;
   font-family: Catamaran;
   background-repeat: no-repeat !important;
   background: rgb(223,147,45);
-  background: linear-gradient(180deg, rgba(223,147,45,1) 14%, rgba(255,255,255,1) 53%, rgba(223,147,45,1) 98%);
 }
 
  a:hover {

@@ -1,0 +1,29 @@
+
+    <!-- Use Angular's keyvalue pipe to iterate over the groups -->
+    <div *ngFor="let group of shopGroupedPayouts | keyvalue" class="my-5">
+      <h4 class="my-3">{{ group.key }}</h4>
+      <div class="mb-1">Pending Payout: {{payoutTotal(group.value) | currency:'R'}}</div>
+      <div class="mb-1">Number of Payouts: {{group.value.length}}</div>
+      <div class="mb-1">
+        <a *ngIf="group.key == 'PENDING'" [href]="shopCsvFileUrl" class="mr-1" target="_blank">
+            <span class="btn btn-default btn-rounded">Download Payment File</span>
+        </a>
+        <button *ngIf="group.key == 'PROCESSING'" (click)="markAllPayments(group.value)" class="btn btn-default btn-rounded mr-1">Mark All Paid</button>
+        <button *ngIf="group.key == 'PROCESSING'" (click)="updateShopPayouts(group.value)" class="btn btn-default btn-rounded">Submit Results</button>
+      </div>
+      <div class="list-group mt-3">
+        <a *ngFor="let payout of group.value" class="list-group-item list-group-item-action">
+          <div class="d-flex justify-content-between">
+            <h5 class="mb-1">{{ payout.toName }}</h5>
+            <div>
+                <div>{{ payout.total | currency:'R' }}</div>
+                <div *ngIf="group.key == 'PROCESSING'">
+                  <input class="form-check-input" [checked]="payout.paid" type="checkbox" (change)="payout.paid = !payout.paid" [id]="payout.id"><label [for]="payout.id">Paid</label>  
+                </div>  
+            </div>
+          </div>
+          <p class="mb-1">Payout ID: {{ payout.id }}</p>
+        </a>
+      </div>
+    </div>
+  

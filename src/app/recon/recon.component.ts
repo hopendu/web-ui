@@ -105,25 +105,15 @@ export class ReconComponent implements OnInit {
   }
 
   get driverCsvFileUrl() {
-    return environment.baseUrl + "reconcsv/messenger-payout-bundle"
+    return environment.baseUrl + "/reconcsv/messenger-payout-bundle"
   }
 
   get shopCsvFileUrl() {
-    return environment.baseUrl + "reconcsv/shop-payout-bundle"
+    return environment.baseUrl + "/reconcsv/shop-payout-bundle"
   }
 
-  updateShopPayouts() {
-    this.payoutService.patchShopPayouts(this.payoutBundle)
-    .subscribe(response => {
-      window.location.reload();
-    })
-  }
-
-  updateMessengerPayouts() {
-    this.payoutService.patchMessengerPayouts(this.driverPayoutBundle)
-    .subscribe(response => {
-      window.location.reload();
-    })
+  markAllPayments(payouts: Array<Payout> ) {
+    payouts.forEach(payout => payout.paid = !payout.paid)
   }
 
 }

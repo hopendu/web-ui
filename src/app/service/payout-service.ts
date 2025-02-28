@@ -27,9 +27,15 @@ export class PayoutService {
     return this.http.get<PayoutBundle>(this.baseUrl  +`/recon/shopPayoutBundle`, {headers: this.headers});
   }
 
-  patchShopPayouts(payoutBundle: PayoutBundle): Observable<PayoutBundle>{
+  patchShopPayouts(payouts: Payout[]): Observable<PayoutBundle>{
     var results = {
-      bundleId: payoutBundle.id
+      payoutItemResults:  payouts.map(payout => {
+        return {
+          toId: payout.toId,
+          paid: payout.paid,
+          type: "SHOP"
+        }
+      })
     }
     return this.http.patch<PayoutBundle>(this.baseUrl  +`/recon/shopPayoutBundle`, results, {headers: this.headers});
   }
@@ -38,9 +44,15 @@ export class PayoutService {
     return this.http.get<PayoutBundle>(this.baseUrl  +`/recon/messengerPayoutBundle`, {headers: this.headers});
   }
 
-  patchMessengerPayouts(payoutBundle: PayoutBundle): Observable<PayoutBundle>{
+  patchMessengerPayouts(payouts: Payout[]): Observable<PayoutBundle>{
     var results = {
-      bundleId: payoutBundle.id
+      payoutItemResults:  payouts.map(payout => {
+        return {
+          toId: payout.toId,
+          paid: payout.paid,
+          type: "MESSENGER"
+        }
+      })
     }
     return this.http.patch<PayoutBundle>(this.baseUrl  +`/recon/messengerPayoutBundle`, results, {headers: this.headers});
   }
@@ -49,7 +61,19 @@ export class PayoutService {
     return this.http.get<Payout>(this.baseUrl  +`/recon/payoutBundle/${bundleId}/payout/${payoutId}`, {headers: this.headers});
   }
 
-  getPastPayouts(toId: string, type: PayoutBundle.TypeEnum): Observable<Array<Payout>> {
+  getPastPayouts(type: PayoutBundle.TypeEnum): Observable<Array<Payout>> {
+    var fromDate = new Date()
+    fromDate.setMonth(fromDate.getMonth() - 3);
+    var toDate = new Date()
+    var params = {
+      "fromDate": fromDate.toISOString(),
+      "toDate": toDate.toISOString(),
+      "payoutType": type.toString()
+    }
+    return this.http.get<Array<Payout>>(`${this.baseUrl}/recon/payoutBundle`,   {headers: this.headers, params: params});
+  }
+
+  getPastPayoutsForUser(toId: string, type: PayoutBundle.TypeEnum): Observable<Array<Payout>> {
     var fromDate = new Date()
     fromDate.setMonth(fromDate.getMonth() - 3);
     var toDate = new Date()

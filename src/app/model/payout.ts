@@ -33,6 +33,8 @@ export interface Payout {
     toType: Payout.ToTypeEnum;
     total: number;
     createdDate: Date;
+    type: string
+    payoutStage: "PENDING" | "PROCESSING" | "COMPLETED";
 }
 
 export namespace Payout {
