@@ -11,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ReconDashboardComponent {
 
-  
+  days = 31
   shopGroupedPayouts: { [stage: string]: Payout[] } = {};
   userGroupedPayouts: { [stage: string]: Payout[] } = {};
 
@@ -20,15 +20,7 @@ export class ReconDashboardComponent {
   }
 
   ngOnInit() {
-    this.izingaPayoutService.getPastPayouts(PayoutBundle.TypeEnum.SHOP)
-    .subscribe(payt => {
-      this.shopGroupedPayouts = this.groupByStage(payt)
-    })
-
-    this.izingaPayoutService.getPastPayouts(PayoutBundle.TypeEnum.MESSENGER)
-    .subscribe(payt => {
-      this.userGroupedPayouts = this.groupByStage(payt)
-    })
+    this.onDayChange()
   }
 
   private groupByStage(payouts: Payout[]): { [stage: string]: Payout[] } {
@@ -68,6 +60,18 @@ export class ReconDashboardComponent {
     this.izingaPayoutService.patchMessengerPayouts(payouts)
     .subscribe(response => {
       window.location.reload();
+    })
+  }
+
+  onDayChange() {
+    this.izingaPayoutService.getPastPayouts(PayoutBundle.TypeEnum.SHOP, this.days)
+    .subscribe(payt => {
+      this.shopGroupedPayouts = this.groupByStage(payt)
+    })
+
+    this.izingaPayoutService.getPastPayouts(PayoutBundle.TypeEnum.MESSENGER, this.days)
+    .subscribe(payt => {
+      this.userGroupedPayouts = this.groupByStage(payt)
     })
   }
 

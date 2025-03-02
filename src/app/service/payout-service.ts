@@ -61,9 +61,9 @@ export class PayoutService {
     return this.http.get<Payout>(this.baseUrl  +`/recon/payoutBundle/${bundleId}/payout/${payoutId}`, {headers: this.headers});
   }
 
-  getPastPayouts(type: PayoutBundle.TypeEnum): Observable<Array<Payout>> {
+  getPastPayouts(type: PayoutBundle.TypeEnum, days: number): Observable<Array<Payout>> {
     var fromDate = new Date()
-    fromDate.setMonth(fromDate.getMonth() - 3);
+    fromDate.setHours(fromDate.getHours() - days*24);
     var toDate = new Date()
     var params = {
       "fromDate": fromDate.toISOString(),

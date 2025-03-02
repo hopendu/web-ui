@@ -1,3 +1,18 @@
+<h4 class="mt-5 mb-5">Period</h4>
+<div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option3" [checked]="days === 31" [value]="31" [(ngModel)]="days" (change)="onDayChange()"> 1 Month
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option4" [checked]="days === 91" [value]="91" [(ngModel)]="days" (change)="onDayChange()"> 3 Months
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option5" [checked]="days === 183" [value]="183" [(ngModel)]="days" (change)="onDayChange()"> 6 Months
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" id="option6" [checked]="days === 365" [value]="365" [(ngModel)]="days" (change)="onDayChange()"> 12 Months
+  </label>
+</div>
 
     <!-- Use Angular's keyvalue pipe to iterate over the groups -->
     <div *ngFor="let group of shopGroupedPayouts | keyvalue" class="my-5">
@@ -22,7 +37,8 @@
                 </div>  
             </div>
           </div>
-          <p class="mb-1">Payout ID: {{ payout.id }}</p>
+          <div class="mb-1">Payout ID: {{ payout.id }}</div>
+          <div *ngIf="group.key == 'COMPLETED'" class="mb-1">Date Paid: {{ payout.modifiedDate | date: 'yyyy-MM-dd' }}</div>
         </a>
       </div>
     </div>
