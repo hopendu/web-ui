@@ -1,0 +1,465 @@
+/* Dashboard Container */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--bkg-color);
+  min-height: 100vh;
+}
+
+/* Header Styles */
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.dashboard-title {
+  color: var(--text-color);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+  color: var(--btn-txt-color);
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+/* Period Selector */
+.period-selector {
+  background: var(--bkg-card-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  color: var(--text-color);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.period-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.period-buttons .btn {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.period-buttons .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.period-buttons .btn input {
+  display: none;
+}
+
+/* Payout Sections */
+.payout-section {
+  background: var(--bkg-card-color);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.shop-section {
+  border-top: 4px solid var(--btn-bg-color);
+}
+
+.user-section {
+  border-top: 4px solid var(--btn-pill-color);
+}
+
+/* Section Header */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.section-header:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.section-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-color);
+}
+
+.section-icon {
+  font-size: 1.25em;
+}
+
+.section-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.summary-label {
+  color: var(--btn-txt-color);
+  font-weight: 500;
+}
+
+.summary-value {
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+.summary-value.pending {
+  color: var(--btn-red-color);
+}
+
+/* Collapse Toggle */
+.collapse-toggle {
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.toggle-icon {
+  font-size: 1.2rem;
+  color: var(--btn-txt-color);
+  transition: transform 0.3s ease;
+}
+
+.collapse-toggle.collapsed .toggle-icon {
+  transform: rotate(-90deg);
+}
+
+/* Section Content */
+.section-content {
+  max-height: 2000px;
+  overflow: hidden;
+  transition: max-height 0.4s ease-out;
+}
+
+.section-content.collapsed {
+  max-height: 0;
+}
+
+/* Payout Groups */
+.payout-group {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.payout-group:last-child {
+  border-bottom: none;
+}
+
+/* Group Header */
+.group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.group-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.badge-info {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.badge-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.group-stats {
+  color: var(--btn-txt-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Action Buttons */
+.group-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.action-btn.primary {
+  background: var(--btn-bg-color);
+  color: white;
+}
+
+.action-btn.primary:hover {
+  background: var(--btn-bg-selected-color);
+  transform: translateY(-1px);
+  color: white;
+  text-decoration: none;
+}
+
+.action-btn.secondary {
+  background: var(--btn-pill-color);
+  color: white;
+}
+
+.action-btn.secondary:hover {
+  background: #0d7298;
+  transform: translateY(-1px);
+}
+
+/* Payout List */
+.payout-list {
+  padding: 0 1.5rem 1rem;
+}
+
+/* Payout Items */
+.payout-item {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.payout-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.payout-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.payout-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.payout-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.payout-id {
+  font-size: 0.85rem;
+  color: var(--btn-txt-color);
+}
+
+.completion-date {
+  font-size: 0.85rem;
+  color: #28a745;
+  font-weight: 500;
+}
+
+.payout-amount-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.payout-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--btn-bg-color);
+}
+
+/* Custom Checkbox */
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.checkbox-container input {
+  display: none;
+}
+
+.checkmark {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--btn-txt-color);
+  border-radius: 3px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.checkbox-container input:checked + .checkmark {
+  background: var(--btn-bg-color);
+  border-color: var(--btn-bg-color);
+}
+
+.checkbox-container input:checked + .checkmark::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.checkbox-label {
+  color: var(--text-color);
+  font-weight: 500;
+  user-select: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  
+  .dashboard-title {
+    font-size: 2rem;
+  }
+  
+  .period-buttons {
+    justify-content: stretch;
+  }
+  
+  .period-buttons .btn {
+    flex: 1;
+    min-width: 0;
+    padding: 0.5rem 1rem;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .group-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .group-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  
+  .action-btn {
+    flex: 1;
+    justify-content: center;
+  }
+  
+  .payout-main {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .payout-amount-section {
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .summary-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+}
+
+/* Dark Theme Support */
+body.dark-theme .period-selector,
+body.dark-theme .payout-section {
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .section-header:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark-theme .group-header {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+body.dark-theme .payout-item {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-theme .badge-warning {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+}
+
+body.dark-theme .badge-info {
+  background-color: rgba(23, 162, 184, 0.2);
+  color: #17a2b8;
+}
+
+body.dark-theme .badge-success {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+}

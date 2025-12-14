@@ -14,6 +14,10 @@ export class ReconDashboardComponent {
   days = 31
   shopGroupedPayouts: { [stage: string]: Payout[] } = {};
   userGroupedPayouts: { [stage: string]: Payout[] } = {};
+  
+  // Collapsible section state
+  shopSectionCollapsed = false;
+  userSectionCollapsed = false;
 
   constructor(private izingaPayoutService: PayoutService) {
 
@@ -73,6 +77,49 @@ export class ReconDashboardComponent {
     .subscribe(payt => {
       this.userGroupedPayouts = this.groupByStage(payt)
     })
+  }
+
+  // Toggle section visibility
+  toggleShopSection() {
+    this.shopSectionCollapsed = !this.shopSectionCollapsed;
+  }
+
+  toggleUserSection() {
+    this.userSectionCollapsed = !this.userSectionCollapsed;
+  }
+
+  // Helper methods for summary statistics
+  getTotalPayouts(groupedPayouts: { [stage: string]: Payout[] }): number {
+    let total = 0;
+    for (const stage in groupedPayouts) {
+      total += groupedPayouts[stage].length;
+    }
+    return total;
+  }
+
+  getTotalAmount(groupedPayouts: { [stage: string]: Payout[] }): number {
+    let total = 0;
+    for (const stage in groupedPayouts) {
+      total += this.payoutTotal(groupedPayouts[stage]);
+    }
+    return total;
+  }
+
+  getPendingAmount(groupedPayouts: { [stage: string]: Payout[] }): number {
+    if (groupedPayouts['PENDING']) {
+      return this.payoutTotal(groupedPayouts['PENDING']);
+    }
+    return 0;
+  }
+
+  // Helper to get status badge class
+  getStatusBadgeClass(status: string): string {
+    switch (status) {
+      case 'PENDING': return 'badge-warning';
+      case 'PROCESSING': return 'badge-info';
+      case 'COMPLETED': return 'badge-success';
+      default: return 'badge-secondary';
+    }
   }
 
 }

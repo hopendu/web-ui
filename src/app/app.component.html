@@ -1,43 +1,12 @@
-<!--
-
-
-<ul class="nav nav-tabs shadow-sm py-3 px-3">
-    <li class="nav-item">
-      <a class="nav-link active" href="#">Active</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">Link</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-    </li>
-  </ul>
--->
-  <nav class="navbar navbar-expand-md navbar-dark sticky-top mb-5">
-      <a class="navbar-brand" href="#"><img src="../assets/images/izinga-logo.png"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Privacy policy</a>
-          </li>
-        </ul> 
-      </div>
-</nav>
-<div class="container app-container">
-      <alert></alert>
-    <router-outlet></router-outlet>
+<div class="container mt-3 mb-3 d-flex justify-content-center"><a href="#">
+    <div id="logo-image" class="logo-image" height="80px" #logoImage></div>
+  </a>
+</div>
+<div class="container">
+  <alert></alert>
+  <router-outlet></router-outlet>
+  <div *ngIf="errorMessage" class="error my-5 py-3 d-flex justify-content-center">{{errorMessage}}</div>
+  <div *ngIf="infoMessage" class="info-message my-5 py-3 d-flex justify-content-center">{{infoMessage}}</div>
 </div>  
 
 <footer class="mt-5 mb-5 text-center">

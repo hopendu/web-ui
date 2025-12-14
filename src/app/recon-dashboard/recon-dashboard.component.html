@@ -1,75 +1,185 @@
-<h4 class="mt-5 mb-5">Period</h4>
-<div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option3" [checked]="days === 31" [value]="31" [(ngModel)]="days" (change)="onDayChange()"> 1 Month
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option4" [checked]="days === 91" [value]="91" [(ngModel)]="days" (change)="onDayChange()"> 3 Months
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option5" [checked]="days === 183" [value]="183" [(ngModel)]="days" (change)="onDayChange()"> 6 Months
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" id="option6" [checked]="days === 365" [value]="365" [(ngModel)]="days" (change)="onDayChange()"> 12 Months
-  </label>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2 class="dashboard-title">Reconciliation Dashboard</h2>
+    <p class="dashboard-subtitle">Manage shop and user payouts</p>
+  </div>
+
+  <!-- Period Selection -->
+  <div class="period-selector">
+    <h4 class="section-title">📊 Select Period</h4>
+    <div class="btn-group btn-group-toggle period-buttons" data-toggle="buttons">
+      <label class="btn" [class.active]="days === 31" [style.background-color]="days === 31 ? 'var(--btn-bg-color)' : 'var(--bkg-card-color)'"
+             [style.color]="days === 31 ? 'white' : 'var(--text-color)'">
+        <input type="radio" name="options" id="option3" [checked]="days === 31" [value]="31" [(ngModel)]="days" (change)="onDayChange()"> 1 Month
+      </label>
+      <label class="btn" [class.active]="days === 91" [style.background-color]="days === 91 ? 'var(--btn-bg-color)' : 'var(--bkg-card-color)'"
+             [style.color]="days === 91 ? 'white' : 'var(--text-color)'">
+        <input type="radio" name="options" id="option4" [checked]="days === 91" [value]="91" [(ngModel)]="days" (change)="onDayChange()"> 3 Months
+      </label>
+      <label class="btn" [class.active]="days === 183" [style.background-color]="days === 183 ? 'var(--btn-bg-color)' : 'var(--bkg-card-color)'"
+             [style.color]="days === 183 ? 'white' : 'var(--text-color)'">
+        <input type="radio" name="options" id="option5" [checked]="days === 183" [value]="183" [(ngModel)]="days" (change)="onDayChange()"> 6 Months
+      </label>
+      <label class="btn" [class.active]="days === 365" [style.background-color]="days === 365 ? 'var(--btn-bg-color)' : 'var(--bkg-card-color)'"
+             [style.color]="days === 365 ? 'white' : 'var(--text-color)'">
+        <input type="radio" name="options" id="option6" [checked]="days === 365" [value]="365" [(ngModel)]="days" (change)="onDayChange()"> 12 Months
+      </label>
+    </div>
+  </div>
+
+  <!-- Shop Payouts Section -->
+  <div class="payout-section shop-section">
+    <div class="section-header" (click)="toggleShopSection()">
+      <div class="section-header-left">
+        <h3 class="section-title">
+          <span class="section-icon">🏬</span>
+          Shop Payouts
+        </h3>
+        <div class="section-summary">
+          <span class="summary-item">
+            <span class="summary-label">Total:</span>
+            <span class="summary-value">{{ getTotalAmount(shopGroupedPayouts) | currency:'R' }}</span>
+          </span>
+          <span class="summary-item">
+            <span class="summary-label">Payouts:</span>
+            <span class="summary-value">{{ getTotalPayouts(shopGroupedPayouts) }}</span>
+          </span>
+          <span class="summary-item" *ngIf="getPendingAmount(shopGroupedPayouts) > 0">
+            <span class="summary-label">Pending:</span>
+            <span class="summary-value pending">{{ getPendingAmount(shopGroupedPayouts) | currency:'R' }}</span>
+          </span>
+        </div>
+      </div>
+      <div class="collapse-toggle" [class.collapsed]="shopSectionCollapsed">
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+
+    <div class="section-content" [class.collapsed]="shopSectionCollapsed">
+      <div *ngFor="let group of shopGroupedPayouts | keyvalue" class="payout-group">
+        <div class="group-header">
+          <div class="group-title">
+            <span class="status-badge" [ngClass]="getStatusBadgeClass(group.key)">{{ group.key }}</span>
+            <span class="group-stats">
+              {{ payoutTotal(group.value) | currency:'R' }} • {{ group.value.length }} payouts
+            </span>
+          </div>
+          <div class="group-actions">
+            <a *ngIf="group.key == 'PENDING'" [href]="shopCsvFileUrl" class="action-btn primary" target="_blank">
+              📥 Download CSV
+            </a>
+            <button *ngIf="group.key == 'PROCESSING'" (click)="markAllPayments(group.value)" class="action-btn secondary">
+              ✓ Mark All Paid
+            </button>
+            <button *ngIf="group.key == 'PROCESSING'" (click)="updateShopPayouts(group.value)" class="action-btn primary">
+              📤 Submit Results
+            </button>
+          </div>
+        </div>
+        
+        <div class="payout-list">
+          <div *ngFor="let payout of group.value" class="payout-item">
+            <div class="payout-main">
+              <div class="payout-info">
+                <h6 class="payout-name">{{ payout.toName }}</h6>
+                <span class="payout-id">ID: {{ payout.id }}</span>
+                <span *ngIf="group.key == 'COMPLETED'" class="completion-date">
+                  ✅ Paid: {{ payout.modifiedDate | date: 'MMM dd, yyyy' }}
+                </span>
+              </div>
+              <div class="payout-amount-section">
+                <div class="payout-amount">{{ payout.total | currency:'R' }}</div>
+                <div *ngIf="group.key == 'PROCESSING'" class="payout-checkbox">
+                  <label class="checkbox-container">
+                    <input type="checkbox" [checked]="payout.paid" (change)="payout.paid = !payout.paid" [id]="'shop-' + payout.id">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Paid</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Payouts Section -->
+  <div class="payout-section user-section">
+    <div class="section-header" (click)="toggleUserSection()">
+      <div class="section-header-left">
+        <h3 class="section-title">
+          <span class="section-icon">👤</span>
+          User Payouts
+        </h3>
+        <div class="section-summary">
+          <span class="summary-item">
+            <span class="summary-label">Total:</span>
+            <span class="summary-value">{{ getTotalAmount(userGroupedPayouts) | currency:'R' }}</span>
+          </span>
+          <span class="summary-item">
+            <span class="summary-label">Payouts:</span>
+            <span class="summary-value">{{ getTotalPayouts(userGroupedPayouts) }}</span>
+          </span>
+          <span class="summary-item" *ngIf="getPendingAmount(userGroupedPayouts) > 0">
+            <span class="summary-label">Pending:</span>
+            <span class="summary-value pending">{{ getPendingAmount(userGroupedPayouts) | currency:'R' }}</span>
+          </span>
+        </div>
+      </div>
+      <div class="collapse-toggle" [class.collapsed]="userSectionCollapsed">
+        <span class="toggle-icon">▼</span>
+      </div>
+    </div>
+
+    <div class="section-content" [class.collapsed]="userSectionCollapsed">
+      <div *ngFor="let group of userGroupedPayouts | keyvalue" class="payout-group">
+        <div class="group-header">
+          <div class="group-title">
+            <span class="status-badge" [ngClass]="getStatusBadgeClass(group.key)">{{ group.key }}</span>
+            <span class="group-stats">
+              {{ payoutTotal(group.value) | currency:'R' }} • {{ group.value.length }} payouts
+            </span>
+          </div>
+          <div class="group-actions">
+            <a *ngIf="group.key == 'PENDING'" [href]="driverCsvFileUrl" class="action-btn primary" target="_blank">
+              📥 Download CSV
+            </a>
+            <button *ngIf="group.key == 'PROCESSING'" (click)="markAllPayments(group.value)" class="action-btn secondary">
+              ✓ Mark All Paid
+            </button>
+            <button *ngIf="group.key == 'PROCESSING'" (click)="updateMessengerPayouts(group.value)" class="action-btn primary">
+              📤 Submit Results
+            </button>
+          </div>
+        </div>
+        
+        <div class="payout-list">
+          <div *ngFor="let payout of group.value" class="payout-item">
+            <div class="payout-main">
+              <div class="payout-info">
+                <h6 class="payout-name">{{ payout.toName }}</h6>
+                <span class="payout-id">ID: {{ payout.id }}</span>
+                <span *ngIf="group.key == 'COMPLETED'" class="completion-date">
+                  ✅ Paid: {{ payout.modifiedDate | date: 'MMM dd, yyyy' }}
+                </span>
+              </div>
+              <div class="payout-amount-section">
+                <div class="payout-amount">{{ payout.total | currency:'R' }}</div>
+                <div *ngIf="group.key == 'PROCESSING'" class="payout-checkbox">
+                  <label class="checkbox-container">
+                    <input type="checkbox" [checked]="payout.paid" (change)="payout.paid = !payout.paid" [id]="'user-' + payout.id">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-label">Paid</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
-
-    <!-- shops payouts Use Angular's keyvalue pipe to iterate over the groups -->
-    <div *ngFor="let group of shopGroupedPayouts | keyvalue" class="my-5">
-      <h4 class="my-3">{{ group.key }}</h4>
-      <div class="mb-1">Pending Payout: {{payoutTotal(group.value) | currency:'R'}}</div>
-      <div class="mb-1">Number of Payouts: {{group.value.length}}</div>
-      <div class="mb-1">
-        <a *ngIf="group.key == 'PENDING'" [href]="shopCsvFileUrl" class="mr-1" target="_blank">
-            <span class="btn btn-default btn-rounded">Download Payment File</span>
-        </a>
-        <button *ngIf="group.key == 'PROCESSING'" (click)="markAllPayments(group.value)" class="btn btn-default btn-rounded mr-1">Mark All Paid</button>
-        <button *ngIf="group.key == 'PROCESSING'" (click)="updateShopPayouts(group.value)" class="btn btn-default btn-rounded">Submit Results</button>
-      </div>
-      <div class="list-group mt-3">
-        <a *ngFor="let payout of group.value" class="list-group-item list-group-item-action">
-          <div class="d-flex justify-content-between">
-            <h5 class="mb-1">{{ payout.toName }}</h5>
-            <div>
-                <div>{{ payout.total | currency:'R' }}</div>
-                <div *ngIf="group.key == 'PROCESSING'">
-                  <input class="form-check-input" [checked]="payout.paid" type="checkbox" (change)="payout.paid = !payout.paid" [id]="payout.id"><label [for]="payout.id">Paid</label>  
-                </div>  
-            </div>
-          </div>
-          <div class="mb-1">Payout ID: {{ payout.id }}</div>
-          <div *ngIf="group.key == 'COMPLETED'" class="mb-1">Date Paid: {{ payout.modifiedDate | date: 'yyyy-MM-dd' }}</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- User Payouts -->
-        <!-- Use Angular's keyvalue pipe to iterate over the groups -->
-    <div *ngFor="let group of userGroupedPayouts | keyvalue" class="my-5">
-      <h4 class="my-3">{{ group.key }}</h4>
-      <div class="mb-1">Pending Payout: {{payoutTotal(group.value) | currency:'R'}}</div>
-      <div class="mb-1">Number of Payouts: {{group.value.length}}</div>
-      <div class="mb-1">
-        <a *ngIf="group.key == 'PENDING'" [href]="shopCsvFileUrl" class="mr-1" target="_blank">
-            <span class="btn btn-default btn-rounded">Download Payment File</span>
-        </a>
-        <button *ngIf="group.key == 'PROCESSING'" (click)="markAllPayments(group.value)" class="btn btn-default btn-rounded mr-1">Mark All Paid</button>
-        <button *ngIf="group.key == 'PROCESSING'" (click)="updateShopPayouts(group.value)" class="btn btn-default btn-rounded">Submit Results</button>
-      </div>
-      <div class="list-group mt-3">
-        <a *ngFor="let payout of group.value" class="list-group-item list-group-item-action">
-          <div class="d-flex justify-content-between">
-            <h5 class="mb-1">{{ payout.toName }}</h5>
-            <div>
-                <div>{{ payout.total | currency:'R' }}</div>
-                <div *ngIf="group.key == 'PROCESSING'">
-                  <input class="form-check-input" [checked]="payout.paid" type="checkbox" (change)="payout.paid = !payout.paid" [id]="payout.id"><label [for]="payout.id">Paid</label>  
-                </div>  
-            </div>
-          </div>
-          <div class="mb-1">Payout ID: {{ payout.id }}</div>
-          <div *ngIf="group.key == 'COMPLETED'" class="mb-1">Date Paid: {{ payout.modifiedDate | date: 'yyyy-MM-dd' }}</div>
-        </a>
-      </div>
-    </div>
   
