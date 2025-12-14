@@ -50,10 +50,38 @@ h2, h3 {
 
 
 body {
-  color: #ffffff;
+  min-height: 100vh !important;
+  background: var(--bkg-color);
+  color: var(--text-color);
+  margin: 0;
   font-family: Catamaran;
-  background-repeat: no-repeat !important;
-  background: rgb(223,147,45);
+  --nav-bg-color: var(--bkg-card-color);
+}
+
+body {
+  --text-color: #212121;
+  --bkg-color: #F8F7F7;
+  --footer-bkg-color: #be833d;
+  --footer-text-color: white;
+  --bkg-card-color: #f3f2f2;
+  --btn-txt-color: #707070;
+  --btn-bg-color: #be833d;
+  --btn-bg-selected-color: #be833d;
+  --btn-pill-color: #1083A5;
+  --btn-red-color: #D66247;
+  --bkg-logo: url('/assets/images/izinga-logo.png')
+}
+
+body.dark-theme {
+  --text-color: #F8F7F7;
+  --bkg-color: #212121;
+  --bkg-card-color: #2D2D2D;
+  --footer-bkg-color: #000000;
+  --footer-text-color: #eee;
+  --btn-txt-color: #2e2b2b;
+  --btn-bg-color: #be833d;
+  --btn-pill-color: #1083A5;
+  --bkg-logo: url('/assets/images/izinga-logo.png')
 }
 
  a:hover {
@@ -78,11 +106,46 @@ button:disabled {
 }
 
 .btn {
-
-  background-color: #10a59f;
+  background-color: var(--btn-bg-color);
   font-weight: 300;
   border: none;
   height: 50px;
+}
+
+.bg-dark {
+  background-color: var(--btn-bg-color) !important;
+  color: white !important;
+}
+
+.bg-selected {
+  background-color: var(--btn-bg-selected-color) !important;
+  color: white !important;
+}
+
+.bg-not-selected {
+  background-color: white !important;
+  color: var(--btn-bg-selected-color) !important;
+}
+
+.card {
+  border: none !important;
+  background: var(--bkg-card-color);
+  outline: none;
+}
+
+.form-control, .form-control:disabled {
+  background-color: var(--bkg-card-color);
+  color: var(--text-color);
+}
+
+.menu-items .card{
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.menu-items .card:hover {
+  transform: translateY(-2px);
 }
 
 .danger, .required {

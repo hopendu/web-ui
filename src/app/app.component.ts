@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,10 @@ import { UntypedFormArray, UntypedFormBuilder, UntypedFormGroup } from '@angular
 export class AppComponent {
   title = 'izinga-food-market-client';
 
-  timeFormGroup: UntypedFormGroup;
-  arr: UntypedFormArray;
+  timeFormGroup!: UntypedFormGroup;
+  arr!: UntypedFormArray;
 
-  constructor(private fb: UntypedFormBuilder) { }
+  constructor(private fb: UntypedFormBuilder, private themeService: ThemeService) { }
 
   ngOnInit() {
     this.timeFormGroup = this.fb.group({
